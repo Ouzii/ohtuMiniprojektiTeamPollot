@@ -1,0 +1,70 @@
+
+buildscript {
+    repositories {
+	mavenCentral()
+    }
+    dependencies {
+    	classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+
+logging.captureStandardOutput LogLevel.QUIET
+
+project.ext {
+    cucumberVersion = "1.2.5"
+    junitVersion = "4.12"
+    seleniumVersion = "3.4.0"
+}
+
+run {
+    standardInput = System.in
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+    
+mainClassName='ohtu.Main'
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
+    
+    compile("com.h2database:h2")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.heroku.sdk:heroku-jdbc:0.1.1")
+    compile("org.postgresql:postgresql:9.4.1212.jre7")
+    
+    compile("org.springframework.boot:spring-boot-devtools")
+	
+	compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
+    
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version: seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-remote-driver', version: seleniumVersion
+    testCompile("io.github.bonigarcia:webdrivermanager:1.6.2") {
+        exclude group: 'org.seleniumhq.selenium'
+    }
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework:spring-test")
+    testCompile "info.cukes:cucumber-core:" + cucumberVersion
+    testCompile "info.cukes:cucumber-java:" + cucumberVersion
+    testCompile "info.cukes:cucumber-junit:" + cucumberVersion
+    testCompile "info.cukes:cucumber-spring:" + cucumberVersion
+    testCompile "junit:junit:" + junitVersion 
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
