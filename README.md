@@ -6,10 +6,21 @@ Tämä on Helsingin yliopiston syyslukauden 2017 ohjelmistotuotanto-kurssiin lii
 
 https://drive.google.com/open?id=16cQePEa3Y4ZwrMPcriLoQ8XcfTCgFnOQ
 
-
-### Muuta informaatiota
+## Muuta informaatiota
 
 [Käytössä oleva spring-cucumber pohja/konfiguraatio](https://github.com/mluukkai/spring-cucumber)
+
+## Huom.
+
+Nyt jotenkuten pystyy valitsemaan ajetaanko tomikissaa vai cli:
+
+Ilman webiserveriä (build.gradle kertoo, että valitaan ohtucli.App mluukkain esimerkki 3viikon tehtävistä).
+
+gradle run 
+
+ja jos haluaa webosaston käyntiin joka käynnistää ohtu.Main:n
+
+gradle run -Pweb=1 
 
 
 ### Näitä varmaan ei tarvita enää tässä:
