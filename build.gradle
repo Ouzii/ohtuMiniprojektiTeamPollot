@@ -28,8 +28,12 @@ repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/snapshot' }
 }
-    
-mainClassName='ohtu.Main'
+   if (web == "1") {
+      mainClassName='ohtu.Main'
+   } else {
+     mainClassName='ohtucli.App'
+   }
+
 
 dependencies {
 
