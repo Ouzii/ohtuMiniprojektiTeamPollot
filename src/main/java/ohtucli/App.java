@@ -1,12 +1,15 @@
 package ohtucli;
 
+import java.util.List;
 import ohtucli.data_access.InMemoryUserDao;
 import ohtucli.io.ConsoleIO;
 import ohtucli.io.IO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ohtucli.data_access.DatabaseVinkkiDao;
 import ohtucli.data_access.VinkkiDao;
 import ohtucli.domain.Database;
+import ohtucli.domain.Vinkki;
 
 public class App {
 
@@ -16,6 +19,11 @@ public class App {
         try {
             this.io = io;
             Database db = new Database("jdbc:sqlite:testi.db", false);
+            DatabaseVinkkiDao vdao = new DatabaseVinkkiDao(db);
+            List<Vinkki> vinkit = vdao.listAll();
+            for (Vinkki vinkki : vinkit) {
+                System.out.println(vinkki);
+            }
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,7 +49,6 @@ public class App {
     }
 
     public static void main(String[] args) {
-        VinkkiDao dao = new InMemoryUserDao();
         IO io = new ConsoleIO();
         new App(io).run();
     }

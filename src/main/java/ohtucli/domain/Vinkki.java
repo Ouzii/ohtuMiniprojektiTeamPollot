@@ -13,7 +13,7 @@ public class Vinkki {
         this.header = header;
         this.type = type;
         if (details == null) {
-            details = new HashMap<>();
+            this.details = new HashMap<>();
         } else {
             this.details = details;
         }

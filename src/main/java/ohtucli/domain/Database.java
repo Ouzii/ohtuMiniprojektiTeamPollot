@@ -2,8 +2,11 @@ package ohtucli.domain;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
 
@@ -26,7 +29,6 @@ public class Database {
             createData();
         } catch (SQLException e) {
             System.out.println("Unable to create table. Maybe it already exists.");
-            e.printStackTrace();
             return;
         }
 
@@ -98,4 +100,22 @@ public class Database {
             System.out.println("database already empty");
         }
     }
+
+    public Connection getConnection() {
+        return connection;
+    }
+    
+    public <T> List<T> queryAndCollect(String query, Collector col) throws SQLException {
+        List<T> rows = new ArrayList<>();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            rows.add((T) col.collect(rs));
+        }
+        rs.close();
+        stmt.close();
+        return rows;
+    }
+    
+    
 }
