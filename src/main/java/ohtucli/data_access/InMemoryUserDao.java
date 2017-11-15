@@ -1,44 +1,40 @@
 package ohtucli.data_access;
 
-import ohtucli.domain.User;
+import ohtucli.domain.Vinkki;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryUserDao implements UserDao {
+public class InMemoryUserDao implements VinkkiDao {
 
-    private List<User> users;
+    private List<Vinkki> vinkit;
 
     public InMemoryUserDao() {
-        users = new ArrayList<User>();
-        users.add(new User("pekka", "akkep"));
+        vinkit = new ArrayList<Vinkki>();
+        vinkit.add(new Vinkki("pekka", "akkep", null));
     }        
 
     @Override
-    public List<User> listAll() {
-        return users;
+    public List<Vinkki> listAll() {
+        return vinkit;
+    }
+
+   
+
+    @Override
+    public void add(Vinkki user) {
+        vinkit.add(user);
+    }
+
+    public void setUsers(List<Vinkki> users) {
+        this.vinkit = users;
+    }
+
+    public List<Vinkki> getUsers() {
+        return vinkit;
     }
 
     @Override
-    public User findByName(String name) {
-        for (User user : users) {
-            if (user.getUsername().equals(name)) {
-                return user;
-            }
-        }
-
-        return null;
-    }
-
-    @Override
-    public void add(User user) {
-        users.add(user);
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<User> getUsers() {
-        return users;
+    public Vinkki findById(int id) {
+        return vinkit.get(id);
     }
 }
