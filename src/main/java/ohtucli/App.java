@@ -15,7 +15,7 @@ public class App {
     public App(IO io) {
         try {
             this.io = io;
-            Database db = new Database("jdbc:sqlite:testi.db", true);
+            Database db = new Database("jdbc:sqlite:testi.db", false);
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -25,8 +25,8 @@ public class App {
         System.out.println("toimii");
         OUTER:
         while (true) {
-            String syote = io.readLine("Anna komento (listaa, lisaa, lopeta): ");
-            switch (syote) {
+            String input = io.readLine("Anna komento (listaa, lisaa, lopeta): ");
+            switch (input) {
                 case "lopeta":
                     break OUTER;
                 case "listaa":
