@@ -1,48 +1,51 @@
 package ohtucli;
 
 import ohtucli.data_access.InMemoryUserDao;
-import ohtucli.data_access.UserDao;
 import ohtucli.io.ConsoleIO;
 import ohtucli.io.IO;
-import ohtucli.services.AuthenticationService;
-import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ohtucli.data_access.VinkkiDao;
 import ohtucli.domain.Database;
 
 public class App {
 
     private IO io;
-    private AuthenticationService auth;
 
-    public App(IO io, AuthenticationService auth) {
+    public App(IO io) {
         try {
             this.io = io;
-            this.auth = auth;
-            Database db = new Database("jdbc:sqlite:testi.db", true);
+            Database db = new Database("jdbc:sqlite:testi.db", false);
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-
-
     public void run() {
+        System.out.println("toimii");
+        OUTER:
         while (true) {
-            System.out.println("toimii");
-            break;
-
-
+            String input = io.readLine("Anna komento (listaa, lisaa, lopeta): ");
+            switch (input) {
+                case "lopeta":
+                    break OUTER;
+                case "listaa":
+                    break;
+                case "lisaa":
+                    break;
+                default:
+                    System.out.println("Väärä komento.");
+                    break;
+            }
         }
     }
 
     public static void main(String[] args) {
-        UserDao dao = new InMemoryUserDao();
+        VinkkiDao dao = new InMemoryUserDao();
         IO io = new ConsoleIO();
-        AuthenticationService auth = new AuthenticationService(dao);
-        new App(io, auth).run();
+        new App(io).run();
     }
-    
+
     // testejä debugatessa saattaa olla hyödyllistä testata ohjelman ajamista
     // samoin kuin testi tekee, eli injektoimalla käyttäjän syötteen StubIO:n avulla
     //
