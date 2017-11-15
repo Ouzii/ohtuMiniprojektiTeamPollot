@@ -20,6 +20,10 @@ public class Database {
         }
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     private void init() {
         try {
             createTables();
@@ -38,9 +42,9 @@ public class Database {
         String sql = "PRAGMA foreign_keys = ON";
         stmt.executeUpdate(sql);
 
-        sql = "CREATE TABLE Vinkki "
+        sql = "CREATE TABLE Tip "
                 + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + " header varchar(32) NOT NULL,"
+                + " name varchar(32) NOT NULL,"
                 + " type varchar(32) NOT NULL)";
         stmt.executeUpdate(sql);
 
@@ -48,7 +52,7 @@ public class Database {
                 + "(v_id INTEGER,"
                 + " type varchar(32) NOT NULL,"
                 + " info varchar(256) NOT NULL,"
-                + " FOREIGN KEY(v_id) REFERENCES Vinkki(id) ON DELETE CASCADE)";
+                + " FOREIGN KEY(v_id) REFERENCES Tip(id) ON DELETE CASCADE)";
         stmt.executeUpdate(sql);
 
         stmt.close();
@@ -87,7 +91,7 @@ public class Database {
         try {
             Statement stmt = connection.createStatement();
 
-            String sql = "DROP TABLE Vinkki";
+            String sql = "DROP TABLE Tip";
             stmt.executeUpdate(sql);
             sql = "DROP TABLE Detail";
             stmt.executeUpdate(sql);

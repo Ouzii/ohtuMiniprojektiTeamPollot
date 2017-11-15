@@ -15,7 +15,7 @@ public class App {
     public App(IO io) {
         try {
             this.io = io;
-            Database db = new Database("jdbc:sqlite:testi.db", false);
+            Database db = new Database("jdbc:sqlite:testi.db", true);
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -16,7 +16,7 @@ class ServerRule extends ExternalResource{
 
     @Override
     protected void before() throws Throwable {
-        this.app = SpringApplication.run(Main.class);
+//        this.app = SpringApplication.run(Main.class);
     }
 
     @Override
