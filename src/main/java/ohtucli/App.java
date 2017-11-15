@@ -1,10 +1,10 @@
 package ohtucli;
 
-import java.util.List;
-import ohtucli.io.*;
+import ohtucli.data_access.InMemoryUserDao;
+import ohtucli.io.ConsoleIO;
+import ohtucli.io.IO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ohtucli.data_access.DatabaseVinkkiDao;
 import ohtucli.data_access.VinkkiDao;
 import ohtucli.domain.Database;
 import ohtucli.domain.Vinkki;
@@ -14,17 +14,11 @@ public class App {
     private IO io;
     private VinkkiDao dao;
 
-    public App(IO io) {
+    public App(IO io, VinkkiDao dao) {
+        this.dao = dao;
         try {
             this.io = io;
-
-            Database db = new Database("jdbc:sqlite:testi.db", false);
-            DatabaseVinkkiDao vdao = new DatabaseVinkkiDao(db);
-            List<Vinkki> vinkit = vdao.listAll();
-            for (Vinkki vinkki : vinkit) {
-                System.out.println(vinkki);
-            }
-
+            Database db = new Database("jdbc:sqlite:testi.db", true);
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,8 +51,9 @@ public class App {
     }
 
     public static void main(String[] args) {
+        VinkkiDao dao = new InMemoryUserDao();
         IO io = new ConsoleIO();
-        new App(io).run();
+        new App(io, dao).run();
     }
 
     // testejä debugatessa saattaa olla hyödyllistä testata ohjelman ajamista
@@ -70,3 +65,4 @@ public class App {
     // new App(io, auth).run();
     // System.out.println(io.getPrints());
 }
+
