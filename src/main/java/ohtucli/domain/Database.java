@@ -104,10 +104,6 @@ public class Database {
             System.out.println("database already empty");
         }
     }
-
-    public Connection getConnection() {
-        return connection;
-    }
     
     public <T> List<T> queryAndCollect(String query, Collector col) throws SQLException {
         List<T> rows = new ArrayList<>();
