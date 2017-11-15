@@ -7,12 +7,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ohtucli.data_access.VinkkiDao;
 import ohtucli.domain.Database;
+import ohtucli.domain.Vinkki;
 
 public class App {
 
     private IO io;
+    private VinkkiDao dao;
 
-    public App(IO io) {
+    public App(IO io, VinkkiDao dao) {
+        this.dao = dao;
         try {
             this.io = io;
             Database db = new Database("jdbc:sqlite:testi.db", false);
@@ -30,8 +33,15 @@ public class App {
                 case "lopeta":
                     break OUTER;
                 case "listaa":
+                    for (Vinkki vinkki : dao.listAll()) {
+                        io.print("Otsikko: "+vinkki.getHeader());
+                        io.print("Tyyppi: "+vinkki.getType());
+                    }
                     break;
                 case "lisaa":
+                    String header = io.readLine("Otsikko:");
+                    String type = io.readLine("Tyyppi:");
+                    dao.add(new Vinkki(header, type, null));
                     break;
                 default:
                     System.out.println("Väärä komento.");
@@ -43,7 +53,7 @@ public class App {
     public static void main(String[] args) {
         VinkkiDao dao = new InMemoryUserDao();
         IO io = new ConsoleIO();
-        new App(io).run();
+        new App(io, dao).run();
     }
 
     // testejä debugatessa saattaa olla hyödyllistä testata ohjelman ajamista
