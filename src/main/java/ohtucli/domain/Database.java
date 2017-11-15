@@ -45,8 +45,7 @@ public class Database {
         stmt.executeUpdate(sql);
 
         sql = "CREATE TABLE Detail "
-                + "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + " v_id INTEGER,"
+                + "(v_id INTEGER,"
                 + " type varchar(32) NOT NULL,"
                 + " info varchar(256) NOT NULL,"
                 + " FOREIGN KEY(v_id) REFERENCES Vinkki(id) ON DELETE CASCADE)";
@@ -61,7 +60,9 @@ public class Database {
 
         String sql = "INSERT INTO Vinkki (id, header, type) values(1, 'paavo','pesusieni')";
         stmt.executeUpdate(sql);
-        sql = "INSERT INTO Detail (id, v_id, type,info) values(1, 1,'paavo','pesusieni')";
+        sql = "INSERT INTO Detail (v_id, type,info) values(1,'paavo','pesusieni')";
+        stmt.executeUpdate(sql);
+        sql = "INSERT INTO Detail (v_id, type,info) values(1,'paavo','pesusieni')";
         stmt.executeUpdate(sql);
 
         stmt.close();
