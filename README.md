@@ -25,7 +25,6 @@ gradle run -Pweb=1
 
 ### Näitä varmaan ei tarvita enää tässä:
 
-5a0ac6f3c259fc0028c37e74
-https://chat.whatsapp.com/KK8LaQKGtLX4LaHcqSFmzj
+[![Build Status](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot.svg?branch=master)](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot)
 
 
