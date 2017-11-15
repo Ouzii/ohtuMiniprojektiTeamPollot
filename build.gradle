@@ -31,12 +31,12 @@ repositories {
 
 if (project.hasProperty('web')) {
    if (web == "1") {
-      mainClassName='ohtu.Main'
+      mainClassName='ohtu.web.Main'
    } else {
-     mainClassName='ohtucli.App'
+     mainClassName='ohtu.cli.App'
    }
 } else {
-  mainClassName='ohtucli.App'
+  mainClassName='ohtu.cli.App'
 }
 
 
