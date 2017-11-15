@@ -21,14 +21,22 @@ public class App {
         }
     }
 
-
-
     public void run() {
+        System.out.println("toimii");
+        OUTER:
         while (true) {
-            System.out.println("toimii");
-            break;
-
-
+            String syote = io.readLine("Anna komento (listaa, lisaa, lopeta): ");
+            switch (syote) {
+                case "lopeta":
+                    break OUTER;
+                case "listaa":
+                    break;
+                case "lisaa":
+                    break;
+                default:
+                    System.out.println("Väärä komento.");
+                    break;
+            }
         }
     }
 
@@ -37,7 +45,7 @@ public class App {
         IO io = new ConsoleIO();
         new App(io).run();
     }
-    
+
     // testejä debugatessa saattaa olla hyödyllistä testata ohjelman ajamista
     // samoin kuin testi tekee, eli injektoimalla käyttäjän syötteen StubIO:n avulla
     //
