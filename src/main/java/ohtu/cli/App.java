@@ -1,27 +1,19 @@
-package ohtucli;
+package ohtu.cli;
 
-import ohtucli.data_access.InMemoryUserDao;
-import ohtucli.io.ConsoleIO;
-import ohtucli.io.IO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import ohtucli.data_access.VinkkiDao;
-import ohtucli.domain.Database;
-import ohtucli.domain.Vinkki;
+import java.util.List;
+import ohtu.cli.io.ConsoleIO;
+import ohtu.cli.io.IO;
+import ohtu.service.AppController;
+import ohtu.service.Tip;
 
 public class App {
 
     private IO io;
-    private VinkkiDao dao;
+    private AppController app;
 
-    public App(IO io, VinkkiDao dao) {
-        this.dao = dao;
-        try {
-            this.io = io;
-            Database db = new Database("jdbc:sqlite:testi.db", true);
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public App(IO io, AppController appcontroller) {
+        this.app = appcontroller;
+        this.io = io;
     }
 
     public void run() {
@@ -29,19 +21,21 @@ public class App {
         OUTER:
         while (true) {
             String input = io.readLine("Anna komento (listaa, lisaa, lopeta): ");
-            switch (input) {
+            switch (input) { // Nämä caset lopeta lukuunottamatta voidaan
+                             // siirtää myöhemmin tämän luokan metodeiksi. 
                 case "lopeta":
                     break OUTER;
                 case "listaa":
-                    for (Vinkki vinkki : dao.listAll()) {
-                        io.print("Otsikko: "+vinkki.getHeader());
-                        io.print("Tyyppi: "+vinkki.getType());
+                    
+                    for (Tip t : app.getTips()) {
+                        
+                        System.out.println(t.toString());
                     }
                     break;
                 case "lisaa":
-                    String header = io.readLine("Otsikko:");
-                    String type = io.readLine("Tyyppi:");
-                    dao.add(new Vinkki(header, type, null));
+                    String name = io.readLine("Anna nimi: ");
+                    String type = io.readLine("Anna tyyppi: ");
+                    app.addTip(name, type);
                     break;
                 default:
                     System.out.println("Väärä komento.");
@@ -51,9 +45,10 @@ public class App {
     }
 
     public static void main(String[] args) {
-        VinkkiDao dao = new InMemoryUserDao();
         IO io = new ConsoleIO();
-        new App(io, dao).run();
+        AppController app = new AppController();
+
+        new App(io, app).run();
     }
 
     // testejä debugatessa saattaa olla hyödyllistä testata ohjelman ajamista
@@ -65,4 +60,3 @@ public class App {
     // new App(io, auth).run();
     // System.out.println(io.getPrints());
 }
-
