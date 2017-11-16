@@ -64,7 +64,7 @@ public class Database {
     private void createData() throws SQLException {
         Statement stmt = connection.createStatement();
 
-        String sql = "INSERT INTO Vinkki (id, header, type) values(1, 'paavo','pesusieni')";
+        String sql = "INSERT INTO Tip (id, name, type) values(1, 'paavo','pesusieni')";
         stmt.executeUpdate(sql);
         sql = "INSERT INTO Detail (v_id, type,info) values(1,'paavo','pesusieni')";
         stmt.executeUpdate(sql);
