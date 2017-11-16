@@ -23,8 +23,14 @@ ja jos haluaa webosaston käyntiin joka käynnistää ohtu.Main:n
 gradle run -Pweb=1 
 
 
-### Näitä varmaan ei tarvita enää tässä:
-
+### Travisin status:
 [![Build Status](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot.svg?branch=master)](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot)
 
+
+
+### Definition of Done:
+- Ominaisuus on implementoitu ja integroitu sovellukseen.
+- Ominaisuudelle on tehty JUnit testit ja Cucumber testit.
+- Travis-ci on buildannut onnistuneesti ominaisuuden kanssa.
+- Ominaisuuden on hyväksynyt tekijän lisäksi vähintään yksi toinen ryhmän jäsen.
 
