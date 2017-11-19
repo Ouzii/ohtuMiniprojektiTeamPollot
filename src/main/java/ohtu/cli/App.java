@@ -36,8 +36,6 @@ public class App {
                     app.addTip(name, type);
                     break;
                 default:
-                    Thread.sleep(1000);
-                    
                     io.print("Väärä komento.");
                     break;
             }
@@ -51,12 +49,4 @@ public class App {
         new App(io, app).run();
     }
 
-    // testejä debugatessa saattaa olla hyödyllistä testata ohjelman ajamista
-    // samoin kuin testi tekee, eli injektoimalla käyttäjän syötteen StubIO:n avulla
-    //
-    // UserDao dao = new InMemoryUserDao();  
-    // StubIO io = new StubIO("new", "eero", "sala1nen" );   
-    //  AuthenticationService auth = new AuthenticationService(dao);
-    // new App(io, auth).run();
-    // System.out.println(io.getPrints());
 }
