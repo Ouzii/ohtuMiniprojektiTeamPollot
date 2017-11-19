@@ -5,12 +5,10 @@
  */
 package ohtu.cli.io;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import ohtu.cli.App;
 import ohtu.service.AppController;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
 
