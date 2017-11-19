@@ -1,6 +1,5 @@
 package ohtu.cli;
 
-import java.util.List;
 import ohtu.cli.io.ConsoleIO;
 import ohtu.cli.io.IO;
 import ohtu.service.AppController;
@@ -16,20 +15,19 @@ public class App {
         this.io = io;
     }
 
-    public void run() {
+    public void run() throws InterruptedException {
         System.out.println("toimii");
         OUTER:
         while (true) {
             String input = io.readLine("Anna komento (listaa, lisaa, lopeta): ");
-            switch (input) { // Nämä caset lopeta lukuunottamatta voidaan
-                             // siirtää myöhemmin tämän luokan metodeiksi. 
+            switch (input) { // Nämä caset lopeta lukuunottamatta voidaan siirtää myöhemmin tämän luokan metodeiksi. 
                 case "lopeta":
                     break OUTER;
                 case "listaa":
-                    
                     for (Tip t : app.getTips()) {
+
+                        io.print(t.toString());
                         
-                        System.out.println(t.toString());
                     }
                     break;
                 case "lisaa":
@@ -38,25 +36,17 @@ public class App {
                     app.addTip(name, type);
                     break;
                 default:
-                    System.out.println("Väärä komento.");
+                    io.print("Väärä komento.");
                     break;
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         IO io = new ConsoleIO();
         AppController app = new AppController();
 
         new App(io, app).run();
     }
 
-    // testejä debugatessa saattaa olla hyödyllistä testata ohjelman ajamista
-    // samoin kuin testi tekee, eli injektoimalla käyttäjän syötteen StubIO:n avulla
-    //
-    // UserDao dao = new InMemoryUserDao();  
-    // StubIO io = new StubIO("new", "eero", "sala1nen" );   
-    //  AuthenticationService auth = new AuthenticationService(dao);
-    // new App(io, auth).run();
-    // System.out.println(io.getPrints());
 }
