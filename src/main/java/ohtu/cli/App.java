@@ -20,15 +20,14 @@ public class App {
         OUTER:
         while (true) {
             String input = io.readLine("Anna komento (listaa, lisaa, lopeta): ");
-            switch (input) { // Nämä caset lopeta lukuunottamatta voidaan
-                             // siirtää myöhemmin tämän luokan metodeiksi. 
+            switch (input) { // Nämä caset lopeta lukuunottamatta voidaan siirtää myöhemmin tämän luokan metodeiksi. 
                 case "lopeta":
                     break OUTER;
                 case "listaa":
-                    
                     for (Tip t : app.getTips()) {
-                        
+
                         System.out.println(t.toString());
+                        io.print(t.toString());
                     }
                     break;
                 case "lisaa":
@@ -39,6 +38,7 @@ public class App {
                 default:
                     Thread.sleep(1000);
                     System.out.println("Väärä komento.");
+                    io.print("Väärä komento.");
                     break;
             }
         }

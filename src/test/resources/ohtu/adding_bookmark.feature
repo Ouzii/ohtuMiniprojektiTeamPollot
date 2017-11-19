@@ -1,4 +1,4 @@
-Feature: A new reading tip can be added to the database
+Feature: User can add a reading tip to the database
 
     Scenario: reading tip is successfully saved to database if name and type are valid
         Given command lisaa is selected

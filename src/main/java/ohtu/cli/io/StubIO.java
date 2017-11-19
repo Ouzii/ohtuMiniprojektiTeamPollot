@@ -5,9 +5,9 @@ import java.util.List;
 
 public class StubIO implements IO {
 
-    private List<String> lines;
+    public List<String> lines;
     private int i;
-    private ArrayList<String> prints;
+    public ArrayList<String> prints;
 
     public StubIO(List<String> values) {
         this.lines = values;
