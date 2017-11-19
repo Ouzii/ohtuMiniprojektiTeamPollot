@@ -15,7 +15,7 @@ public class App {
         this.io = io;
     }
 
-    public void run() {
+    public void run() throws InterruptedException {
         System.out.println("toimii");
         OUTER:
         while (true) {
@@ -37,13 +37,14 @@ public class App {
                     app.addTip(name, type);
                     break;
                 default:
+                    Thread.sleep(1000);
                     System.out.println("Väärä komento.");
                     break;
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         IO io = new ConsoleIO();
         AppController app = new AppController();
 
