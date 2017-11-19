@@ -19,8 +19,9 @@ public class Database {
 
     public Database(String address) throws Exception {
         this.connection = DriverManager.getConnection(address);
-        createTables();
+        //createTables();
         //createTestData();
+        //deleteTipData();
 
     }
 
@@ -28,7 +29,7 @@ public class Database {
         return connection;
     }
 
-    private void createTables() throws SQLException {
+    public void createTables() throws SQLException {
         System.out.println("entered create tables");
         Statement stmt = this.connection.createStatement();
 
@@ -52,7 +53,19 @@ public class Database {
         System.out.println("Tables exist or have been succesfully created");
     }
 
-    private void createTestData() throws SQLException {
+    public void deleteDatabaseRows() throws SQLException { //Ei toimi koska foreignkeyerror
+        Statement stmt = this.connection.createStatement();
+
+        String sql = "DELETE FROM Tip";
+        stmt.executeUpdate(sql);
+        
+        sql = "DELETE FROM Detail";
+        stmt.executeUpdate(sql);
+        
+        stmt.close();
+    }
+
+    public void createTestData() throws SQLException {
         Statement stmt = connection.createStatement();
 
         String sql = "INSERT INTO Tip (name, type) values('paavo','pesusieni')";

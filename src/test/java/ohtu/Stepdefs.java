@@ -12,7 +12,6 @@ import ohtu.service.AppController;
 import ohtu.service.Database;
 import ohtu.service.Tip;
 import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 
 public class Stepdefs {
@@ -82,7 +81,7 @@ public class Stepdefs {
 
     @Then("^all reading tips get printed to console$")
     public void all_reading_tips_get_printed_to_console() throws Throwable {
-        //System.out.println(io.getPrints()); Tulostaa kaikki IO:n tallentamat rivit.
+        //System.out.println(io.getPrints()); Tulostaa kaikki IO:n tallentamat rivit
         Assert.assertEquals(true, io.getPrints().toString().contains(" Tekniikan Maailma 2017/2 sivu 3. type: Lehti"));
     }
 

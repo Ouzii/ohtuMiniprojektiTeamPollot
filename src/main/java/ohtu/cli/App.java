@@ -26,8 +26,8 @@ public class App {
                 case "listaa":
                     for (Tip t : app.getTips()) {
 
-                        System.out.println(t.toString());
                         io.print(t.toString());
+                        
                     }
                     break;
                 case "lisaa":
@@ -37,7 +37,7 @@ public class App {
                     break;
                 default:
                     Thread.sleep(1000);
-                    System.out.println("Väärä komento.");
+                    
                     io.print("Väärä komento.");
                     break;
             }
