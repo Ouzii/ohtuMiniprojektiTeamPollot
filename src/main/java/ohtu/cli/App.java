@@ -1,6 +1,5 @@
 package ohtu.cli;
 
-import java.util.List;
 import ohtu.cli.io.ConsoleIO;
 import ohtu.cli.io.IO;
 import ohtu.service.AppController;
