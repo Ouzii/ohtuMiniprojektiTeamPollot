@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tip.domain.Book;
 import tip.repository.BookRepository;
 
@@ -44,18 +45,21 @@ public class BookController {
     }
     @PostMapping("/{tipId}")
     public String mode(Model model, @PathVariable Long tipId
-    , @RequestParam String name, @RequestParam String isbn) {
+    , @RequestParam String name, @RequestParam String isbn, RedirectAttributes attributes) {
         Book book = bookRepository.findOne(tipId);
         ArrayList errors = new ArrayList();
         book.setIsbn(isbn);
         book.setName(name);
-        if (book.validateISBN()) {
+        if (!book.validateISBN()) {
             bookRepository.save(book);
+            attributes.addFlashAttribute("message", "tip has succesfully been modified olalala");
             return "redirect:/";
         }
         errors.add("ISBN is in incorrect format!");
-        model.addAttribute(errors);
+        attributes.addFlashAttribute("errors", errors);
+        //model.addAttribute("errors", errors);
         return "redirect:/" + tipId;
+        
     }
 }
 

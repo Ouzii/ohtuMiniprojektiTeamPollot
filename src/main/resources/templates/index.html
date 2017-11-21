@@ -7,6 +7,9 @@
     <body>
         <h1>Kirjavinkit:</h1>
         <br/>
+        <p th:text="${message}">
+  
+        </p>
         <ul>
             <li th:each="tip:${tips}">
                 Nimi: <span th:text="${tip.name}"/>
