@@ -33,7 +33,6 @@ public class BookController {
     @DeleteMapping("/{tipId}")
     public String delete(@PathVariable Long tipId) {
         bookRepository.delete(bookRepository.getOne(tipId));
-        
         return "redirect:/";
     }
 }
