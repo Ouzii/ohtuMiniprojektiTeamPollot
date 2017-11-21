@@ -3,4 +3,22 @@
     <head>
         <title>Tips!</title>
     </head>
+
+    <body>
+        <h1>Kirjavinkit:</h1>
+        <br/>
+        <ul>
+            <li th:each="tip:${tips}">
+                Nimi: <span th:text="${tip.name}"/>
+                Isbn: <span th:text="${tip.isbn}"/>
+            </li>
+
+        </ul>
+        
+        <form method="POST">
+            <input type="text" name="name"/>
+            <input type="text" name="isbn"/>
+            <input type="submit" value="Lisää kirja!"/>
+        </form>
+    </body>
 </html>
