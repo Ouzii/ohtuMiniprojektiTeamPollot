@@ -1,5 +1,6 @@
 package tip.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,16 +17,30 @@ import lombok.NoArgsConstructor;
 public class Book extends AbstractPersistable<Long> {
 
     private String name;
+    private String writer;
     private String isbn;
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     private List<Tag> tags;
     
-    public Book(String name, String isbn) {
+    public Book(String name,String writer, String isbn) {
         this.name = name;
         this.isbn = isbn;
+        this.writer = writer;
     }
-
-    public boolean validateISBN() {
+    //writer voi olla null 
+    //validointi tästä
+    public List<String> validate() {
+        List<String> errors = new ArrayList<>();
+        if (!validateISBN()) {
+            errors.add("ISBN ei ole muodossa ISBN13!");
+        }
+        if (name == null || name.trim().isEmpty()) {
+            errors.add("nimimerkin nimi ei saa olla tyhjä");
+        }
+        return errors;
+    }
+    
+    private boolean validateISBN() {
         return isbn.matches("^(?:ISBN(?:-13)?:? )?(?=[0-9]{13}$|(?=(?:[0-9]+[- ])"
                 + "{4})[- 0-9]{17}$)97[89][- ]?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]"
                 + "+[- ]?[0-9]$");

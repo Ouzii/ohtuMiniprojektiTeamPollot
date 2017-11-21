@@ -1,6 +1,7 @@
 package tip.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,8 @@ public class BookController {
     }
 
     @PostMapping("/")
-    public String add(@RequestParam String name, @RequestParam String isbn) {
-        Book book = new Book(name, isbn);
+    public String add(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn) {
+        Book book = new Book(name, writer, isbn.trim());
         this.bookRepository.save(book);
         return "redirect:/";
     }
@@ -47,17 +48,16 @@ public class BookController {
     public String mode(Model model, @PathVariable Long tipId
     , @RequestParam String name, @RequestParam String isbn, RedirectAttributes attributes) {
         Book book = bookRepository.findOne(tipId);
-        ArrayList errors = new ArrayList();
-        book.setIsbn(isbn);
+        book.setIsbn(isbn.trim());
         book.setName(name);
-        if (!book.validateISBN()) {
+        
+        List<String> errors = book.validate();
+        if (errors.isEmpty()) {
             bookRepository.save(book);
             attributes.addFlashAttribute("message", "tip has succesfully been modified olalala");
             return "redirect:/";
         }
-        errors.add("ISBN is in incorrect format!");
         attributes.addFlashAttribute("errors", errors);
-        //model.addAttribute("errors", errors);
         return "redirect:/" + tipId;
         
     }

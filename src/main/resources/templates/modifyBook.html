@@ -17,6 +17,7 @@
         <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
             nimi:<input type="text" th:value="${tip.name}" name="name" />
             ISBN:<input type="text" th:value="${tip.isbn}" name="isbn"/>
+            kirjoittaja:<input type="text" th:value="${tip.writer}" name="writer"/>
             <input type="submit" value="Muokkaa vinkkiä!"/>
         </form>
         

@@ -14,6 +14,7 @@
             <li th:each="tip:${tips}">
                 Nimi: <span th:text="${tip.name}"/>
                 Isbn: <span th:text="${tip.isbn}"/>
+                Kirjoittaja: <span th:text="${tip.writer}"/>
                 <ul>
                     <li th:each="tags : ${tip.tags}" th:text="${tag.name}"></li>
                 </ul>
@@ -29,8 +30,9 @@
         </ul>
         
         <form method="POST">
-            <input type="text" name="name"/>
-            <input type="text" name="isbn"/>
+            <input type="text" name="name" value="nimi"/>
+            <input type="text" name="isbn" value="isbn"/>
+            <input type="text" name="writer" value="kirjoittaja"/>
             <input type="submit" value="Lisää kirja!"/>
         </form>
     </body>
