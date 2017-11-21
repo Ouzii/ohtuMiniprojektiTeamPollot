@@ -20,8 +20,17 @@ public class Book extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     private List<Tag> tags;
 
-    public Book(String name, String isbn) {
-        this.name = name;
-        this.isbn = isbn;
+    public Book(String name, String isbn) { // TARVITAAN VIESTI JOKA VALITETAAN
+                                            // ETEENPAIN MIKALI ISBN EI KAY ?
+        if (isbn.matches("^(?:ISBN(?:-13)?:? )?(?=[0-9]{13}$|(?=(?:[0-9]+[- ])" 
+                + "{4})[- 0-9]{17}$)97[89][- ]?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]"
+                + "+[- ]?[0-9]$")) {
+            this.name = name;
+            this.isbn = isbn;
+        } else {
+            // Tähän, joku toiminto, joka asettaa johonkin muuttujaan
+            // tiedon siitä, että lisääminen ei onnistunut, koska 
+            // invaliidi syöte. amrite?
+        }
     }
 }
