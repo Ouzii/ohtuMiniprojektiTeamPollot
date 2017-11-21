@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Tips!</title>
+    </head>
+
+    <body>
+        <h1>Muokkaa</h1>
+        <br/>
+        
+        
+        <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+            nimi:<input type="text" th:value="${tip.name}" name="name" />
+            ISBN:<input type="text" th:value="${tip.isbn}" name="isbn"/>
+            <input type="submit" value="Muokkaa vinkkiä!"/>
+        </form>
+    </body>
+</html>
