@@ -15,9 +15,8 @@ public class BookController {
     private BookRepository bookRepository;
     
     @GetMapping("/")
-    @ResponseBody
     public String list(Model model) {
         
-        return "Hei osku";
+        return "index";
     }
 }
