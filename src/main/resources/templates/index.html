@@ -11,6 +11,9 @@
             <li th:each="tip:${tips}">
                 Nimi: <span th:text="${tip.name}"/>
                 Isbn: <span th:text="${tip.isbn}"/>
+                <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="DELETE">
+                    <input type="submit" value="Remove"/>
+                </form><br/>
             </li>
 
         </ul>
