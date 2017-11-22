@@ -18,8 +18,19 @@
             nimi:<input type="text" th:value="${tip.name}" name="name" />
             ISBN:<input type="text" th:value="${tip.isbn}" name="isbn"/>
             kirjoittaja:<input type="text" th:value="${tip.writer}" name="writer"/>
+            
+            
             <input type="submit" value="Muokkaa vinkkiä!"/>
         </form>
+        
+            <form method="POST" th:action="@{/{tipId}/addTag(tipId=${tip.id})}">
+                <div class="form-group">
+                    <select name="tagId" size="10">
+                        <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+                    </select>
+                </div>
+                <input type="submit" value="Lisää tagi!"/>
+            </form>
         
         <a href="/">Takaisin listaukseen</a><br/>
     </body>
