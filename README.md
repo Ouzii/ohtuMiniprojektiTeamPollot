@@ -12,17 +12,22 @@ https://drive.google.com/open?id=16cQePEa3Y4ZwrMPcriLoQ8XcfTCgFnOQ
 
 ## Käyttöohje
 
-Nykyisen kehyslinjan käyttööonotto tapahtuu seuraavasti.
+Oletus on, että Javasta löytyy sopiva versio ja se, että projektin hakemiston gradle komennot sopivat käyttämääsi ympäristöön.
 
-Kloonaa repositorio itsellesi:
+Nykyisen kehyslinjan käyttööonotto tapahtuu seuraavasti. 
+
+Kloonaa repositorio itsellesi, siirry kloonattuun hakemistoon ja käynnistä sovellus:
 
 ```sh
 # git clone https://github.com/Ouzii/ohtuMiniprojektiTeamPollot.git
-# gradle run
+# cd ohtuMiniprojektiTeamPollot
+# ./gradle run 
 
 ```
-Ja avaa sen jälkeen selain osoitteessa [http://localhost:8080/](http://localhost:8080)
 
+Windowsissa gradle -komennon sijaan suoritetaan gradlew.bat. 
+
+Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain osoitteessa [http://localhost:8080/](http://localhost:8080)
 
 
 ### Travisin status:
