@@ -10,22 +10,23 @@ https://drive.google.com/open?id=16cQePEa3Y4ZwrMPcriLoQ8XcfTCgFnOQ
 
 [Käytössä oleva spring-cucumber pohja/konfiguraatio](https://github.com/mluukkai/spring-cucumber)
 
-## Huom.
+## Käyttöohje
 
-Nyt jotenkuten pystyy valitsemaan ajetaanko tomikissaa vai cli:
+Nykyisen kehyslinjan käyttööonotto tapahtuu seuraavasti.
 
-Ilman webiserveriä (build.gradle kertoo, että valitaan ohtucli.App mluukkain esimerkki 3viikon tehtävistä).
+Kloonaa repositorio itsellesi:
 
-gradle run 
+```sh
+# git clone https://github.com/Ouzii/ohtuMiniprojektiTeamPollot.git
+# gradle run
 
-ja jos haluaa webosaston käyntiin joka käynnistää ohtu.Main:n
+```
+Ja avaa sen jälkeen selain osoitteessa [http://localhost:8080/](http://localhost:8080)
 
-gradle run -Pweb=1 
 
 
 ### Travisin status:
 [![Build Status](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot.svg?branch=master)](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot)
-
 
 
 ### Definition of Done:
@@ -34,10 +35,3 @@ gradle run -Pweb=1
 - Travis-ci on buildannut onnistuneesti ominaisuuden kanssa.
 - Ominaisuuden on hyväksynyt tekijän lisäksi vähintään yksi toinen ryhmän jäsen.
 
-
-ISBBBBBBBBBBBBBBBBBBBBBN
-private boolean validateISBN() {
-        return isbn.matches("^(?:ISBN(?:-13)?:? )?(?=[0-9]{13}$|(?=(?:[0-9]+[- ])"
-                + "{4})[- 0-9]{17}$)97[89][- ]?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]"
-                + "+[- ]?[0-9]$");
-    }
