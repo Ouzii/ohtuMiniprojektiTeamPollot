@@ -35,9 +35,15 @@
             <input type="text" name="writer" value="kirjoittaja"/>
             <input type="submit" value="Lisää kirja!"/>
         </form>
-<form th:action="@{/addTag}" th:method="POST">
+
+
+	<form action="/addTag" th:method="POST">
             <input type="text" name="name" value="nimi"/>
             <input type="submit" value="Lisää tagi!"/>
         </form>
+
+	<ul>
+            <li th:each="tag : ${tags}" th:text="${tag.name}"></li>
+        </ul>
     </body>
 </html>
