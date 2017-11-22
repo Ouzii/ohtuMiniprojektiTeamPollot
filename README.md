@@ -34,3 +34,10 @@ gradle run -Pweb=1
 - Travis-ci on buildannut onnistuneesti ominaisuuden kanssa.
 - Ominaisuuden on hyväksynyt tekijän lisäksi vähintään yksi toinen ryhmän jäsen.
 
+
+ISBBBBBBBBBBBBBBBBBBBBBN
+private boolean validateISBN() {
+        return isbn.matches("^(?:ISBN(?:-13)?:? )?(?=[0-9]{13}$|(?=(?:[0-9]+[- ])"
+                + "{4})[- 0-9]{17}$)97[89][- ]?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]"
+                + "+[- ]?[0-9]$");
+    }
