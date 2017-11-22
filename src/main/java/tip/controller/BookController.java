@@ -43,8 +43,8 @@ public class BookController {
         return "redirect:/";
     }
 
-    @PostMapping("/{tipId}/addTag/{tagId}")
-    public String addTagToBook(@PathVariable Long tipId, @PathVariable Long tagId) {
+    @PostMapping("/{tipId}/addTag")
+    public String addTagToBook(@PathVariable Long tipId, @RequestParam Long tagId) {
         Book book = bookRepository.getOne(tipId);
         Tag tag = tagRepository.getOne(tagId);
 
