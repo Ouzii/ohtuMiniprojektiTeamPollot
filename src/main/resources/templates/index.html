@@ -12,36 +12,42 @@
         </p>
         <ul>
             <li th:each="tip:${tips}">
-                Nimi: <span th:text="${tip.name}"/>
-                Isbn: <span th:text="${tip.isbn}"/>
-                Kirjoittaja: <span th:text="${tip.writer}"/>
+                Nimi: <span th:text="${tip.name}"/><br/>
+                Isbn: <span th:text="${tip.isbn}"/><br/>
+                Kirjoittaja: <span th:text="${tip.writer}"/><br/>
+                Tags:<br/>
                 <ul>
-                    <li th:each="tags : ${tip.tags}" th:text="${tag.name}"></li>
+                    <li th:each="tag : ${tip.tags}" th:text="${tag.name}"/>
                 </ul>
+                <br/>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="DELETE">
-                    <input type="submit" value="Remove"/>
+                <button type="submit" style="height:20px;width:80px;background-color:red">Poista</button>
                 </form>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="GET">
-                    <input type="submit" value="Muokkaa"/>
+                <button type="submit" style="height:20px;width:80px">Muokkaa</button>
                 </form>
+
                 <br/>
             </li>
 
         </ul>
         
+                        <h4>Lisää vinkki!</h4>
         <form th:action="@{/}" th:method="POST">
-            <input type="text" name="name" value="nimi"/>
-            <input type="text" name="isbn" value="isbn"/>
-            <input type="text" name="writer" value="kirjoittaja"/>
-            <input type="submit" value="Lisää kirja!"/>
+            <input type="text" name="name" placeholder="nimi"/>
+            <input type="text" name="isbn" placeholder="ISBN"/>
+            <input type="text" name="writer" placeholder="kirjoittaja"/>
+            <input type="submit" value="Lisää kirja!" style="background-color:#62ea62"/>
         </form>
 
 
+                        <h4>Lisää tagi!</h4>
 	<form action="/newTag" th:method="POST">
-            <input type="text" name="name" value="nimi"/>
-            <input type="submit" value="Lisää tagi!"/>
+            <input type="text" name="name" placeholder="tag"/>
+            <input type="submit" value="Lisää tagi!" style="background-color:#36abff"/>
         </form>
 
+                        <h4>Olemassaolevat tagit:</h4>
 	<ul>
             <li th:each="tag : ${tags}" th:text="${tag.name}"></li>
         </ul>

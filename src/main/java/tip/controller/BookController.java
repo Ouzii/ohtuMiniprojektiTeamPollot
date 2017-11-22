@@ -50,6 +50,9 @@ public class BookController {
 
         book.addTag(tag);
         tag.addBook(book);
+        
+        bookRepository.save(book);
+        tagRepository.save(tag);
 
         return "redirect:/";
     }
