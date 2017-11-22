@@ -16,7 +16,7 @@
                 Isbn: <span th:text="${tip.isbn}"/>
                 Kirjoittaja: <span th:text="${tip.writer}"/>
                 <ul>
-                    <li th:each="tags : ${tip.tags}" th:text="${tag.name}"></li>
+                    <li th:each="tag : ${tip.tags}" th:text="${tag.name}">tag</li>
                 </ul>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="DELETE">
                     <input type="submit" value="Remove"/>
@@ -37,7 +37,7 @@
         </form>
 
 
-	<form action="/addTag" th:method="POST">
+	<form action="/newTag" th:method="POST">
             <input type="text" name="name" value="nimi"/>
             <input type="submit" value="Lisää tagi!"/>
         </form>

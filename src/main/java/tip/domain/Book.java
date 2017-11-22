@@ -26,6 +26,7 @@ public class Book extends AbstractPersistable<Long> {
         this.name = name;
         this.isbn = isbn;
         this.writer = writer;
+        this.tags = new ArrayList();
     }
     
     public void addTag(Tag tag) {
