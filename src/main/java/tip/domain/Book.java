@@ -21,12 +21,13 @@ public class Book extends AbstractPersistable<Long> {
     private String isbn;
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     private List<Tag> tags;
-    
-    public Book(String name,String writer, String isbn) {
+
+    public Book(String name, String writer, String isbn) {
         this.name = name;
         this.isbn = isbn;
         this.writer = writer;
     }
+
     //writer voi olla null 
     //validointi tästä
     public List<String> validate() {
@@ -39,10 +40,26 @@ public class Book extends AbstractPersistable<Long> {
         }
         return errors;
     }
-    
+
     private boolean validateISBN() {
-        return isbn.matches("^(?:ISBN(?:-13)?:? )?(?=[0-9]{13}$|(?=(?:[0-9]+[- ])"
-                + "{4})[- 0-9]{17}$)97[89][- ]?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]"
-                + "+[- ]?[0-9]$");
+        if (this.isbn == null) {
+            return false;
+        }
+
+        String tmp = this.isbn;
+        tmp = tmp.replaceAll("-", "");
+        if (tmp.length() != 13) {
+            return false;
+        }
+
+        int num = 0, total = 0;
+        for (int i = 1; i < 12; i++) {
+            num = Integer.parseInt(tmp.substring(i - 1, i));
+            total += ((i - 1) % 2 == 0) ? num * 1 : num * 3;
+        }
+        int chksum = 10 - (total % 10);
+        if ( chksum == 10)
+            chksum = 0;
+        return chksum == Integer.parseInt(tmp.substring(12));
     }
 }

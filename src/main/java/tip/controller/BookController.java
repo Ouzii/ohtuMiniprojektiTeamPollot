@@ -29,7 +29,13 @@ public class BookController {
     @PostMapping("/")
     public String add(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn) {
         Book book = new Book(name, writer, isbn.trim());
-        this.bookRepository.save(book);
+        List<String> errors = book.validate(); // ei hirveesti kiinnosta 
+                                               // selvittää miten tämä 
+                                               // tomcat tuon errorsin haluaa
+                                               // siirrettävän viewiin. 
+        if (errors.size() == 0) {
+            this.bookRepository.save(book);
+        } 
         return "redirect:/";
     }
 
@@ -38,19 +44,20 @@ public class BookController {
         bookRepository.delete(bookRepository.getOne(tipId));
         return "redirect:/";
     }
-    
+
     @GetMapping("/{tipId}")
     public String list(Model model, @PathVariable Long tipId) {
         model.addAttribute("tip", bookRepository.findOne(tipId));
         return "modifyBook";
     }
+
     @PostMapping("/{tipId}")
-    public String mode(Model model, @PathVariable Long tipId
-    , @RequestParam String name, @RequestParam String isbn, RedirectAttributes attributes) {
+    public String mode(Model model, @PathVariable Long tipId,
+            @RequestParam String name, @RequestParam String isbn, RedirectAttributes attributes) {
         Book book = bookRepository.findOne(tipId);
         book.setIsbn(isbn.trim());
         book.setName(name);
-        
+
         List<String> errors = book.validate();
         if (errors.isEmpty()) {
             bookRepository.save(book);
@@ -59,7 +66,6 @@ public class BookController {
         }
         attributes.addFlashAttribute("errors", errors);
         return "redirect:/" + tipId;
-        
+
     }
 }
-
