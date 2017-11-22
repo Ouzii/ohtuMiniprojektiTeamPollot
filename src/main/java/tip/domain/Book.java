@@ -27,6 +27,13 @@ public class Book extends AbstractPersistable<Long> {
         this.isbn = isbn;
         this.writer = writer;
     }
+    
+    public void addTag(Tag tag) {
+        if (this.tags == null) {
+            this.tags = new ArrayList();
+        }
+        this.tags.add(tag);
+    }
 
     //writer voi olla null 
     //validointi tästä
@@ -62,4 +69,5 @@ public class Book extends AbstractPersistable<Long> {
             chksum = 0;
         return chksum == Integer.parseInt(tmp.substring(12));
     }
+
 }

@@ -1,5 +1,6 @@
 package tip.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,5 +22,12 @@ public class Tag extends AbstractPersistable<Long> {
 
     public Tag(String name) {
         this.name = name;
+    }
+
+    public void addBook(Book book) {
+        if (this.books == null) {
+            this.books = new ArrayList<>();
+        }
+        this.books.add(book);
     }
 }

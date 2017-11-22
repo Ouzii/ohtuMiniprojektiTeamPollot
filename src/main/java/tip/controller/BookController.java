@@ -26,11 +26,12 @@ public class BookController {
     @GetMapping("/")
     public String list(Model model) {
         model.addAttribute("tips", bookRepository.findAll());
+        model.addAttribute("tags", tagRepository.findAll());
         return "index";
     }
 
     @PostMapping("/")
-    public String add(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn) {
+    public String addBook(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn) {
         Book book = new Book(name, writer, isbn.trim());
         List<String> errors = book.validate(); // ei hirveesti kiinnosta 
         // selvittää miten tämä 
@@ -42,12 +43,14 @@ public class BookController {
         return "redirect:/";
     }
 
-    @PostMapping("/tags")
-    public String addTag(@RequestParam String name) {
-        if (name.trim() != null && !name.trim().isEmpty()) {
-            Tag tag = new Tag(name);
-            this.tagRepository.save(tag);
-        }
+    @PostMapping("/{tipId}/addTag/{tagId}")
+    public String addTagToBook(@PathVariable Long tipId, @PathVariable Long tagId) {
+        Book book = bookRepository.getOne(tipId);
+        Tag tag = tagRepository.getOne(tagId);
+
+        book.addTag(tag);
+        tag.addBook(book);
+
         return "redirect:/";
     }
 
@@ -60,6 +63,7 @@ public class BookController {
     @GetMapping("/{tipId}")
     public String list(Model model, @PathVariable Long tipId) {
         model.addAttribute("tip", bookRepository.findOne(tipId));
+        model.addAttribute("tags", tagRepository.findAll());
         return "modifyBook";
     }
 
