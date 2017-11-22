@@ -25,7 +25,7 @@ public class TagController {
     }
     
     
-    @DeleteMapping("/{tagId}")
+    @DeleteMapping("/deleteTag/{tagId}")
     public String delete(@PathVariable Long tagId) {
         tagRepository.delete(tagRepository.getOne(tagId));
         return "redirect:/";
