@@ -1,6 +1,5 @@
 package tip.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tip.domain.Book;
+import tip.domain.Tag;
 import tip.repository.BookRepository;
+import tip.repository.TagRepository;
 
 @Controller
 public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private TagRepository tagRepository;
 
     @GetMapping("/")
     public String list(Model model) {
@@ -30,12 +33,21 @@ public class BookController {
     public String add(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn) {
         Book book = new Book(name, writer, isbn.trim());
         List<String> errors = book.validate(); // ei hirveesti kiinnosta 
-                                               // selvittää miten tämä 
-                                               // tomcat tuon errorsin haluaa
-                                               // siirrettävän viewiin. 
+        // selvittää miten tämä 
+        // tomcat tuon errorsin haluaa
+        // siirrettävän viewiin. 
         if (errors.size() == 0) {
             this.bookRepository.save(book);
-        } 
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/tags")
+    public String addTag(@RequestParam String name) {
+        if (name.trim() != null && !name.trim().isEmpty()) {
+            Tag tag = new Tag(name);
+            this.tagRepository.save(tag);
+        }
         return "redirect:/";
     }
 

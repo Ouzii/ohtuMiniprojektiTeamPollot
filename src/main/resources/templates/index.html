@@ -29,11 +29,15 @@
 
         </ul>
         
-        <form method="POST">
+        <form th:action="@{/}" th:method="POST">
             <input type="text" name="name" value="nimi"/>
             <input type="text" name="isbn" value="isbn"/>
             <input type="text" name="writer" value="kirjoittaja"/>
             <input type="submit" value="Lisää kirja!"/>
+        </form>
+<form th:action="@{/addTag}" th:method="POST">
+            <input type="text" name="name" value="nimi"/>
+            <input type="submit" value="Lisää tagi!"/>
         </form>
     </body>
 </html>

@@ -1,4 +1,3 @@
-
 package tip.domain;
 
 import java.util.List;
@@ -15,7 +14,12 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Data
 @Entity
 public class Tag extends AbstractPersistable<Long> {
+
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> books;
+
+    public Tag(String name) {
+        this.name = name;
+    }
 }

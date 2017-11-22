@@ -53,7 +53,7 @@ public class Book extends AbstractPersistable<Long> {
         }
 
         int num = 0, total = 0;
-        for (int i = 1; i < 12; i++) {
+        for (int i = 1; i <= 12; i++) {
             num = Integer.parseInt(tmp.substring(i - 1, i));
             total += ((i - 1) % 2 == 0) ? num * 1 : num * 3;
         }
