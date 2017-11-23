@@ -10,7 +10,7 @@
         <a href="/init">Alusta testinäytteet</a><br/>
         <br/>
         <p th:text="${message}">
-  
+
         </p>
         <ul>
             <li th:each="tip:${tips}">
@@ -23,18 +23,18 @@
                 </ul>
                 <br/>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="DELETE">
-                <button type="submit" style="height:20px;width:80px;background-color:red">Poista</button>
+                    <button type="submit" style="height:20px;width:80px;background-color:red">Poista</button>
                 </form>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="GET">
-                <button type="submit" style="height:20px;width:80px">Muokkaa</button>
+                    <button type="submit" style="height:20px;width:80px">Muokkaa</button>
                 </form>
 
                 <br/>
             </li>
 
         </ul>
-        
-                        <h4>Lisää vinkki!</h4>
+
+        <h4>Lisää vinkki!</h4>
         <form th:action="@{/}" th:method="POST">
             <input type="text" name="name" placeholder="nimi"/>
             <input type="text" name="isbn" placeholder="ISBN"/>
@@ -43,20 +43,20 @@
         </form>
 
 
-                        <h4>Lisää tagi!</h4>
-	<form action="/newTag" th:method="POST">
+        <h4>Lisää tagi!</h4>
+        <form action="/newTag" th:method="POST">
             <input type="text" name="name" placeholder="tag"/>
             <input type="submit" value="Lisää tagi!" style="background-color:#36abff"/>
         </form>
 
-                        <h4>Olemassaolevat tagit:</h4>
-	<ul>
-        	<li th:each="tag : ${tags}"> 
-			<span th:text="${tag.name}">tag</span>
-			<form th:action="@{/deleteTag/{tagId}(tagId=${tag.id})}" th:method="DELETE">
-				<input type="submit" value="Poista" style="background-color:red"/>
-			</form>
-		</li>
+        <h4>Olemassaolevat tagit:</h4>
+        <ul>
+            <li th:each="tag : ${tags}"> 
+                <span th:text="${tag.name}">tag</span>
+                <form th:action="@{/deleteTag/{tagId}(tagId=${tag.id})}" th:method="DELETE">
+                    <input type="submit" value="Poista" style="background-color:red"/>
+                </form>
+            </li>
         </ul>
     </body>
 </html>

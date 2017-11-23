@@ -8,41 +8,48 @@
         <h1>Muokkaa</h1>
         <h3>explore testaukseen isbn13 esim: 978-951-98548-9-2</h3>
         <br/>
-        
+
         <ul>
             <li th:each="error:${errors}">
                 <span th:text="${error}"/>
             </li>
         </ul>
-        
+
         <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
             nimi:<input type="text" th:value="${tip.name}" name="name" />
             ISBN:<input type="text" th:value="${tip.isbn}" name="isbn"/>
             kirjoittaja:<input type="text" th:value="${tip.writer}" name="writer"/>
-            
-            
+
+
             <input type="submit" value="Muokkaa vinkkiä!"/>
         </form>
-        
-            <form method="POST" th:action="@{/{tipId}/addTag(tipId=${tip.id})}">
-                <div class="form-group">
-                    <select name="tagId" size="10" style="width:100px">
 
-                        <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
-                    </select>
-                </div>
-                <input type="submit" value="Lisää tagi!"/>
-            </form>
+        <br/>
         
+        <p>
+        <form method="POST" th:action="@{/{tipId}/addTag(tipId=${tip.id})}">
+            <div class="form-group">
+                <select name="tagId" size="10" style="width:100px">
+
+                    <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+                </select>
+            </div>
+            <input type="submit" value="Lisää tagi!"/>
+        </form>
+        
+        <br/>
+
         <form th:method="DELETE" th:action="@{/{tipId}/deleteTag(tipId=${tip.id})}">
-                <div class="form-group">
-                    <select name="tagId" size="10" style="width:100px">
+            <div class="form-group">
+                <select name="tagId" size="10" style="width:100px">
 
-                        <option th:each="tag : ${tip.tags}" name="tagId" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
-                    </select>
-                </div>
-                <input type="submit" value="poista tagi!"/>
-            </form>
+                    <option th:each="tag : ${tip.tags}" name="tagId" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+                </select>
+            </div>
+            <input type="submit" value="poista tagi!"/>
+        </form>
+        
+        </p>
         <a href="/">Takaisin listaukseen</a><br/>
     </body>
 </html>
