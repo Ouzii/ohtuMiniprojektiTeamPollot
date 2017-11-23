@@ -1,6 +1,7 @@
 package tip.controller;
 
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,17 +50,24 @@ public class BookController {
         Tag tag = tagRepository.getOne(tagId);
 
         book.addTag(tag);
-        tag.addBook(book);
-        
+        tag.addTip(book);
+
         bookRepository.save(book);
         tagRepository.save(tag);
 
         return "redirect:/";
     }
 
+    @Transactional
     @DeleteMapping("/{tipId}")
     public String delete(@PathVariable Long tipId) {
-        bookRepository.delete(bookRepository.getOne(tipId));
+        Book book = bookRepository.getOne(tipId);
+        for (Tag tag : book.getTags()) {
+            tag.removeTip(book);
+        }
+        book.getTags().clear();
+        bookRepository.save(book);
+        bookRepository.delete(book);
         return "redirect:/";
     }
 

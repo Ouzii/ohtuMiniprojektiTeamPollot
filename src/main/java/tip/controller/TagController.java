@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import tip.domain.Book;
 import tip.domain.Tag;
 import tip.repository.TagRepository;
 
@@ -27,7 +28,13 @@ public class TagController {
     
     @DeleteMapping("/deleteTag/{tagId}")
     public String delete(@PathVariable Long tagId) {
-        tagRepository.delete(tagRepository.getOne(tagId));
+        Tag tag = tagRepository.getOne(tagId);
+        for (Book book : tag.getBooks()) {
+            book.removeTag(tag);
+        }
+        tag.getBooks().clear();
+        tagRepository.save(tag);
+        tagRepository.delete(tag);
         return "redirect:/";
     }
     

@@ -35,6 +35,10 @@ public class Book extends AbstractPersistable<Long> {
         }
         this.tags.add(tag);
     }
+    
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
+    }
 
     //writer voi olla null 
     //validointi tästä

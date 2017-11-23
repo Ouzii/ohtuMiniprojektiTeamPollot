@@ -24,10 +24,14 @@ public class Tag extends AbstractPersistable<Long> {
         this.name = name;
     }
 
-    public void addBook(Book book) {
+    public void addTip(Book book) {
         if (this.books == null) {
             this.books = new ArrayList<>();
         }
         this.books.add(book);
+    }
+    
+    public void removeTip(Book book) {
+        this.books.remove(book);
     }
 }
