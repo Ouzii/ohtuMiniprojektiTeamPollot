@@ -1,7 +1,10 @@
 package tip.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -17,8 +20,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Tag extends AbstractPersistable<Long> {
 
     private String name;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Book> books;
+    @ManyToMany(mappedBy="tags",fetch = FetchType.EAGER)
+    private Set<Book> books;
 
     public Tag(String name) {
         this.name = name;
@@ -26,12 +29,27 @@ public class Tag extends AbstractPersistable<Long> {
 
     public void addTip(Book book) {
         if (this.books == null) {
-            this.books = new ArrayList<>();
+            this.books = new HashSet<>();
         }
         this.books.add(book);
     }
     
     public void removeTip(Book book) {
         this.books.remove(book);
+    }
+    
+        ///hashauksee
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tag tag = (Tag) o;
+        return this.getId() != null 
+                && Objects.equals(this.name, tag.name);
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

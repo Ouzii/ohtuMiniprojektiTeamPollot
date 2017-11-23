@@ -1,9 +1,15 @@
 package tip.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import lombok.AllArgsConstructor;
@@ -19,23 +25,30 @@ public class Book extends AbstractPersistable<Long> {
     private String name;
     private String writer;
     private String isbn;
-    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
-    private List<Tag> tags;
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(name = "books",
+            joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags;
 
     public Book(String name, String writer, String isbn) {
         this.name = name;
         this.isbn = isbn;
         this.writer = writer;
-        this.tags = new ArrayList();
+        this.tags = new HashSet();
     }
-    
+
     public void addTag(Tag tag) {
         if (this.tags == null) {
-            this.tags = new ArrayList();
+            this.tags = new HashSet();
         }
         this.tags.add(tag);
     }
-    
+
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
     }
@@ -70,9 +83,25 @@ public class Book extends AbstractPersistable<Long> {
             total += ((i - 1) % 2 == 0) ? num * 1 : num * 3;
         }
         int chksum = 10 - (total % 10);
-        if ( chksum == 10)
+        if (chksum == 10) {
             chksum = 0;
+        }
         return chksum == Integer.parseInt(tmp.substring(12));
+    }
+    
+    ///hashauksee
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return this.getId() != null 
+                && Objects.equals(this.getId(), book.getId());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
 }
