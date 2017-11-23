@@ -1,5 +1,6 @@
 package tip.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class BookController {
     @PostMapping("/{tipId}/addTag")
     public String addTagToBook(@PathVariable Long tipId, @RequestParam Long tagId) {
         Book book = bookRepository.getOne(tipId);
-        Tag tag = tagRepository.getOne(tagId);
+        Tag tag = tagRepository.getOne(tagId);     
 
         book.addTag(tag);
         tag.addTip(book);
@@ -62,19 +63,24 @@ public class BookController {
     @DeleteMapping("/{tipId}")
     public String delete(@PathVariable Long tipId) {
         Book book = bookRepository.getOne(tipId);
-        for (Tag tag : book.getTags()) {
+      /*  for (Tag tag : book.getTags()) {
             tag.removeTip(book);
         }
         book.getTags().clear();
         bookRepository.save(book);
+        */
         bookRepository.delete(book);
         return "redirect:/";
     }
 
     @GetMapping("/{tipId}")
     public String list(Model model, @PathVariable Long tipId) {
-        model.addAttribute("tip", bookRepository.findOne(tipId));
-        model.addAttribute("tags", tagRepository.findAll());
+        Book book = bookRepository.findOne(tipId);
+        List<Tag> nonHavingTags = tagRepository.findAll();
+        nonHavingTags.removeAll(book.getTags());
+        
+        model.addAttribute("tip", book);
+        model.addAttribute("tags", nonHavingTags);
         return "modifyBook";
     }
 

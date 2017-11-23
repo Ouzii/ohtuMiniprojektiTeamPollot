@@ -34,6 +34,15 @@
                 <input type="submit" value="Lisää tagi!"/>
             </form>
         
+        <form th:method="DELETE" th:action="@{/{tipId}/deleteTag(tipId=${tip.id})}">
+                <div class="form-group">
+                    <select name="tagId" size="10" style="width:100px">
+
+                        <option th:each="tag : ${tip.tags}" name="tagId" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+                    </select>
+                </div>
+                <input type="submit" value="poista tagi!"/>
+            </form>
         <a href="/">Takaisin listaukseen</a><br/>
     </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tip.domain.Book;
 import tip.domain.Tag;
+import tip.repository.BookRepository;
 import tip.repository.TagRepository;
 
 @Controller
@@ -15,6 +16,8 @@ public class TagController {
 
     @Autowired
     private TagRepository tagRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
     @PostMapping("/newTag")
     public String addTag(@RequestParam String name) {
@@ -36,6 +39,16 @@ public class TagController {
         tagRepository.save(tag);
         tagRepository.delete(tag);
         return "redirect:/";
+    }
+    
+    @DeleteMapping("/{tipId}/deleteTag")
+    public String deleteFromBook(@PathVariable Long tipId, @RequestParam Long tagId) {
+        Tag tag = tagRepository.getOne(tagId);
+        Book book = bookRepository.getOne(tipId);
+        book.getTags().remove(tag);
+        bookRepository.save(book);
+        
+        return "redirect:/" + tipId;
     }
     
 }
