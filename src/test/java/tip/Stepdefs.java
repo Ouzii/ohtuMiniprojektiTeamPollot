@@ -179,4 +179,14 @@ public class Stepdefs {
         driver.findElement(By.name("submit_tag")).click();
     }
 
+    @When("^tags delete button is pressed$")
+    public void tags_delete_button_is_pressed() throws Throwable {
+        driver.findElement(By.name("delete_tag"));
+    }
+
+    @Then("^System will not show the deleted tag$")
+    public void system_will_not_show_the_deleted_tag() throws Throwable {
+        driver.findElements(By.name("delete_tag")).isEmpty();
+    }
+
 }

@@ -54,7 +54,7 @@
             <li th:each="tag : ${tags}"> 
                 <span th:text="${tag.name}">tag</span>
                 <form th:action="@{/deleteTag/{tagId}(tagId=${tag.id})}" th:method="DELETE">
-                    <input type="submit" value="Poista" style="background-color:red"/>
+                    <input type="submit" name="delete_tag" value="Poista" style="background-color:red"/>
                 </form>
             </li>
         </ul>
