@@ -20,9 +20,9 @@ public class TagController {
     private BookRepository bookRepository;
 
     @PostMapping("/newTag")
-    public String addTag(@RequestParam String name) {
-        if (name.trim() != null && !name.trim().isEmpty()) {
-            Tag tag = new Tag(name);
+    public String addTag(@RequestParam String tag_name) {
+        if (tag_name.trim() != null && !tag_name.trim().isEmpty()) {
+            Tag tag = new Tag(tag_name);
             this.tagRepository.save(tag);
         }
         return "redirect:/";

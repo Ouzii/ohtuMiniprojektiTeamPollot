@@ -14,6 +14,7 @@ import org.openqa.selenium.By;
 public class Stepdefs {
 
     WebDriver driver;
+    private int startCount;
 
     public Stepdefs() {
 //        File file;
@@ -52,7 +53,7 @@ public class Stepdefs {
     public void user_is_at_the_modification_page() throws Throwable {
         user_is_at_the_main_page(); //Luodaan testidataa jotta voidaan jatkaa testausta
         valid_name_and_invalid_isbn_and_valid_kirjoittaja_are_entered("asdasd", "978-951-98548-9-2", "asdasd");
-        driver.get("http://localhost:" + 8080 + "/1?");
+        driver.get("http://localhost:" + 8080 + "/2?"); // jos tulee whitelabel error vaihda viimeisen parametrin numeroarvoa
         Thread.sleep(1000);
     }
 
@@ -145,6 +146,37 @@ public class Stepdefs {
         driver.findElement(By.name("writer")).sendKeys(writer);
 
         driver.findElement(By.name("save_changes")).click();
+    }
+
+    @When("^delete button is clicked$")
+    public void delete_button_is_clicked() throws Throwable {
+        user_is_at_the_main_page(); //Luodaan testidataa jotta voidaan jatkaa testausta
+        valid_name_and_invalid_isbn_and_valid_kirjoittaja_are_entered("asdasd", "978-951-98548-9-2", "asdasd");
+        Thread.sleep(1000);
+
+        startCount = driver.findElements(By.className("li")).size();
+
+        driver.findElement(By.name("delete")).click();
+
+    }
+
+    @Then("^one item has been deleted$")
+    public void one_item_has_been_deleted() throws Throwable {
+        int endCount = driver.findElements(By.className("li")).size();
+
+        boolean onkopoistettu = startCount > endCount;
+    }
+
+    @When("^tag name \"([^\"]*)\" is ented$")
+    public void tag_is_added_to_database(String tagName) {
+        driver.findElement(By.name("tag_name")).sendKeys(tagName);
+        driver.findElement(By.name("submit_tag")).click();
+    }
+
+    @When("^tag name \"([^\"]*)\" is entered$")
+    public void tag_name_is_entered(String tagName) throws Throwable {
+        driver.findElement(By.name("tag_name")).sendKeys(tagName);
+        driver.findElement(By.name("submit_tag")).click();
     }
 
 }

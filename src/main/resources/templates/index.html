@@ -23,7 +23,7 @@
                 </ul>
                 <br/>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="DELETE">
-                    <button type="submit" style="height:20px;width:80px;background-color:red">Poista</button>
+                    <button name="delete" type="submit" style="height:20px;width:80px;background-color:red">Poista</button>
                 </form>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="GET">
                     <button type="submit" style="height:20px;width:80px">Muokkaa</button>
@@ -45,8 +45,8 @@
 
         <h4>Lisää tagi!</h4>
         <form action="/newTag" th:method="POST">
-            <input type="text" name="name" placeholder="tag"/>
-            <input type="submit" value="Lisää tagi!" style="background-color:#36abff"/>
+            <input type="text" name="tag_name" placeholder="tag"/>
+            <input type="submit" name = "submit_tag" value="Lisää tagi!" style="background-color:#36abff"/>
         </form>
 
         <h4>Olemassaolevat tagit:</h4>
