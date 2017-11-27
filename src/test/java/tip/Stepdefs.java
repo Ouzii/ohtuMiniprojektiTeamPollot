@@ -4,12 +4,14 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import gherkin.lexer.Th;
 import java.io.File;
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
 public class Stepdefs {
 
@@ -46,7 +48,7 @@ public class Stepdefs {
     @Given("^user is at the main page$")
     public void user_is_at_the_main_page() throws Throwable {
         driver.get("http://localhost:" + 8080 + "/");
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
     }
 
     @Given("^user is at the modification page$")
@@ -54,21 +56,29 @@ public class Stepdefs {
         user_is_at_the_main_page(); //Luodaan testidataa jotta voidaan jatkaa testausta
         valid_name_and_invalid_isbn_and_valid_kirjoittaja_are_entered("asdasd", "978-951-98548-9-2", "asdasd");
         driver.get("http://localhost:" + 8080 + "/2?"); // jos tulee whitelabel error vaihda viimeisen parametrin numeroarvoa
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
+    }
+
+    @Given("^user is at the modification page of \"([^\"]*)\"$")
+    public void user_is_at_the_modification_page_of(String pagenumber) throws Throwable {
+        user_is_at_the_main_page(); //Luodaan testidataa jotta voidaan jatkaa testausta
+        valid_name_and_invalid_isbn_and_valid_kirjoittaja_are_entered("asdasd", "978-951-98548-9-2", "asdasd");
+        driver.get("http://localhost:" + 8080 + "/" + pagenumber + "?"); // jos tulee whitelabel error vaihda viimeisen parametrin numeroarvoa
+        //Thread.sleep(1000);
     }
 
     @When("^a link is clicked$")
     public void a_link_is_clicked() throws Throwable {
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         clickLinkWithText("linkki");
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
     }
 
     @Then("^\"([^\"]*)\" is shown$")
     public void is_shown(String arg1) throws Throwable {
         System.out.println(driver.findElement(By.tagName("body")).getText()); //Koitetaan tulostaa sivun body...
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
     }
 
     private void clickLinkWithText(String text) {
@@ -152,7 +162,7 @@ public class Stepdefs {
     public void delete_button_is_clicked() throws Throwable {
         user_is_at_the_main_page(); //Luodaan testidataa jotta voidaan jatkaa testausta
         valid_name_and_invalid_isbn_and_valid_kirjoittaja_are_entered("asdasd", "978-951-98548-9-2", "asdasd");
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
 
         startCount = driver.findElements(By.className("li")).size();
 
@@ -187,6 +197,23 @@ public class Stepdefs {
     @Then("^System will not show the deleted tag$")
     public void system_will_not_show_the_deleted_tag() throws Throwable {
         driver.findElements(By.name("delete_tag")).isEmpty();
+    }
+
+    @When("^tag \"([^\"]*)\" is added to the tip$")
+    public void tag_is_added_to_the_tip(String tagname) throws Throwable {
+        Thread.sleep(10000);
+        WebElement mySelectElement = driver.findElement(By.name("tagiId"));
+        Select dropdown = new Select(mySelectElement);
+        dropdown.selectByVisibleText(tagname);
+        Thread.sleep(10000);
+        driver.findElement(By.linkText("Lisää tagi!")).click();
+        Thread.sleep(10000);
+
+    }
+
+    @Then("^tip contains tag \"([^\"]*)\"$")
+    public void tip_contains_tag(String tagname) throws Throwable {
+        //TODO
     }
 
 }
