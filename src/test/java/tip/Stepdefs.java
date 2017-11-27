@@ -6,10 +6,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.io.File;
 import static org.junit.Assert.assertTrue;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
 
 public class Stepdefs {
 
@@ -48,6 +48,14 @@ public class Stepdefs {
         Thread.sleep(1000);
     }
 
+    @Given("^user is at the modification page$")
+    public void user_is_at_the_modification_page() throws Throwable {
+        user_is_at_the_main_page(); //Luodaan testidataa jotta voidaan jatkaa testausta
+        valid_name_and_invalid_isbn_and_valid_kirjoittaja_are_entered("asdasd", "978-951-98548-9-2", "asdasd");
+        driver.get("http://localhost:" + 8080 + "/1?");
+        Thread.sleep(1000);
+    }
+
     @When("^a link is clicked$")
     public void a_link_is_clicked() throws Throwable {
         Thread.sleep(1000);
@@ -73,6 +81,70 @@ public class Stepdefs {
                 System.out.println(e.getStackTrace());
             }
         }
+    }
+
+    @When("^valid name \"([^\"]*)\" and valid isbn \"([^\"]*)\" and valid kirjoittaja \"([^\"]*)\" are entered$")
+    public void valid_name_and_valid_isbn_and_valid_kirjoittaja_are_entered(String nimi, String isbn, String kirjoittaja) {
+
+        driver.findElement(By.name("name")).sendKeys(nimi);
+        driver.findElement(By.name("isbn")).sendKeys(nimi);
+        driver.findElement(By.name("writer")).sendKeys(nimi);
+
+        driver.findElement(By.name("add_book")).click();
+    }
+
+    @Then("^tip with name \"([^\"]*)\" and isbn \"([^\"]*)\" and kirjoittaja \"([^\"]*)\" is listed$")
+    public void tip_with_name_and_isbn_and_kirjoittaja_is_listed(String arg1, String arg2, String arg3) {
+
+        driver.findElement(By.tagName("ul")).getText().contains("arg1");
+        driver.findElement(By.tagName("ul")).getText().contains("arg2");
+        driver.findElement(By.tagName("ul")).getText().contains("arg3");
+    }
+
+    @When("^valid name \"([^\"]*)\" and invalid isbn \"([^\"]*)\" and valid kirjoittaja \"([^\"]*)\" are entered$")
+    public void valid_name_and_invalid_isbn_and_valid_kirjoittaja_are_entered(String name, String isbn, String kirjoittaja) throws Throwable {
+        driver.findElement(By.name("name")).sendKeys(name);
+        driver.findElement(By.name("isbn")).sendKeys(isbn);
+        driver.findElement(By.name("writer")).sendKeys(kirjoittaja);
+
+        driver.findElement(By.name("add_book")).click();
+    }
+
+    @Then("^tip with name \"([^\"]*)\" and isbn \"([^\"]*)\" and kirjoittaja \"([^\"]*)\" is not listed$")
+    public void tip_with_name_and_isbn_and_kirjoittaja_is_not_listed(String arg1, String isbn, String arg3) throws Throwable {
+        boolean name = driver.findElements(By.linkText(isbn)).size() < 1;
+
+    }
+
+    @When("^valid name \"([^\"]*)\" valid isbn \"([^\"]*)\" and valid writer \"([^\"]*)\" are entered$")
+    public void valid_name_valid_isbn_and_valid_writer_are_entered(String name, String isbn, String kirjoittaja) throws Throwable {
+        driver.findElement(By.name("name")).sendKeys(name);
+        driver.findElement(By.name("isbn")).clear();
+        driver.findElement(By.name("isbn")).sendKeys(isbn);
+        driver.findElement(By.name("writer")).sendKeys(kirjoittaja);
+
+        driver.findElement(By.name("save_changes")).click();
+    }
+
+    @When("^valid name \"([^\"]*)\" invalid isbn \"([^\"]*)\" and valid writer \"([^\"]*)\" are entered$")
+    public void valid_name_invalid_isbn_and_valid_writer_are_entered(String name, String isbn, String writer) throws Throwable {
+        driver.findElement(By.name("name")).sendKeys(name);
+        driver.findElement(By.name("isbn")).clear();
+        driver.findElement(By.name("isbn")).sendKeys(isbn);
+        driver.findElement(By.name("writer")).sendKeys(writer);
+
+        driver.findElement(By.name("save_changes")).click();
+    }
+
+    @When("^invalid name \"([^\"]*)\" valid isbn \"([^\"]*)\" and valid writer \"([^\"]*)\" are entered$")
+    public void invalid_name_valid_isbn_and_valid_writer_are_entered(String name, String isbn, String writer) throws Throwable {
+        driver.findElement(By.name("name")).clear();
+        driver.findElement(By.name("name")).sendKeys(name);
+        driver.findElement(By.name("isbn")).clear();
+        driver.findElement(By.name("isbn")).sendKeys(isbn);
+        driver.findElement(By.name("writer")).sendKeys(writer);
+
+        driver.findElement(By.name("save_changes")).click();
     }
 
 }
