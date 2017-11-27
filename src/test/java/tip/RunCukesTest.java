@@ -8,6 +8,6 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = {"pretty"})
 public class RunCukesTest {
-    @ClassRule
-    public static ServerRule server = new ServerRule(8080);
+//    @ClassRule
+//    public static ServerRule server = new ServerRule(8080);  ServerRule classia ei muka löydy vaikka sen pitäisi olla samassa pakkauksessa...
 }
