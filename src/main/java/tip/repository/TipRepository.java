@@ -2,8 +2,8 @@
 package tip.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tip.domain.Book;
+import tip.domain.Tip;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface TipRepository extends JpaRepository<Tip, Long> {
     
 }

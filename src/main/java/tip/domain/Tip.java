@@ -3,8 +3,10 @@ package tip.domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,26 +22,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor //nimestselviää mitä luo
 @Data //getterit ja setterit
 @Entity //luo tietokantataulu
-public class Book extends AbstractPersistable<Long> {
+public class Tip extends AbstractPersistable<Long> {
 
     private String name;
-    private String writer;
-    private String isbn;
+    private String type;
     @ManyToMany(cascade = {
         CascadeType.PERSIST,
         CascadeType.MERGE
     }, fetch = FetchType.EAGER)
     @JoinTable(name = "books",
             joinColumns = @JoinColumn(name = "book_id"),
-    inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
+    inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
+    
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(name = "info",
+            joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "detail_id"))
+    private Map<String, Detail> details;
 
-    public Book(String name, String writer, String isbn) {
+    public Tip(String name, String type) {
         this.name = name;
-        this.isbn = isbn;
-        this.writer = writer;
+        this.type = type;
         this.tags = new HashSet();
+        this.details = new TreeMap();
     }
 
     public void addTag(Tag tag) {
@@ -49,54 +58,26 @@ public class Book extends AbstractPersistable<Long> {
         this.tags.add(tag);
     }
 
+    public void addDetail(String key, Detail detail) {
+        if (this.details == null) {
+            this.details = new TreeMap<>();
+        }
+        this.details.put(key, detail);
+    }
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
     }
 
-    //writer voi olla null 
-    //validointi tästä
-    public List<String> validate() {
-        List<String> errors = new ArrayList<>();
-        if (!validateISBN()) {
-            errors.add("ISBN ei ole muodossa ISBN13!");
-        }
-        if (name == null || name.trim().isEmpty()) {
-            errors.add("nimimerkin nimi ei saa olla tyhjä");
-        }
-        return errors;
-    }
-
-    private boolean validateISBN() {
-        if (this.isbn == null) {
-            return false;
-        }
-
-        String tmp = this.isbn;
-        tmp = tmp.replaceAll("-", "");
-        if (tmp.length() != 13) {
-            return false;
-        }
-
-        int num = 0, total = 0;
-        for (int i = 1; i <= 12; i++) {
-            num = Integer.parseInt(tmp.substring(i - 1, i));
-            total += ((i - 1) % 2 == 0) ? num * 1 : num * 3;
-        }
-        int chksum = 10 - (total % 10);
-        if (chksum == 10) {
-            chksum = 0;
-        }
-        return chksum == Integer.parseInt(tmp.substring(12));
-    }
+ 
     
     ///hashauksee
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
+        Tip tip = (Tip) o;
         return this.getId() != null 
-                && Objects.equals(this.getId(), book.getId());
+                && Objects.equals(this.getId(), tip.getId());
     }
  
     @Override

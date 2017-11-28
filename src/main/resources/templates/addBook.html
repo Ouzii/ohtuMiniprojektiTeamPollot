@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lisää kirja!</title>
+    </head>
+
+    <body>
+        <h1>Lisää kirja!</h1>
+        <h3>explore testaukseen isbn13 esim: 978-951-98548-9-2</h3>
+        <p th:text="${message}"></p>
+        <ul>
+            <li th:each="error:${errors}">
+                <span th:text="${error}"/>
+            </li>
+        </ul>
+        
+        <form th:action="@{/newBook}" th:method="POST">
+            <input type="text" name="name" placeholder="nimi"/>
+            <input type="text" name="isbn" placeholder="ISBN"/>
+            <input type="text" name="writer" placeholder="kirjoittaja"/>
+            <input type="submit" name ="add_book" value="Lisää kirja" style="background-color:#62ea62"/>
+        </form>
+        <a href="/">Takaisin listaukseen</a><br/>
+    </body>
+</html>
