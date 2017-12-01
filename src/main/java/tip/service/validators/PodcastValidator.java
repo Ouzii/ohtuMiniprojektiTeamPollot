@@ -50,7 +50,10 @@ public class PodcastValidator {
     }
 
     private boolean validateUrl(Tip podcast) {
-        //tää
-        return true;
+        if (podcast.getDetails().get("url").toString().matches("^(https|http)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
