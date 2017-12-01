@@ -28,7 +28,6 @@ public class VideoController {
     @Autowired
     VideoValidator videoValidator;
 
-
     @GetMapping("/video")
     public String addForm(Model model) {
         return "addVideo";
@@ -36,22 +35,23 @@ public class VideoController {
 
     @PostMapping("/newVideo")
     public String addBook(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
-            RedirectAttributes attributes) {
-        if(artist == null || artist.trim().isEmpty()) {
+            @RequestParam String date, RedirectAttributes attributes) {
+        if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
         Tip tip = new Tip(name, "video");
         Detail urlDetail = new Detail(url.trim());
         Detail artistDetail = new Detail(artist);
-        
+        Detail dateDetail = new Detail(date);
 
         tip.addDetail("url", urlDetail);
         tip.addDetail("artist", artistDetail);
-
+        tip.addDetail("date", dateDetail);
         List<String> errors = videoValidator.validate(tip);
         if (errors.isEmpty()) {
             detailRepository.save(urlDetail);
             detailRepository.save(artistDetail);
+            detailRepository.save(dateDetail);
             this.tipRepository.save(tip);
         } else {
             attributes.addFlashAttribute("errors", errors);
@@ -59,10 +59,10 @@ public class VideoController {
 
         return "redirect:/";
     }
-    
+
     @PostMapping("/video/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
-            @RequestParam String name, @RequestParam String url, RedirectAttributes attributes) {
+            @RequestParam String name, @RequestParam String url, @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
@@ -70,12 +70,11 @@ public class VideoController {
         Detail isbnDetail = tip.getDetails().get("url");
         isbnDetail.setValue(url.trim());
 
-        if(artist == null || artist.trim().isEmpty()) {
+        if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
         Detail artistDetail = tip.getDetails().get("artist");
         artistDetail.setValue(artist.trim());
-        
 
         List<String> errors = videoValidator.validate(tip);
         if (errors.isEmpty()) {
@@ -87,4 +86,6 @@ public class VideoController {
         return "redirect:/video/" + tipId;
 
     }
+
+
 }

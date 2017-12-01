@@ -43,6 +43,16 @@ public class TipController {
 
         model.addAttribute("tip", tip);
         model.addAttribute("tags", nonHavingTags);
+        switch(String.valueOf(tipType)) {
+            case "book":
+                return "modifyBook";
+            case "podcast":
+                return "modifyPodcast";
+            case "video":
+                return "modifyVideo";
+            case "blogpost":
+                return "modifyBlogpost";
+        }
         
         if (tipType.equals("book")) {
         return "modifyBook";

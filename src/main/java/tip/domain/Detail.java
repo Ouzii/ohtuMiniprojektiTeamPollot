@@ -57,4 +57,5 @@ public class Detail extends AbstractPersistable<Long> {
     public int hashCode() {
         return Objects.hash(value);
     }
+
 }

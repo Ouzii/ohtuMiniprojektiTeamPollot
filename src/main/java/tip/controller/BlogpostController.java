@@ -28,7 +28,6 @@ public class BlogpostController {
     @Autowired
     BlogpostValidator blogpostValidator;
 
-
     @GetMapping("/blogpost")
     public String addForm(Model model) {
         return "addBlogpost";
@@ -36,22 +35,25 @@ public class BlogpostController {
 
     @PostMapping("/newBlogpost")
     public String addBook(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
-            RedirectAttributes attributes) {
-        if(artist == null || artist.trim().isEmpty()) {
+            @RequestParam String date, RedirectAttributes attributes) {
+        if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
         Tip tip = new Tip(name, "blogpost");
         Detail urlDetail = new Detail(url.trim());
         Detail artistDetail = new Detail(artist);
-        
+        Detail dateDetail = new Detail(date);
 
         tip.addDetail("url", urlDetail);
         tip.addDetail("artist", artistDetail);
+        tip.addDetail("date", dateDetail);
 
         List<String> errors = blogpostValidator.validate(tip);
         if (errors.isEmpty()) {
             detailRepository.save(urlDetail);
             detailRepository.save(artistDetail);
+            detailRepository.save(dateDetail);
+
             this.tipRepository.save(tip);
         } else {
             attributes.addFlashAttribute("errors", errors);
@@ -59,10 +61,11 @@ public class BlogpostController {
 
         return "redirect:/";
     }
-    
+
     @PostMapping("/blogpost/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
-            @RequestParam String name, @RequestParam String url, RedirectAttributes attributes) {
+            @RequestParam String name, @RequestParam String url, @RequestParam String date,
+            RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
@@ -70,12 +73,11 @@ public class BlogpostController {
         Detail url_type = tip.getDetails().get("url");
         url_type.setValue(url.trim());
 
-        if(artist == null || artist.trim().isEmpty()) {
+        if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
         Detail artistDetail = tip.getDetails().get("artist");
         artistDetail.setValue(artist.trim());
-        
 
         List<String> errors = blogpostValidator.validate(tip);
         if (errors.isEmpty()) {
@@ -87,4 +89,5 @@ public class BlogpostController {
         return "redirect:/blogpost/" + tipId;
 
     }
+
 }

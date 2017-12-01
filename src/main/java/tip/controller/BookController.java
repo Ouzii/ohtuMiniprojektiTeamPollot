@@ -35,7 +35,8 @@ public class BookController {
     }
 
     @PostMapping("/newBook")
-    public String addBook(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn,
+    public String addBook(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn, 
+            @RequestParam String date,
             RedirectAttributes attributes) {
         if(writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
@@ -43,15 +44,17 @@ public class BookController {
         Tip tip = new Tip(name, "book");
         Detail i = new Detail(isbn.trim());
         Detail w = new Detail(writer);
-        
+        Detail dateDetail = new Detail(date);
 
         tip.addDetail("isbn", i);
         tip.addDetail("writer", w);
+        tip.addDetail("date",dateDetail);
 
         List<String> errors = bookValidator.validate(tip);
         if (errors.isEmpty()) {
             detailRepository.save(i);
             detailRepository.save(w);
+            detailRepository.save(dateDetail);
             this.tipRepository.save(tip);
         } else {
             attributes.addFlashAttribute("errors", errors);
@@ -62,7 +65,7 @@ public class BookController {
     
     @PostMapping("/book/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String writer,
-            @RequestParam String name, @RequestParam String isbn, RedirectAttributes attributes) {
+            @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
@@ -87,4 +90,5 @@ public class BookController {
         return "redirect:/book/" + tipId;
 
     }
+    
 }

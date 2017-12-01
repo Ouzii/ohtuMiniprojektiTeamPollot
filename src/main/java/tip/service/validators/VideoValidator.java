@@ -20,6 +20,8 @@ public class VideoValidator {
         if (video.getType() == null || video.getType().equals("video") == false) {
             errors.add("Ei ole video");
         }
+        if (!isValid(video.getDetails().get("date").toString())) {
+        }
 
         if (validateUrl(video) == false) {
             errors.add("url on vääränlainen");
@@ -56,4 +58,13 @@ public class VideoValidator {
             return false;
         }
     }
+    public boolean isValid(String date) {
+        if (date.matches("((29|30)[\\/.](18|19|20)[0-9]{2})|((0[1-9]|1[0-2])[\\/.](0[1-9]|1[0-9]|2[0-8])[\\/.](18|19|20)[0-9]{2})|((02)[\\/.]29[\\/.](0[13578]|1[02])[\\/.]31[\\/.](18|19|20)[0-9]{2})|((01|0[3-9]|1[1-2])[\\/.](((18|19|20)(04|08|[2468][048]|[13579][26]))|2000))")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }
