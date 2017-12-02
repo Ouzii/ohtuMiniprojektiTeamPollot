@@ -19,13 +19,49 @@
         <ul>
             <li th:each="tip:${tips}">
                 Nimi: <span th:text="${tip.name}"/><br/>
-                Tyyppi: <span th:text="${tip.type}"/><br/>              
+                Tyyppi: <span th:text="${tip.type}"/><br/>
+            <div th:switch="${tip.type}">     
+                <div th:case="book">                                   
+                    <div th:if="${tip.read}">
+                        Luettu: <input type="checkbox" checked="true" disabled="disabled"/>
+                    </div>
+                    <div th:unless="${tip.read}">
+                        Luettu: <input type="checkbox" disabled="disabled"/>
+                    </div>
+                </div>
+                <div th:case="podcast">                                   
+                    <div th:if="${tip.read}">
+                        Kuunneltu: <input type="checkbox" checked="true" disabled="disabled"/>
+                    </div>
+                    <div th:unless="${tip.read}">
+                        Kuunneltu: <input type="checkbox" disabled="disabled"/>
+                    </div>
+                </div>
+                <div th:case="video">                                   
+                    <div th:if="${tip.read}">
+                        Katsottu: <input type="checkbox" checked="true" disabled="disabled"/>
+                    </div>
+                    <div th:unless="${tip.read}">
+                        Katsottu: <input type="checkbox" disabled="disabled"/>
+                    </div>
+                </div>
+                <div th:case="*">                                   
+                    <div th:if="${tip.read}">
+                        Luettu: <input type="checkbox" checked="true" disabled="disabled"/>
+                    </div>
+                    <div th:unless="${tip.read}">
+                        Luettu: <input type="checkbox" disabled="disabled"/>
+                    </div>
+                </div>
+            </div>
+                             
                 <ul>
                     <li th:each="detail : ${tip.details}">
                         <span th:text="${detail['key']}"></span>
                         : <span th:text="${detail['value']}"></span>
                         <br/>
                         </li>
+
                 </ul>
                 
                 Tags:<br/>
@@ -46,9 +82,9 @@
             </li>
 
         </ul>
-        <a href="/book">Lisää kirjalle kirjainmerkki!</a><br/>
-        <a href="/blogpost">Lisää blogi-kirjainmerkki!</a><br/>
-        <a href="/video">Lisää video-kirjainmerkki!</a><br/>
-         <a href="/podcast">Lisää podcast-kirjainmerkki!</a><br/><a href="/tags">Tarkastele tägejä</a><br/>
+        <a href="/book">Lisää kirjavinkki!</a><br/>
+        <a href="/blogpost">Lisää blogivinkki!</a><br/>
+        <a href="/video">Lisää videovinkki!</a><br/>
+         <a href="/podcast">Lisää podcastvinkki!</a><br/><a href="/tags">Tarkastele tägejä</a><br/>
     </body>
 </html>

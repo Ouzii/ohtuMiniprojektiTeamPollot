@@ -21,14 +21,14 @@ public class VideoValidator {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
         if (validateArtist(video) == false) {
-            errors.add("artisti joko tyhjä tai max 63 merkkiä");
+            errors.add("Isäntä on joko tyhjä tai max 63 merkkiä");
         }
         if (video.getType() == null || video.getType().equals("video") == false) {
             errors.add("Ei ole video");
         }
-        if (!isValid(video.getDetails().get("date").toString())) {
-            errors.add("not a valid date");
-        }
+//        if (!isValid(video.getDetails().get("date").toString())) {
+//            errors.add("not a valid date");
+//        }
 
         if (validateUrl(video) == false) {
             errors.add("url on vääränlainen");

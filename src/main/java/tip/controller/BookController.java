@@ -67,19 +67,15 @@ public class BookController {
     
     @PostMapping("/book/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String writer,
-            @RequestParam String read, @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
+            @RequestParam int read, @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
        
-        Detail readDetail = tip.getDetails().get("read");
-        switch (read) {
-            case "1":
-                readDetail.setValue("1");
-                break;
-            case "0":
-                readDetail.setValue("0");
-                break;
+        if(read == 1) {
+            tip.setRead(true);
+        } else {
+            tip.setRead(false);
         }
         
         Detail isbnDetail = tip.getDetails().get("isbn");

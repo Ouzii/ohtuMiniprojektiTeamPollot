@@ -28,9 +28,9 @@ public class BlogpostValidator {
         if (validateUrl(podcast) == false) {
             errors.add("url on vääränlainen");
         }
-        if (!isValid(podcast.getDetails().get("date").toString())) {
-            errors.add("not a valid date");
-        }
+//        if (!isValid(podcast.getDetails().get("date").toString())) {
+//            errors.add("not a valid date");
+//        }
 
         return errors;
     }

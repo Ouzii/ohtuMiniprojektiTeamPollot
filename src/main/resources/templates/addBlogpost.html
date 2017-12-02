@@ -16,8 +16,8 @@
         <form th:action="@{/newBlogpost}" th:method="POST">
             <input type="text" name="name" placeholder="nimi"/>
             <input type="text" name="url" placeholder="url"/>
-            <input type="text" name="artist" placeholder="artisti"/>
-            <input type="text" name="date" placeholder="dd.mm.yyyy"/>
+            <input type="text" name="artist" placeholder="isäntä"/>
+            <input type="date" name="date"/>
             <input type="submit" name ="add_book" value="Lisää blogipostaus" style="background-color:#62ea62"/>
         </form>
         <a href="/">Takaisin listaukseen</a><br/>

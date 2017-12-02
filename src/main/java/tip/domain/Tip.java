@@ -26,6 +26,7 @@ public class Tip extends AbstractPersistable<Long> {
 
     private String name;
     private String type;
+    private boolean read;
     @ManyToMany(cascade = {
         CascadeType.PERSIST,
         CascadeType.MERGE

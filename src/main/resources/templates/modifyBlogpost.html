@@ -15,25 +15,37 @@
             </li>
         </ul>
 
-        <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
-            luettu:<input type="checkbox" th:value="${tip.details['read']}" name="read" />
-            nimi:<input type="text" th:value="${tip.name}" name="name" />
-            URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
-            Kirjoittaja:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
-            <input type="text" name="date" th:value="${tip.details['date']}"/>
+        <div th:if="${tip.read}">
+            <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+                luettu:<input type="checkbox" value="1" checked="true" name="read"/>
+                <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
+                nimi:<input type="text" th:value="${tip.name}" name="name" />
+                URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
+                Kirjoittaja:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
+                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
+                <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
+            </form>
+        </div>
+        <div th:unless="${tip.read}">
+            <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+                luettu:<input type="checkbox" value="1" name="read"/>
+                <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
+                nimi:<input type="text" th:value="${tip.name}" name="name" />
+                URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
+                Kirjoittaja:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
+                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
+                <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
+            </form>
+        </div>
 
+       <br/>
 
-            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
-        </form>
-
-        <br/>
-
-        <div>
+       <div>
             <form method="POST" th:action="@{/{tipId}/addTag(tipId=${tip.id})}">
                 <div class="form-group">
                     <select name="tagId" size="10" style="width:100px">
 
-                        <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+       <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
                     </select>
                 </div>
                 <input type="submit" value="Lisää tagi!"/>
@@ -45,7 +57,7 @@
                 <div class="form-group">
                     <select name="tagId" size="10" style="width:100px">
 
-                        <option th:each="tag : ${tip.tags}" name="tagId" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+       <option th:each="tag : ${tip.tags}" name="tagId" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
                     </select>
                 </div>
                 <input type="submit" value="poista tagi!"/>

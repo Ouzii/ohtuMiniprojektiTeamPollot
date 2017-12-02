@@ -44,9 +44,7 @@ public class VideoController {
         Detail urlDetail = new Detail(url.trim());
         Detail artistDetail = new Detail(artist);
         Detail dateDetail = new Detail(date);
-        Detail readDetail = new Detail("0");
 
-        tip.addDetail("read", readDetail);
         tip.addDetail("url", urlDetail);
         tip.addDetail("artist", artistDetail);
         tip.addDetail("date", dateDetail);
@@ -66,16 +64,15 @@ public class VideoController {
 
     @PostMapping("/video/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
-            @RequestParam boolean read, @RequestParam String name, @RequestParam String url, @RequestParam String date, RedirectAttributes attributes) {
+            @RequestParam int read, @RequestParam String name, @RequestParam String url, @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
 
-   
-        if (read) {
-             tip.getDetails().get("read").setValue("1");
+        if (read == 1) {
+            tip.setRead(true);
         } else {
-             tip.getDetails().get("read").setValue("0");
+            tip.setRead(false);
         }
 
         Detail isbnDetail = tip.getDetails().get("url");

@@ -28,9 +28,9 @@ public class BookValidator {
         if (validateISBN(book) == false) {
             errors.add("ISBN on vääränlainen");
         }
-        if (!isValid(book.getDetails().get("date").toString())) {
-            errors.add("not a valid date");
-        }
+//        if (!isValid(book.getDetails().get("date").toString())) {
+//            errors.add("not a valid date");
+//        }
 
         return errors;
     }
