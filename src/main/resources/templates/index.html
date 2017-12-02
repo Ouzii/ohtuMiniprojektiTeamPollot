@@ -3,29 +3,42 @@
     <head>
         <title>Tips!</title>
     </head>
+    
 
     <body>
         <h1>Kirjavinkit:</h1>
         <h3>explore testaukseen isbn13 esim: 978-951-98548-9-2</h3>
         <a href="/init">Alusta testinäytteet</a><br/>
         <br/>
-        <p th:text="${message}">
-
-        </p>
+        <p th:text="${message}"></p>
+        <ul>
+            <li th:each="error:${errors}">
+                <span th:text="${error}"/>
+            </li>
+        </ul>
         <ul>
             <li th:each="tip:${tips}">
                 Nimi: <span th:text="${tip.name}"/><br/>
-                Isbn: <span th:text="${tip.isbn}"/><br/>
-                Kirjoittaja: <span th:text="${tip.writer}"/><br/>
+                Tyyppi: <span th:text="${tip.type}"/><br/>              
+                <ul>
+                    <li th:each="detail : ${tip.details}">
+                        <span th:text="${detail['key']}"></span>
+                        : <span th:text="${detail['value']}"></span>
+                        <br/>
+                        </li>
+                </ul>
+                
                 Tags:<br/>
                 <ul>
                     <li th:each="tag : ${tip.tags}" th:text="${tag.name}"/>
                 </ul>
+                
                 <br/>
                 <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="DELETE">
                     <button name="delete" type="submit" style="height:20px;width:80px;background-color:red">Poista</button>
                 </form>
-                <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="GET">
+                <form th:action="@{${tip.type}+'/'+${tip.id}}" th:method="GET">
+                       
                     <button type="submit" style="height:20px;width:80px">Muokkaa</button>
                 </form>
 
@@ -33,30 +46,9 @@
             </li>
 
         </ul>
-
-        <h4>Lisää vinkki!</h4>
-        <form th:action="@{/}" th:method="POST">
-            <input type="text" name="name" placeholder="nimi"/>
-            <input type="text" name="isbn" placeholder="ISBN"/>
-            <input type="text" name="writer" placeholder="kirjoittaja"/>
-            <input type="submit" name ="add_book" value="Lisää kirja" style="background-color:#62ea62"/>
-        </form>
-
-
-        <h4>Lisää tagi!</h4>
-        <form action="/newTag" th:method="POST">
-            <input type="text" name="tag_name" placeholder="tag"/>
-            <input type="submit" name = "submit_tag" value="Lisää tagi!" style="background-color:#36abff"/>
-        </form>
-
-        <h4>Olemassaolevat tagit:</h4>
-        <ul>
-            <li th:each="tag : ${tags}"> 
-                <span th:text="${tag.name}">tag</span>
-                <form th:action="@{/deleteTag/{tagId}(tagId=${tag.id})}" th:method="DELETE">
-                    <input type="submit" name="delete_tag" value="Poista" style="background-color:red"/>
-                </form>
-            </li>
-        </ul>
+        <a href="/book">Lisää kirjalle kirjainmerkki!</a><br/>
+        <a href="/blogpost">Lisää blogi-kirjainmerkki!</a><br/>
+        <a href="/video">Lisää video-kirjainmerkki!</a><br/>
+         <a href="/podcast">Lisää podcast-kirjainmerkki!</a><br/><a href="/tags">Tarkastele tägejä</a><br/>
     </body>
 </html>

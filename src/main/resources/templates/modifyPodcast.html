@@ -5,8 +5,8 @@
     </head>
 
     <body>
-        <h1>Muokkaa</h1>
-        <h3>explore testaukseen isbn13 esim: 978-951-98548-9-2</h3>
+        <h1>Muokkaa Podcastia</h1>
+        <h3>kesken</h3>
         <br/>
 
         <ul>
@@ -18,8 +18,8 @@
         <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
             luettu:<input type="checkbox" th:value="${tip.details['read']}" name="read" />
             nimi:<input type="text" th:value="${tip.name}" name="name" />
-            ISBN:<input type="text" th:value="${tip.details['isbn']}" name="isbn"/>
-            kirjoittaja:<input type="text" th:value="${tip.details['writer']}" name="writer"/>
+            URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
+            Artisti:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
             <input type="text" name="date" th:value="${tip.details['date']}"/>
 
 

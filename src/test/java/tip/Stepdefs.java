@@ -35,8 +35,8 @@ public class Stepdefs {
 //            System.setProperty("webdriver.chrome.driver", absolutePath);
 //        }
 
-        File file = new File("lib/chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+       // File file = new File("lib/chromedriver.exe");
+       // System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
         this.driver = new ChromeDriver();
     }
 

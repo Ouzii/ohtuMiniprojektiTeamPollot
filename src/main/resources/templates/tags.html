@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Tägit!</title>
+    </head>
+
+    <body>
+        <h4>Lisää tagi!</h4>
+        <form action="/newTag" th:method="POST">
+            <input type="text" name="tag_name" placeholder="tag"/>
+            <input type="submit" name = "submit_tag" value="Lisää tagi!" style="background-color:#36abff"/>
+        </form>
+
+        <h4>Olemassaolevat tagit:</h4>
+        <ul>
+            <li th:each="tag : ${tags}"> 
+                <span th:text="${tag.name}">tag</span>
+                <form th:action="@{/deleteTag/{tagId}(tagId=${tag.id})}" th:method="DELETE">
+                    <input type="submit" name="delete_tag" value="Poista" style="background-color:red"/>
+                </form>
+            </li>
+        </ul>
+        <a href="/">Takaisin listaukseen</a><br/>
+    </body>
+</html>

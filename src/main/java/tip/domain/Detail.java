@@ -17,14 +17,14 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @NoArgsConstructor
 @Data
 @Entity
-public class Tag extends AbstractPersistable<Long> {
+public class Detail extends AbstractPersistable<Long> {
 
-    private String name;
-    @ManyToMany(mappedBy="tags",fetch = FetchType.EAGER)
+    private String value;
+    @ManyToMany(mappedBy="details",fetch = FetchType.EAGER)
     private Set<Tip> books;
 
-    public Tag(String name) {
-        this.name = name;
+    public Detail(String name) {
+        this.value = name;
     }
 
     public void addTip(Tip book) {
@@ -40,7 +40,7 @@ public class Tag extends AbstractPersistable<Long> {
     
     @Override
     public String toString() {
-        return this.name;
+        return this.value;
     }
     
         ///hashauksee
@@ -48,13 +48,14 @@ public class Tag extends AbstractPersistable<Long> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Tag tag = (Tag) o;
+        Detail detail = (Detail) o;
         return this.getId() != null 
-                && Objects.equals(this.name, tag.name);
+                && Objects.equals(this.value, detail.value);
     }
  
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(value);
     }
+
 }

@@ -14,10 +14,10 @@ import tip.domain.Tip;
 import tip.repository.DetailRepository;
 import tip.repository.TagRepository;
 import tip.repository.TipRepository;
-import tip.service.validators.BookValidator;
+import tip.service.validators.BlogpostValidator;
 
 @Controller
-public class BookController {
+public class BlogpostController {
 
     @Autowired
     private TipRepository tipRepository;
@@ -26,37 +26,36 @@ public class BookController {
     @Autowired
     private DetailRepository detailRepository;
     @Autowired
-    BookValidator bookValidator;
+    BlogpostValidator blogpostValidator;
 
-
-    @GetMapping("/book")
+    @GetMapping("/blogpost")
     public String addForm(Model model) {
-        return "addBook";
+        return "addBlogpost";
     }
 
-    @PostMapping("/newBook")
-    public String addBook(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn, 
-            @RequestParam String date,
-            RedirectAttributes attributes) {
-        if(writer == null || writer.trim().isEmpty()) {
-            writer = "tuntematon";
+    @PostMapping("/newBlogpost")
+    public String addBook(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
+            @RequestParam String date, RedirectAttributes attributes) {
+        if (artist == null || artist.trim().isEmpty()) {
+            artist = "tuntematon";
         }
-        Tip tip = new Tip(name, "book");
-        Detail i = new Detail(isbn.trim());
-        Detail w = new Detail(writer);
+        Tip tip = new Tip(name, "blogpost");
+        Detail urlDetail = new Detail(url.trim());
+        Detail artistDetail = new Detail(artist);
         Detail dateDetail = new Detail(date);
         Detail readDetail = new Detail("0");
 
         tip.addDetail("read", readDetail);
-        tip.addDetail("isbn", i);
-        tip.addDetail("writer", w);
-        tip.addDetail("date",dateDetail);
+        tip.addDetail("url", urlDetail);
+        tip.addDetail("artist", artistDetail);
+        tip.addDetail("date", dateDetail);
 
-        List<String> errors = bookValidator.validate(tip);
+        List<String> errors = blogpostValidator.validate(tip);
         if (errors.isEmpty()) {
-            detailRepository.save(i);
-            detailRepository.save(w);
+            detailRepository.save(urlDetail);
+            detailRepository.save(artistDetail);
             detailRepository.save(dateDetail);
+
             this.tipRepository.save(tip);
         } else {
             attributes.addFlashAttribute("errors", errors);
@@ -64,14 +63,15 @@ public class BookController {
 
         return "redirect:/";
     }
-    
-    @PostMapping("/book/{tipId}")
-    public String mode(Model model, @PathVariable Long tipId, @RequestParam String writer,
-            @RequestParam String read, @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
+
+    @PostMapping("/blogpost/{tipId}")
+    public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
+           @RequestParam String read, @RequestParam String name, @RequestParam String url, @RequestParam String date,
+            RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
-       
+        
         Detail readDetail = tip.getDetails().get("read");
         switch (read) {
             case "1":
@@ -81,26 +81,25 @@ public class BookController {
                 readDetail.setValue("0");
                 break;
         }
-        
-        Detail isbnDetail = tip.getDetails().get("isbn");
-        isbnDetail.setValue(isbn.trim());
 
-        if(writer == null || writer.trim().isEmpty()) {
-            writer = "tuntematon";
+        Detail url_type = tip.getDetails().get("url");
+        url_type.setValue(url.trim());
+
+        if (artist == null || artist.trim().isEmpty()) {
+            artist = "tuntematon";
         }
-        Detail writerDetail = tip.getDetails().get("writer");
-        writerDetail.setValue(writer.trim());
-        
+        Detail artistDetail = tip.getDetails().get("artist");
+        artistDetail.setValue(artist.trim());
 
-        List<String> errors = bookValidator.validate(tip);
+        List<String> errors = blogpostValidator.validate(tip);
         if (errors.isEmpty()) {
             tipRepository.save(tip);
             attributes.addFlashAttribute("message", "tip has succesfully been modified olalala");
             return "redirect:/";
         }
         attributes.addFlashAttribute("errors", errors);
-        return "redirect:/book/" + tipId;
+        return "redirect:/blogpost/" + tipId;
 
     }
-    
+
 }
