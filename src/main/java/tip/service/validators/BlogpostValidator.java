@@ -1,6 +1,10 @@
 package tip.service.validators;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import tip.domain.Tip;
@@ -59,10 +63,22 @@ public class BlogpostValidator {
             return false;
         }
     }
-
     public boolean isValid(String date) {
-        if (date.matches("((29|30)[\\/.](18|19|20)[0-9]{2})|((0[1-9]|1[0-2])[\\/.](0[1-9]|1[0-9]|2[0-8])[\\/.](18|19|20)[0-9]{2})|((02)[\\/.]29[\\/.](0[13578]|1[02])[\\/.]31[\\/.](18|19|20)[0-9]{2})|((01|0[3-9]|1[1-2])[\\/.](((18|19|20)(04|08|[2468][048]|[13579][26]))|2000))")) {
-            return true;
+        // vähän tuplasti tuli tassa tata tsekattua, mutta etuna on, että
+        // jos ei regex mätsää niin ei tarvii luoda noita javan muita 
+        // palleroita eli säästeliäämpi. 
+        if (date.matches("^(?:(1[0-2]|0[1-9]).(3[01]|[12][0-9]|0[1-9])|(3[01]|[12][0-9]|0[1-9]).(1[0-2]|0[1-9])).[0-9]{4}$")) {
+            try {
+                DateFormat d = new SimpleDateFormat("MM.dd.yyyy");
+                Date parsedDate = d.parse(date);
+                if (d.format(parsedDate).equals(date)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (ParseException ex) {
+                return false;
+            }
         } else {
             return false;
         }
