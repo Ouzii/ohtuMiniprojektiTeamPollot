@@ -1,18 +1,17 @@
 language: java
 sudo: required
 env: DISPLAY=':99.0'
-dist: trusty
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
+before_install:
+  - gradle run
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 before_script:
-  - |
-    if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      sh -e /etc/init.d/xvfb start
-    fi
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3  
+  - gradle run
+  - sleep 10
 script:
   - gradle check
 notifications:
