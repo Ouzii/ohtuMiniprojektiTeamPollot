@@ -1,6 +1,9 @@
 # ohtuMiniprojektiTeamPollot
 
 Tämä on Helsingin yliopiston syyslukauden 2017 ohjelmistotuotanto-kurssiin liittyvä osatehtävä/harjoitus, jossa tehtävänä on tuottaa ketterin menetelmin (scrum) ohjelmisto neljän viikon aikana. Tarkoitus on tuottaa [lukuvinkkikirjasto](https://github.com/mluukkai/ohjelmistotuotanto2017/wiki/miniprojekti-speksi) neljässä sprintissä. Asiakastapaamisia (=ohjaaja) on kolme(?), joissa tarkoitus on pyrkiä selvittämään mitä oikein halutaan ja sitten pyrkiä toteuttamaan niistä tärkeimmät ominaisuudet seuraavassa sprintissä.
+## Sovellus
+
+https://teampollotohtu.herokuapp.com/
 
 ## Backlog
 
