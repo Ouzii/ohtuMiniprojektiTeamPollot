@@ -4,13 +4,13 @@ env: DISPLAY=':99.0'
 addons:
   chrome: stable
 before_install:
-  - gradle run
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - gradle run &
+  - sleep 10
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8080 &
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3  
-  - gradle run
   - sleep 10
 script:
   - gradle check
