@@ -8,6 +8,12 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
-
+before_script:
+  - |
+    if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+      sh -e /etc/init.d/xvfb start
+    fi
+script:
+  - gradle check
 notifications:
   email: false
