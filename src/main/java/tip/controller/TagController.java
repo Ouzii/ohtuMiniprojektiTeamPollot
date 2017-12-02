@@ -44,10 +44,10 @@ public class TagController {
     @DeleteMapping("/deleteTag/{tagId}")
     public String delete(@PathVariable Long tagId) {
         Tag tag = tagRepository.getOne(tagId);
-        for (Tip book : tag.getBooks()) {
+        for (Tip book : tag.getTips()) {
             book.removeTag(tag);
         }
-        tag.getBooks().clear();
+        tag.getTips().clear();
         tagRepository.save(tag);
         tagRepository.delete(tag);
         return "redirect:/tags";

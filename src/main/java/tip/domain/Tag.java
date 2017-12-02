@@ -21,21 +21,21 @@ public class Tag extends AbstractPersistable<Long> {
 
     private String name;
     @ManyToMany(mappedBy="tags",fetch = FetchType.EAGER)
-    private Set<Tip> books;
+    private Set<Tip> tips;
 
     public Tag(String name) {
         this.name = name;
     }
 
-    public void addTip(Tip book) {
-        if (this.books == null) {
-            this.books = new HashSet<>();
+    public void addTip(Tip tip) {
+        if (this.tips == null) {
+            this.tips = new HashSet<>();
         }
-        this.books.add(book);
+        this.tips.add(tip);
     }
     
-    public void removeTip(Tip book) {
-        this.books.remove(book);
+    public void removeTip(Tip tip) {
+        this.tips.remove(tip);
     }
     
     @Override

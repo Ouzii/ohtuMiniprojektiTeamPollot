@@ -27,19 +27,24 @@ public class TestController {
     public String init() {
         if (!init) {
 
-            Tip a = new Tip("book a", "book");
+            Tip a = new Tip("Introduction to Algorithms", "book");
 
-            Tip b = new Tip("book b", "book");
+            Tip b = new Tip("Introduction to the Theory of Computation", "book");
             tipRepository.save(a);
             tipRepository.save(b);
 
             Tag ta = new Tag("tag a");
             Tag tb = new Tag("tag b");
 
-            Detail wa = new Detail("writer a");
-            Detail wb = new Detail("writer b");
-            Detail ia = new Detail("isbn a");
-            Detail ib = new Detail("isbn d");
+            Detail wa = new Detail("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein");
+//            Detail waa = new Detail("Charles E. Leiserson");
+//            Detail waaa = new Detail("Ronald L. Rivest");
+//            Detail waaaa = new Detail("Clifford Stein");
+//Tohon detail mappiin pitäis avaimella writer olla List<Detail> details arvona, 
+//sillä kirjoittajia on useita? Runttaan nyt putkeen mutta hyvin kyseenalaista saattaa olla muutostarve
+            Detail wb = new Detail("Michael Sipser");
+            Detail ia = new Detail("9780262033848");
+            Detail ib = new Detail("9780534950972");
             detailRepository.save(wa);
             detailRepository.save(wb);
             detailRepository.save(ia);

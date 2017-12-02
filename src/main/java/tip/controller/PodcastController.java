@@ -34,7 +34,7 @@ public class PodcastController {
     }
 
     @PostMapping("/newPodcast")
-    public String addBook(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
+    public String addPodcast(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
             @RequestParam String date, RedirectAttributes attributes) {
         if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
@@ -63,7 +63,7 @@ public class PodcastController {
     }
 
     @PostMapping("/podcast/{tipId}")
-    public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
+    public String editPodcast(Model model, @PathVariable Long tipId, @RequestParam String artist,
             @RequestParam String name, @RequestParam String url, @RequestParam String date,
             @RequestParam int read, RedirectAttributes attributes) {
 

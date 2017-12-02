@@ -31,8 +31,8 @@ public class Tip extends AbstractPersistable<Long> {
         CascadeType.PERSIST,
         CascadeType.MERGE
     }, fetch = FetchType.EAGER)
-    @JoinTable(name = "books",
-            joinColumns = @JoinColumn(name = "book_id"),
+    @JoinTable(name = "tips",
+            joinColumns = @JoinColumn(name = "tip_id"),
     inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
     
@@ -41,7 +41,7 @@ public class Tip extends AbstractPersistable<Long> {
         CascadeType.MERGE
     }, fetch = FetchType.EAGER)
     @JoinTable(name = "info",
-            joinColumns = @JoinColumn(name = "book_id"),
+            joinColumns = @JoinColumn(name = "tip_id"),
     inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Map<String, Detail> details;
 

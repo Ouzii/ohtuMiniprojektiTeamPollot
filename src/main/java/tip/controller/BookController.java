@@ -66,7 +66,7 @@ public class BookController {
     }
     
     @PostMapping("/book/{tipId}")
-    public String mode(Model model, @PathVariable Long tipId, @RequestParam String writer,
+    public String editBook(Model model, @PathVariable Long tipId, @RequestParam String writer,
             @RequestParam int read, @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);

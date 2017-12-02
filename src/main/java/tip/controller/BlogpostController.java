@@ -34,7 +34,7 @@ public class BlogpostController {
     }
 
     @PostMapping("/newBlogpost")
-    public String addBook(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
+    public String addBlogpost(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
             @RequestParam String date, RedirectAttributes attributes) {
         if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
@@ -63,7 +63,7 @@ public class BlogpostController {
     }
 
     @PostMapping("/blogpost/{tipId}")
-    public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
+    public String editBlogpost(Model model, @PathVariable Long tipId, @RequestParam String artist,
             @RequestParam int read, @RequestParam String name, @RequestParam String url, @RequestParam String date,
             RedirectAttributes attributes) {
 
