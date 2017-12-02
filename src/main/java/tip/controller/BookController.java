@@ -45,7 +45,9 @@ public class BookController {
         Detail i = new Detail(isbn.trim());
         Detail w = new Detail(writer);
         Detail dateDetail = new Detail(date);
+        Detail readDetail = new Detail("0");
 
+        tip.addDetail("read", readDetail);
         tip.addDetail("isbn", i);
         tip.addDetail("writer", w);
         tip.addDetail("date",dateDetail);
@@ -65,11 +67,21 @@ public class BookController {
     
     @PostMapping("/book/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String writer,
-            @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
+            @RequestParam String read, @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
-
+       
+        Detail readDetail = tip.getDetails().get("read");
+        switch (read) {
+            case "1":
+                readDetail.setValue("1");
+                break;
+            case "0":
+                readDetail.setValue("0");
+                break;
+        }
+        
         Detail isbnDetail = tip.getDetails().get("isbn");
         isbnDetail.setValue(isbn.trim());
 

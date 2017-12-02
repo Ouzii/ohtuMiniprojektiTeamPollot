@@ -40,13 +40,17 @@ public class VideoController {
             artist = "tuntematon";
         }
         Tip tip = new Tip(name, "video");
+
         Detail urlDetail = new Detail(url.trim());
         Detail artistDetail = new Detail(artist);
         Detail dateDetail = new Detail(date);
+        Detail readDetail = new Detail("0");
 
+        tip.addDetail("read", readDetail);
         tip.addDetail("url", urlDetail);
         tip.addDetail("artist", artistDetail);
         tip.addDetail("date", dateDetail);
+
         List<String> errors = videoValidator.validate(tip);
         if (errors.isEmpty()) {
             detailRepository.save(urlDetail);
@@ -62,30 +66,43 @@ public class VideoController {
 
     @PostMapping("/video/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
-            @RequestParam String name, @RequestParam String url, @RequestParam String date, RedirectAttributes attributes) {
+            @RequestParam boolean read, @RequestParam String name, @RequestParam String url, @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
 
+   
+        if (read) {
+             tip.getDetails().get("read").setValue("1");
+        } else {
+             tip.getDetails().get("read").setValue("0");
+        }
+
         Detail isbnDetail = tip.getDetails().get("url");
+
         isbnDetail.setValue(url.trim());
 
-        if (artist == null || artist.trim().isEmpty()) {
+        if (artist
+                == null || artist.trim()
+                        .isEmpty()) {
             artist = "tuntematon";
         }
         Detail artistDetail = tip.getDetails().get("artist");
+
         artistDetail.setValue(artist.trim());
 
         List<String> errors = videoValidator.validate(tip);
+
         if (errors.isEmpty()) {
             tipRepository.save(tip);
             attributes.addFlashAttribute("message", "tip has succesfully been modified olalala");
             return "redirect:/";
         }
-        attributes.addFlashAttribute("errors", errors);
+
+        attributes.addFlashAttribute(
+                "errors", errors);
         return "redirect:/video/" + tipId;
 
     }
-
 
 }

@@ -16,39 +16,41 @@
         </ul>
 
         <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+            luettu:<input type="checkbox" th:value="${tip.details['read']}" name="read" />
             nimi:<input type="text" th:value="${tip.name}" name="name" />
             URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
             Kirjoittaja:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
+            <input type="text" name="date" th:value="${tip.details['date']}"/>
 
 
             <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
         </form>
 
         <br/>
-        
-            <div>
-        <form method="POST" th:action="@{/{tipId}/addTag(tipId=${tip.id})}">
-            <div class="form-group">
-                <select name="tagId" size="10" style="width:100px">
 
-                    <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
-                </select>
-            </div>
-            <input type="submit" value="Lisää tagi!"/>
-        </form>
-        
-        <br/>
+        <div>
+            <form method="POST" th:action="@{/{tipId}/addTag(tipId=${tip.id})}">
+                <div class="form-group">
+                    <select name="tagId" size="10" style="width:100px">
 
-        <form th:method="DELETE" th:action="@{/{tipId}/deleteTag(tipId=${tip.id})}">
-            <div class="form-group">
-                <select name="tagId" size="10" style="width:100px">
+                        <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+                    </select>
+                </div>
+                <input type="submit" value="Lisää tagi!"/>
+            </form>
 
-                    <option th:each="tag : ${tip.tags}" name="tagId" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
-                </select>
-            </div>
-            <input type="submit" value="poista tagi!"/>
-        </form>
-        
+            <br/>
+
+            <form th:method="DELETE" th:action="@{/{tipId}/deleteTag(tipId=${tip.id})}">
+                <div class="form-group">
+                    <select name="tagId" size="10" style="width:100px">
+
+                        <option th:each="tag : ${tip.tags}" name="tagId" th:value="${tag.id}" th:text="${tag.name}">tag name</option>
+                    </select>
+                </div>
+                <input type="submit" value="poista tagi!"/>
+            </form>
+
         </div>
         <a href="/">Takaisin listaukseen</a><br/>
     </body>

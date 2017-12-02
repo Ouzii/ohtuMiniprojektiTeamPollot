@@ -1,4 +1,13 @@
 language: java
+sudo: required
+env: DISPLAY=':99.0'
+dist: trusty
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 notifications:
   email: false

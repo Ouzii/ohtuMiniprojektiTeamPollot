@@ -43,7 +43,9 @@ public class BlogpostController {
         Detail urlDetail = new Detail(url.trim());
         Detail artistDetail = new Detail(artist);
         Detail dateDetail = new Detail(date);
+        Detail readDetail = new Detail("0");
 
+        tip.addDetail("read", readDetail);
         tip.addDetail("url", urlDetail);
         tip.addDetail("artist", artistDetail);
         tip.addDetail("date", dateDetail);
@@ -64,11 +66,21 @@ public class BlogpostController {
 
     @PostMapping("/blogpost/{tipId}")
     public String mode(Model model, @PathVariable Long tipId, @RequestParam String artist,
-            @RequestParam String name, @RequestParam String url, @RequestParam String date,
+           @RequestParam String read, @RequestParam String name, @RequestParam String url, @RequestParam String date,
             RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
+        
+        Detail readDetail = tip.getDetails().get("read");
+        switch (read) {
+            case "1":
+                readDetail.setValue("1");
+                break;
+            case "0":
+                readDetail.setValue("0");
+                break;
+        }
 
         Detail url_type = tip.getDetails().get("url");
         url_type.setValue(url.trim());
