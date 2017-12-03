@@ -25,3 +25,7 @@ script:
   - whereis chromedriver
 notifications:
   email: false
+
+branches:
+  only:
+  - development
