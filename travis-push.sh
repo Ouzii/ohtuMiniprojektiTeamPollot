@@ -15,6 +15,7 @@ upload_files() {
   git push --set-upstream origin development:master
 }
 
+
 setup_git
 commit_website_files
 upload_files
