@@ -6,13 +6,12 @@ setup_git() {
 }
 
 commit_website_files() {
-  git checkout development
   git add -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
 upload_files() {
-  git remote add origin-pages https://${GH_TOKEN}@github.com/Ouzii/ohtuMiniprojektiTeamPollot.git > /dev/null 2>&1
+  git remote add origin https://${GH_TOKEN}@github.com/Ouzii/ohtuMiniprojektiTeamPollot.git > /dev/null 2>&1
   git push --set-upstream origin development:master
 }
 
