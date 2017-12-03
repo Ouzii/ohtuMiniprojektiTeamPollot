@@ -1,6 +1,7 @@
 package tip;
 
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,26 +18,9 @@ public class Stepdefs {
 
     WebDriver driver;
     private int startCount;
-
-    public Stepdefs() {
-//        File file;
-//        if (System.getProperty("os.name").matches("Mac OS X")) {
-//            file = new File("lib/macgeckodriver");
-//        }
-//        if (System.getProperty("os.name").matches("Windows 10")) {
-//            file = new File("lib/chromedriver.exe");
-//        } else {
-//            file = new File("lib/geckodriver");
-//        }
-//        String absolutePath = file.getAbsolutePath();
-//        System.setProperty("webdriver.gecko.driver", absolutePath);
-//        
-//        if(System.getProperty("os.name").matches("Windows 10")){
-//            System.setProperty("webdriver.chrome.driver", absolutePath);
-//        }
-
-       // File file = new File("lib/chromedriver.exe");
-       // System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+    
+    @Before
+    public void setUp() {
         this.driver = new ChromeDriver();
     }
 
