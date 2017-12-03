@@ -9,3 +9,4 @@ Feature: User can add a new tip to the system
         Given user is at add booktip page
         When valid name "nimi" and invalid isbn "9as22dasddas" and valid kirjoittaja "kirjoittaja" and date "01.12.2016" are entered
         Then tip with name "nimi" and isbn "978-951-98548-9-2" and kirjoittaja "kirjoittaja" and date "01.12.2016" is not listed
+

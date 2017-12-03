@@ -26,10 +26,3 @@ script:
 notifications:
   email: false
   
-  branches:
-  only:
-  - development
-
-after_success:
-  - .travis/push.sh
-  

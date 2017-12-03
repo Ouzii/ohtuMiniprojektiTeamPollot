@@ -8,3 +8,4 @@ Feature:  User can add and remove tags from a tip
         And tag "taginNimi" is added to the tip
         And user is at the modification page
         Then tip contains tag "taginNimi"
+

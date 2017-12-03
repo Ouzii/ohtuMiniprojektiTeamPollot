@@ -14,3 +14,4 @@ Feature: User can modify tips details name, isbn and writer
         Given user is at the modification page
         When invalid name "" valid isbn "978-951-98548-9-5" and valid writer "kirjoittaja" and date "01.12.2016" are entered
         Then "nimimerkin nimi ei saa olla tyhjä" is shown
+
