@@ -46,6 +46,7 @@ public class Stepdefs {
         driver.get("http://localhost:" + 8080 + "/2?"); // jos tulee whitelabel error vaihda viimeisen parametrin numeroarvoa
         //Thread.sleep(1000);
     }
+    
 
     @Given("^user is at the modification page of \"([^\"]*)\"$")
     public void user_is_at_the_modification_page_of(String pagenumber) throws Throwable {
