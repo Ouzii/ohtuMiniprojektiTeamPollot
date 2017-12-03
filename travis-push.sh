@@ -7,7 +7,7 @@ setup_git() {
 
 commit_website_files() {
   git checkout -b development
-  git add . *.html
+  git add -A
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
