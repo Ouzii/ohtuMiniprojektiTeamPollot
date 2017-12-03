@@ -25,16 +25,4 @@ script:
   - whereis chromedriver
 notifications:
   email: false
-
-branches:
-  only:
-  - development
-
-branches:
-  except:
-  - master
-
-after_success:
-  - curl "https://raw.githubusercontent.com/Ouzii/ohtuMiniprojektiTeamPollot/development/travis-push.sh" >> travis-push.sh
-  - chmod u+x travis-push.sh
-  - ./travis-push.sh
+  
