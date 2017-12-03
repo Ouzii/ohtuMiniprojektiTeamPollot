@@ -7,9 +7,6 @@ before_install:
   - gradle run &
   - sleep 10
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8080 &
-  - git config credential.helper "store --file=.git/credentials"; echo "https://${GITHUB_SECRET_TOKEN}:@github.com" > .git/credentials 2>/dev/null
-  - git config --global user.email "Travis@travis-ci.org"
-  - git config --global user.name "Travis-CI"
 install:
   - wget -N http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip -P ~/
   - unzip ~/chromedriver_linux64.zip -d ~/
@@ -29,12 +26,3 @@ script:
 notifications:
   email: false
   
-env:  
-  global:
-    secure: "IkFdstJ37AIIUx/GUTwV3gPpRU3CY4uV40AyxSfLur1ADTcx58cjngkJ+Gou9FcOrOb3dCzQiky5zUjqk1VoHnSQp34Isq/fOr9pMD+6M4v1Sv2Ymk/SY3Scp/rWRLbz6GUj2KqrWfhEGat2tk7ZAFGaTnjdVhSAb9LbDqWS+htXN6DiVEDhA0SBxxLFPYQbfTMiHH1o7hCcQ86jfJ8DQTKEvzRDolLQ6U1sZni4AgyfK4oRWJWgDp+r0Rawadpgc6jI3HV3e6qF6DZvYhIADcV3PoH6qK4XHLz1imcgw4o1bi1K/rKXyY12ZICIheEu7eo+sx+y5jvgB7Tt6TaobPKDFTICHtvsqCeYhTWmDFfJc8qM+p4NXYg9Py34K+frHOTai443E3+xjA/RTfr2WQ4FiT4aM5/5yK3NtLGo60ULjJ72sqY5SPREWxYgaXDs/diA5ffyUxRunw5fr/8HrvC43w/YJZUonObCo/Aapm+nmuGlrNXRR7T0eSWPGDNq6BzYjt8UZrQBKSUGplTdHl02CFfgTPcz51YcjtHnIpyLCxMxw0RtAt0SggWzT+TlVZ1OfQ4Wr5z2VNGUhGXQJjTk7wXw/p2rkIV+3pMr6alHxrKSAjdBgjupP8OtrpVdKws/050kG3vGFjvTlfm08gb0YIxYp9ZCCnX+yiyZbGQ="
-    
-
-after_success:
-  - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/Ouzii/ohtuMiniprojektiTeamPollot/development/travis-merge.sh"
-  - "chmod a+x /tmp/travis-automerge"
-  - "BRANCHES_TO_MERGE_REGEX='^devel*' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=Ouzii/OhtuMiniprojektiTeamPollot /tmp/travis-automerge"
