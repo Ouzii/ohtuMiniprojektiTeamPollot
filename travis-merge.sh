@@ -19,7 +19,7 @@ git clone "https://github.com/$GITHUB_REPO" "$repo_temp"
 # shellcheck disable=SC2164
 cd "$repo_temp"
 
-git pull "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" "$TRAVIS_BRANCH"
-git push -u "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" master
+git pull "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" "$TRAVIS_BRANCH" >/dev/null 2>&1
+git push -u "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" master >/dev/null 2>&1
 
 
