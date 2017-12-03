@@ -34,7 +34,7 @@ Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain
 
 
 ### Travisin status:
-[![Build Status](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot.svg?branch=master)](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot)
+[![Build Status](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot.svg?branch=development)](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot)
 
 
 ### Definition of Done:
