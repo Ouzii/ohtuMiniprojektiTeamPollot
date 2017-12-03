@@ -34,4 +34,4 @@ git push "$push_uri" "$BRANCH_TO_MERGE_INTO" >/dev/null 2>&1
 git push "$push_uri" :"$TRAVIS_BRANCH" >/dev/null 2>&1
 
 git checkout -b development
-git push --all
+git push --all "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" >/dev/null 2>&1
