@@ -34,7 +34,11 @@ public class Stepdefs {
         driver.get("http://localhost:" + 8080 + "/");
         //Thread.sleep(1000);
     }
-
+    @Given("^user is at add booktip page$")
+    public void user_is_at_add_booktip_page() throws Throwable {
+        driver.get("http://localhost:" + 8080 + "/book");
+        //Thread.sleep(1000);
+    }
     @Given("^user is at the modification page$")
     public void user_is_at_the_modification_page() throws Throwable {
         user_is_at_the_main_page(); //Luodaan testidataa jotta voidaan jatkaa testausta
