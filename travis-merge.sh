@@ -20,6 +20,6 @@ git clone "https://github.com/$GITHUB_REPO" "$repo_temp"
 cd "$repo_temp"
 
 git pull "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" "$TRAVIS_BRANCH"
-git push "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" "$TRAVIS_BRANCH:master" >/dev/null 2>&1
+git push -u "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" master
 
 
