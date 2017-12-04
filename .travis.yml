@@ -25,12 +25,15 @@ script:
   - whereis chromedriver
 notifications:
   email: false
+  
+env:  
+  global:
+    secure: "IkFdstJ37AIIUx/GUTwV3gPpRU3CY4uV40AyxSfLur1ADTcx58cjngkJ+Gou9FcOrOb3dCzQiky5zUjqk1VoHnSQp34Isq/fOr9pMD+6M4v1Sv2Ymk/SY3Scp/rWRLbz6GUj2KqrWfhEGat2tk7ZAFGaTnjdVhSAb9LbDqWS+htXN6DiVEDhA0SBxxLFPYQbfTMiHH1o7hCcQ86jfJ8DQTKEvzRDolLQ6U1sZni4AgyfK4oRWJWgDp+r0Rawadpgc6jI3HV3e6qF6DZvYhIADcV3PoH6qK4XHLz1imcgw4o1bi1K/rKXyY12ZICIheEu7eo+sx+y5jvgB7Tt6TaobPKDFTICHtvsqCeYhTWmDFfJc8qM+p4NXYg9Py34K+frHOTai443E3+xjA/RTfr2WQ4FiT4aM5/5yK3NtLGo60ULjJ72sqY5SPREWxYgaXDs/diA5ffyUxRunw5fr/8HrvC43w/YJZUonObCo/Aapm+nmuGlrNXRR7T0eSWPGDNq6BzYjt8UZrQBKSUGplTdHl02CFfgTPcz51YcjtHnIpyLCxMxw0RtAt0SggWzT+TlVZ1OfQ4Wr5z2VNGUhGXQJjTk7wXw/p2rkIV+3pMr6alHxrKSAjdBgjupP8OtrpVdKws/050kG3vGFjvTlfm08gb0YIxYp9ZCCnX+yiyZbGQ="
+    
 
 after_success:
-  - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge"
+  - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/Ouzii/ohtuMiniprojektiTeamPollot/development/travis-merge.sh"
   - "chmod a+x /tmp/travis-automerge"
-  - "BRANCHES_TO_MERGE_REGEX='^development' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=Ouzii/ohtuMiniprojektiTeamPollot /tmp/travis-automerge"
+  - "BRANCHES_TO_MERGE_REGEX='^devel*' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=Ouzii/OhtuMiniprojektiTeamPollot /tmp/travis-automerge"
 
-env:
-  global:
-      secure: "j7l5U5fCPEVRhvuWaKeL6sA9RIUO/WumjBdoAYSC5DWbzF/zURMI8bX4a+J59bQOjr59/5KQ9D3rEKyz41f7H1tgRPuzozKXvw6+rl5jH0WtvpGxQ1uYlMJ712c5VlkoazR5hX14kQ5pIqgyoK7/mzEJ/obj4qYyLpJb2o88dxQE8KIn9gbmwmeFOBHRipHuBYz79Nw4kwYd6VDwT0vFIUXy4IY78nID5uICdXezn9jDfN6LXcznlDdyNWm3tMLqz6xYCP5TTPn6Hxt/iSw9J919accorJ1aYmHWX3uKiQla3CVxpuLp2ToGYQf5qNQ9uHqQGfxoD2Sy7Y3vV2lCx3aKmKVIWwSUQgIqXiPJYwBjj8c3ptxWvSE4SgK1C/oZrzaQB20rlEfa+3bJsu8ic+O9Ap3+EiHFcVrAhdhYJfVRBM6issuxGxcuhFu53GstpynJDREEyRf5a3zc2D/Mn8Ap/NOg2XlG0tj/VWYE7WAT4LtRvaUM+RTPNYTsPpy1pc7gNmDJKkViVPQPnCO5W+MNWRBocyYTyh1VpyOUZub6pHnGZPkyzo76fxwDJ2R3dIBHgISSK1IVVVhcmAASSVTjawwL5Lc73s1DJNMuR31MD4aWJEuqhbrHNwsRAohIphV7qM9KpU8C5Bl0HafHmeSj4MHY7ad8Cn8tygNe1xQ="
+
