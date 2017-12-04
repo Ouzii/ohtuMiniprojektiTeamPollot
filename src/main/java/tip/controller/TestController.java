@@ -36,7 +36,7 @@ public class TestController {
             Tag ta = new Tag("tag a");
             Tag tb = new Tag("tag b");
 
-            Detail wa = new Detail("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein");
+            Detail wa = new Detail("Thomas H. Cormen and others");
 //            Detail waa = new Detail("Charles E. Leiserson");
 //            Detail waaa = new Detail("Ronald L. Rivest");
 //            Detail waaaa = new Detail("Clifford Stein");
