@@ -1,5 +1,6 @@
 package tip.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,18 +42,23 @@ public class BookController {
         if(writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
         }
+        List<String> errors = new ArrayList<>();
+        if (tipRepository.findByName(name) != null) {
+            errors.add(("Saman niminen karjainmerkki on jo olemassa!"));
+        }
         Tip tip = new Tip(name, "book");
         Detail i = new Detail(isbn.trim());
         Detail w = new Detail(writer);
         Detail dateDetail = new Detail(date);
-        Detail readDetail = new Detail("0");
+        tip.setRead(false);
+    //    Detail readDetail = new Detail("0");
 
-        tip.addDetail("read", readDetail);
+  //      tip.addDetail("read", readDetail);
         tip.addDetail("isbn", i);
         tip.addDetail("writer", w);
         tip.addDetail("date",dateDetail);
 
-        List<String> errors = bookValidator.validate(tip);
+        errors.addAll(bookValidator.validate(tip));
         if (errors.isEmpty()) {
             detailRepository.save(i);
             detailRepository.save(w);

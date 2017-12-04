@@ -1,5 +1,6 @@
 package tip.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,10 @@ public class VideoController {
         if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
+        List<String> errors = new ArrayList<>();
+        if (tipRepository.findByName(name) != null) {
+            errors.add(("Saman niminen karjainmerkki on jo olemassa!"));
+        }
         Tip tip = new Tip(name, "video");
 
         Detail urlDetail = new Detail(url.trim());
@@ -49,7 +54,7 @@ public class VideoController {
         tip.addDetail("artist", artistDetail);
         tip.addDetail("date", dateDetail);
 
-        List<String> errors = videoValidator.validate(tip);
+        errors.addAll(videoValidator.validate(tip));
         if (errors.isEmpty()) {
             detailRepository.save(urlDetail);
             detailRepository.save(artistDetail);

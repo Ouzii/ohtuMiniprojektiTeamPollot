@@ -7,15 +7,15 @@
 
     <body>
         <h1>Kirjavinkit:</h1>
-        <h3>explore testaukseen isbn13 esim: 978-951-98548-9-2</h3>
+        
         <a href="/init">Alusta testinäytteet</a><br/>
         <br/>
         <p th:text="${message}"></p>
-        <ul>
-            <li th:each="error:${errors}">
+      
+            <h4 th:each="error:${errors}">
                 <span th:text="${error}"/>
-            </li>
-        </ul>
+            </h4>
+       
         <ul>
             <li th:each="tip:${tips}">
                 Nimi: <span th:text="${tip.name}"/><br/>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </div>
-                             
+                    <span>Tiedot:</span>        
                 <ul>
                     <li th:each="detail : ${tip.details}">
                         <span th:text="${detail['key']}"></span>
