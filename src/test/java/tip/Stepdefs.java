@@ -29,7 +29,7 @@ public class Stepdefs {
 
     @Before
     public void setUp() {
-        setChromePathForLocalTesting(true); //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
+        setChromePathForLocalTesting(false); //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
         //False jos haluataan että travis build menee läpi!!!
 
         startCount = 0;
