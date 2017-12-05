@@ -28,6 +28,7 @@ Kloonaa repositorio itsellesi, siirry kloonattuun hakemistoon ja käynnistä sov
 
 ```
 
+
 Windowsissa gradle -komennon sijaan suoritetaan gradlew.bat. 
 
 Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain osoitteessa [http://localhost:8080/](http://localhost:8080)
