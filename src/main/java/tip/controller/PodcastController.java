@@ -79,14 +79,24 @@ public class PodcastController {
         } else {
             tip.setRead(false);
         }
-        Detail isbnDetail = tip.getDetails().get("url");
-        isbnDetail.setValue(url.trim());
+        Detail urlDetail = tip.getDetails().get("url");
+        urlDetail.setValue(url.trim());
 
-        if (artist == null || artist.trim().isEmpty()) {
-            artist = "tuntematon";
+        if (artist != null && !artist.trim().isEmpty()) {
+            Detail artistDetail = new Detail(artist);
+            artistDetail.addTip(tip);
+            tip.addDetail("artist", artistDetail);
+            detailRepository.save(artistDetail);
+
         }
-        Detail artistDetail = tip.getDetails().get("artist");
-        artistDetail.setValue(artist.trim());
+
+        if (date != null && !date.trim().isEmpty()) {
+            Detail pvm = new Detail(date);
+            pvm.addTip(tip);
+            tip.addDetail("date", pvm);
+            detailRepository.save(pvm);
+
+        }
 
         List<String> errors = podcastValidator.validate(tip);
         if (errors.isEmpty()) {

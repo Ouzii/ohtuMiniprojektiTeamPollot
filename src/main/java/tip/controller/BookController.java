@@ -90,9 +90,22 @@ public class BookController {
         if(writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
         }
-        Detail writerDetail = tip.getDetails().get("writer");
-        writerDetail.setValue(writer.trim());
         
+        if (writer != null && !writer.trim().isEmpty()) {
+            Detail writerDetail = new Detail(writer);
+            writerDetail.addTip(tip);
+            tip.addDetail("artist", writerDetail);
+            detailRepository.save(writerDetail);
+
+        }
+
+        if (date != null && !date.trim().isEmpty()) {
+            Detail pvm = new Detail(date);
+            pvm.addTip(tip);
+            tip.addDetail("date", pvm);
+            detailRepository.save(pvm);
+
+        }
 
         List<String> errors = bookValidator.validate(tip);
         if (errors.isEmpty()) {

@@ -78,20 +78,26 @@ public class VideoController {
             tip.setRead(true);
         } else {
             tip.setRead(false);
+        }//detail
+
+        Detail urlDetail = tip.getDetails().get("url");
+        urlDetail.setValue(url.trim());
+
+        if (artist != null && !artist.trim().isEmpty()) {
+            Detail artistDetail = new Detail(artist);
+            artistDetail.addTip(tip);
+            tip.addDetail("artist", artistDetail);
+            detailRepository.save(artistDetail);
+
         }
 
-        Detail isbnDetail = tip.getDetails().get("url");
+        if (date != null && !date.trim().isEmpty()) {
+            Detail pvm = new Detail(date);
+            pvm.addTip(tip);
+            tip.addDetail("date", pvm);
+            detailRepository.save(pvm);
 
-        isbnDetail.setValue(url.trim());
-
-        if (artist
-                == null || artist.trim()
-                        .isEmpty()) {
-            artist = "tuntematon";
         }
-        Detail artistDetail = tip.getDetails().get("artist");
-
-        artistDetail.setValue(artist.trim());
 
         List<String> errors = videoValidator.validate(tip);
 
