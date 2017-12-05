@@ -1,6 +1,5 @@
 package tip;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -232,9 +231,9 @@ public class Stepdefs {
         boolean kirjoittaja = driver.findElement(By.tagName("body")).getText().contains(arg2);
         boolean isbn = driver.findElement(By.tagName("body")).getText().contains(arg3);
         boolean date = driver.findElement(By.tagName("body")).getText().contains("2016-12-01");
-        
+
         boolean onListalla = false;
-        if(nimi || kirjoittaja || isbn || date){
+        if (nimi || kirjoittaja || isbn || date) {
             onListalla = true;
         }
 
@@ -326,6 +325,11 @@ public class Stepdefs {
         driver.findElement(By.name("date")).sendKeys(date);
         Thread.sleep(startCount);
         driver.findElement(By.name("save_changes")).click();
+    }
+
+    @When("^wait a second$")
+    public void wait_a_second() throws InterruptedException {
+        Thread.sleep(30000);
     }
 
 }
