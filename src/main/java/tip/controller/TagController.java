@@ -56,6 +56,16 @@ public class TagController {
         return "redirect:/tags";
     }
     
+    @DeleteMapping("/{tipId}/deleteTag")
+    public String deleteFromTip(@PathVariable Long tipId, @RequestParam Long tagId) {
+        Tag tag = tagRepository.getOne(tagId);
+        Tip tip = tipRepository.getOne(tipId);
+        tip.getTags().remove(tag);
+        tipRepository.save(tip);
+        
+        return "redirect:/";
+    }
+    
     @PostMapping("/{tipId}/addTag")
     public String addTagToTip(@PathVariable Long tipId, @RequestParam Long tagId) {
         Tip book = tipRepository.getOne(tipId);
@@ -67,17 +77,9 @@ public class TagController {
         tipRepository.save(book);
         tagRepository.save(tag);
 
-        return "redirect:/" + tipId;
+        return "redirect:/";
     }
     
-    @DeleteMapping("/{tipId}/deleteTag")
-    public String deleteFromTip(@PathVariable Long tipId, @RequestParam Long tagId) {
-        Tag tag = tagRepository.getOne(tagId);
-        Tip tip = tipRepository.getOne(tipId);
-        tip.getTags().remove(tag);
-        tipRepository.save(tip);
-        
-        return "redirect:/" + tipId;
-    }
+    
     
 }
