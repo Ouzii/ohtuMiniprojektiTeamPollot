@@ -18,7 +18,7 @@ import tip.repository.TipRepository;
 import tip.service.validators.BookValidator;
 
 @Controller
-public class BookController {
+public class BookController extends SuperController {
 
     @Autowired
     private TipRepository tipRepository;
@@ -29,93 +29,50 @@ public class BookController {
     @Autowired
     BookValidator bookValidator;
 
-
     @GetMapping("/book")
     public String addForm(Model model) {
         return "addBook";
     }
 
     @PostMapping("/newBook")
-    public String addBook(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn, 
+    public String addBook(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn,
             @RequestParam String date,
             RedirectAttributes attributes) {
-        if(writer == null || writer.trim().isEmpty()) {
+        if (writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
         }
-        List<String> errors = new ArrayList<>();
-        if (tipRepository.findByName(name) != null) {
-            errors.add(("Saman niminen karjainmerkki on jo olemassa!"));
-        }
-        Tip tip = new Tip(name, "book");
-        Detail i = new Detail(isbn.trim());
-        Detail w = new Detail(writer);
-        Detail dateDetail = new Detail(date);
-        tip.setRead(false);
-    //    Detail readDetail = new Detail("0");
+        List<String> errors = super.tipNameIsUnique(name);
 
-  //      tip.addDetail("read", readDetail);
-        tip.addDetail("isbn", i);
-        tip.addDetail("writer", w);
-        tip.addDetail("date",dateDetail);
+        Tip tip = new Tip(name, "book");
+        tip.setRead(false);
+
+        super.makeDetail(isbn.trim(), "isbn", tip);
+        super.makeDetail(writer, "writer", tip);
+        super.makeDetail(date, "date", tip);
 
         errors.addAll(bookValidator.validate(tip));
-        if (errors.isEmpty()) {
-            detailRepository.save(i);
-            detailRepository.save(w);
-            detailRepository.save(dateDetail);
-            this.tipRepository.save(tip);
-        } else {
-            attributes.addFlashAttribute("errors", errors);
-        }
+        super.saveTip(errors, tip, attributes);
 
         return "redirect:/";
     }
-    
+
     @PostMapping("/book/{tipId}")
     public String editBook(Model model, @PathVariable Long tipId, @RequestParam String writer,
-            @RequestParam int read, @RequestParam String name, @RequestParam String isbn,  @RequestParam String date, RedirectAttributes attributes) {
+            @RequestParam int read, @RequestParam String name, @RequestParam String isbn, @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
-       
-        if(read == 1) {
-            tip.setRead(true);
-        } else {
-            tip.setRead(false);
-        }
-        
-        Detail isbnDetail = tip.getDetails().get("isbn");
-        isbnDetail.setValue(isbn.trim());
-
-        if(writer == null || writer.trim().isEmpty()) {
-            writer = "tuntematon";
-        }
-        
-        if (writer != null && !writer.trim().isEmpty()) {
-            Detail writerDetail = new Detail(writer);
-            writerDetail.addTip(tip);
-            tip.addDetail("artist", writerDetail);
-            detailRepository.save(writerDetail);
-
-        }
-
-        if (date != null && !date.trim().isEmpty()) {
-            Detail pvm = new Detail(date);
-            pvm.addTip(tip);
-            tip.addDetail("date", pvm);
-            detailRepository.save(pvm);
-
-        }
+        super.setTipRead(tip, read);
+        super.makeDetail(writer, "writer", tip);
+        super.makeDetail(date, "date", tip);
+        super.makeDetail(isbn, "isbn", tip);
 
         List<String> errors = bookValidator.validate(tip);
-        if (errors.isEmpty()) {
-            tipRepository.save(tip);
-            attributes.addFlashAttribute("message", "tip has succesfully been modified olalala");
+        if (saveTip(errors, tip, attributes)) {
             return "redirect:/";
         }
-        attributes.addFlashAttribute("errors", errors);
         return "redirect:/book/" + tipId;
 
     }
-    
+
 }

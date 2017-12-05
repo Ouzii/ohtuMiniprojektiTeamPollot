@@ -63,6 +63,9 @@ public class Tip extends AbstractPersistable<Long> {
         if (this.details == null) {
             this.details = new TreeMap<>();
         }
+        if (detail == null || detail.getValue() == null || detail.getValue().trim().isEmpty()) {
+            return;
+        }
         this.details.put(key, detail);
     }
     public void removeTag(Tag tag) {

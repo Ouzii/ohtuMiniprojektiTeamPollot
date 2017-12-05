@@ -18,7 +18,7 @@ import tip.repository.TipRepository;
 import tip.service.validators.PodcastValidator;
 
 @Controller
-public class PodcastController {
+public class PodcastController extends SuperController {
 
     @Autowired
     private TipRepository tipRepository;
@@ -40,29 +40,17 @@ public class PodcastController {
         if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
-        List<String> errors = new ArrayList<>();
-        if (tipRepository.findByName(name) != null) {
-            errors.add(("Saman niminen karjainmerkki on jo olemassa!"));
-        }
-        Tip tip = new Tip(name, "podcast");
-        Detail urlDetail = new Detail(url.trim());
-        Detail artistDetail = new Detail(artist);
-        Detail dateDetail = new Detail(date);
+        List<String> errors = super.tipNameIsUnique(name);
 
-        tip.addDetail("url", urlDetail);
-        tip.addDetail("artist", artistDetail);
-        tip.addDetail("date", dateDetail);
+        Tip tip = new Tip(name, "podcast");
+        tip.setRead(false);
+
+        super.makeDetail(url, "url", tip);
+        super.makeDetail(artist, "artist", tip);
+        super.makeDetail(date, "date", tip);
 
         errors.addAll(podcastValidator.validate(tip));
-        if (errors.isEmpty()) {
-            detailRepository.save(urlDetail);
-            detailRepository.save(artistDetail);
-            detailRepository.save(dateDetail);
-
-            this.tipRepository.save(tip);
-        } else {
-            attributes.addFlashAttribute("errors", errors);
-        }
+        super.saveTip(errors, tip, attributes);
 
         return "redirect:/";
     }
@@ -74,37 +62,15 @@ public class PodcastController {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
-        if (read == 1) {
-            tip.setRead(true);
-        } else {
-            tip.setRead(false);
-        }
-        Detail urlDetail = tip.getDetails().get("url");
-        urlDetail.setValue(url.trim());
-
-        if (artist != null && !artist.trim().isEmpty()) {
-            Detail artistDetail = new Detail(artist);
-            artistDetail.addTip(tip);
-            tip.addDetail("artist", artistDetail);
-            detailRepository.save(artistDetail);
-
-        }
-
-        if (date != null && !date.trim().isEmpty()) {
-            Detail pvm = new Detail(date);
-            pvm.addTip(tip);
-            tip.addDetail("date", pvm);
-            detailRepository.save(pvm);
-
-        }
+        super.setTipRead(tip, read);
+        super.makeDetail(url, "url", tip);
+        super.makeDetail(artist, "artist", tip);
+        super.makeDetail(date, "date", tip);
 
         List<String> errors = podcastValidator.validate(tip);
-        if (errors.isEmpty()) {
-            tipRepository.save(tip);
-            attributes.addFlashAttribute("message", "tip has succesfully been modified olalala");
+        if (saveTip(errors, tip, attributes)) {
             return "redirect:/";
         }
-        attributes.addFlashAttribute("errors", errors);
         return "redirect:/podcast/" + tipId;
 
     }

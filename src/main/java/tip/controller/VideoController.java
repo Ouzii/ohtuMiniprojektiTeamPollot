@@ -18,7 +18,7 @@ import tip.repository.TipRepository;
 import tip.service.validators.VideoValidator;
 
 @Controller
-public class VideoController {
+public class VideoController extends SuperController {
 
     @Autowired
     private TipRepository tipRepository;
@@ -40,29 +40,17 @@ public class VideoController {
         if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
-        List<String> errors = new ArrayList<>();
-        if (tipRepository.findByName(name) != null) {
-            errors.add(("Saman niminen karjainmerkki on jo olemassa!"));
-        }
+        List<String> errors = super.tipNameIsUnique(name);
+
         Tip tip = new Tip(name, "video");
+        tip.setRead(false);
 
-        Detail urlDetail = new Detail(url.trim());
-        Detail artistDetail = new Detail(artist);
-        Detail dateDetail = new Detail(date);
-
-        tip.addDetail("url", urlDetail);
-        tip.addDetail("artist", artistDetail);
-        tip.addDetail("date", dateDetail);
+        super.makeDetail(url, "url", tip);
+        super.makeDetail(artist, "artist", tip);
+        super.makeDetail(date, "date", tip);    
 
         errors.addAll(videoValidator.validate(tip));
-        if (errors.isEmpty()) {
-            detailRepository.save(urlDetail);
-            detailRepository.save(artistDetail);
-            detailRepository.save(dateDetail);
-            this.tipRepository.save(tip);
-        } else {
-            attributes.addFlashAttribute("errors", errors);
-        }
+        super.saveTip(errors, tip, attributes);
 
         return "redirect:/";
     }
@@ -73,42 +61,16 @@ public class VideoController {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
+        super.setTipRead(tip, read);
 
-        if (read == 1) {
-            tip.setRead(true);
-        } else {
-            tip.setRead(false);
-        }//detail
-
-        Detail urlDetail = tip.getDetails().get("url");
-        urlDetail.setValue(url.trim());
-
-        if (artist != null && !artist.trim().isEmpty()) {
-            Detail artistDetail = new Detail(artist);
-            artistDetail.addTip(tip);
-            tip.addDetail("artist", artistDetail);
-            detailRepository.save(artistDetail);
-
-        }
-
-        if (date != null && !date.trim().isEmpty()) {
-            Detail pvm = new Detail(date);
-            pvm.addTip(tip);
-            tip.addDetail("date", pvm);
-            detailRepository.save(pvm);
-
-        }
+        makeDetail(url, "url", tip);
+        makeDetail(artist, "artist", tip);
+        makeDetail(date, "date", tip);
 
         List<String> errors = videoValidator.validate(tip);
-
-        if (errors.isEmpty()) {
-            tipRepository.save(tip);
-            attributes.addFlashAttribute("message", "tip has succesfully been modified olalala");
+        if (saveTip(errors, tip, attributes)) {
             return "redirect:/";
         }
-
-        attributes.addFlashAttribute(
-                "errors", errors);
         return "redirect:/video/" + tipId;
 
     }
