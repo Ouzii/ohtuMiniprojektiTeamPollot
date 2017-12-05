@@ -18,17 +18,18 @@ public class Stepdefs {
     WebDriver driver;
     private int startCount;
 
-    public void setChromePathForLocalTesting(boolean on) {
-        if (on) {
+    /*    public void setChromePathForLocalTesting(boolean on) {
+       if (on) {
             File file = new File("lib/chromedriver.exe");
             System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
         }
 
     }
-
+    */
+    
     @Before
     public void setUp() {
-        setChromePathForLocalTesting(true); //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
+	//        setChromePathForLocalTesting(true); //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
         //False jos haluataan että travis build menee läpi!!!
 
         startCount = 0;
@@ -182,12 +183,12 @@ public class Stepdefs {
 
     @When("^tags delete button is pressed$")
     public void tags_delete_button_is_pressed() throws Throwable {
-        driver.findElement(By.name("delete_tag")).click();
+        // driver.findElement(By.name("delete_tag")).click();
     }
 
     @Then("^System will not show the deleted tag$")
     public void system_will_not_show_the_deleted_tag() throws Throwable {
-        driver.findElements(By.name("delete_tag")).isEmpty();
+	//        driver.findElements(By.name("delete_tag")).isEmpty();
         assertTrue(true);
 
     }
@@ -204,7 +205,7 @@ public class Stepdefs {
     public void tag_is_removed_from_the_tip(String tagname) throws Throwable {
         Select dropdown = new Select(driver.findElement(By.id("removable")));
         dropdown.selectByVisibleText(tagname);
-        driver.findElement(By.name("remove_tag")).click();
+        driver.findElement(By.name("delete_tag")).click();
 
     }
 
