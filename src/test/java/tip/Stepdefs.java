@@ -18,7 +18,7 @@ public class Stepdefs {
 
     WebDriver driver;
     private int startCount;
-
+/*
     public void setChromePathForLocalTesting(boolean on) {
         if (on) {
             File file = new File("lib/chromedriver.exe");
@@ -26,10 +26,10 @@ public class Stepdefs {
         }
 
     }
-
+*/
     @Before
     public void setUp() {
-        setChromePathForLocalTesting(false); //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
+  //      setChromePathForLocalTesting(false); //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
         //False jos haluataan että travis build menee läpi!!!
 
         startCount = 0;
