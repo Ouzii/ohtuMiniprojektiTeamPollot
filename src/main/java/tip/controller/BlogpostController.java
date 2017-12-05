@@ -1,5 +1,6 @@
 package tip.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,10 @@ public class BlogpostController {
         if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
+        List<String> errors = new ArrayList<>();
+        if (tipRepository.findByName(name) != null) {
+            errors.add(("Saman niminen karjainmerkki on jo olemassa!"));
+        }
         Tip tip = new Tip(name, "blogpost");
         Detail urlDetail = new Detail(url.trim());
         Detail artistDetail = new Detail(artist);
@@ -48,7 +53,7 @@ public class BlogpostController {
         tip.addDetail("artist", artistDetail);
         tip.addDetail("date", dateDetail);
 
-        List<String> errors = blogpostValidator.validate(tip);
+        errors.addAll(blogpostValidator.validate(tip));
         if (errors.isEmpty()) {
             detailRepository.save(urlDetail);
             detailRepository.save(artistDetail);

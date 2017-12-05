@@ -37,6 +37,7 @@ repositories {
     
 mainClassName='tip.Main'
 
+
 dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.16.18'
@@ -73,7 +74,7 @@ dependencies {
 }
 
 test {
-    testLogging.showStandardStreams = true
+    testLogging.showStandardStreams = false
     systemProperties System.getProperties()
 }
 

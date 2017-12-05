@@ -34,6 +34,9 @@ public class TagController {
     public String addTag(@RequestParam String tag_name) {
         Tag tag = new Tag(tag_name);
         List<String> errors = tagValidator.validateTag(tag);
+        if (tagRepository.findByName(tag_name) != null) {
+            errors.add("Samanniminen tägi on jo olemassa!");
+        }
         if (errors.size() == 0) {         
             this.tagRepository.save(tag);
         }
