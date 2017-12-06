@@ -30,7 +30,7 @@ public class PodcastController extends SuperController {
             @RequestParam String artist,
             @RequestParam String url,
             @RequestParam String date, 
-            @RequestParam String kommentti,
+            @RequestParam String comment,
             RedirectAttributes attributes) {
         
         if (artist == null || artist.trim().isEmpty()) {
@@ -44,7 +44,7 @@ public class PodcastController extends SuperController {
         super.makeDetail(url, "url", tip);
         super.makeDetail(artist, "artist", tip);
         super.makeDetail(date, "date", tip);
-        super.makeDetail(kommentti, "kommentti", tip);
+        super.makeDetail(comment, "kommentti", tip);
 
         errors.addAll(podcastValidator.validate(tip));
         super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
