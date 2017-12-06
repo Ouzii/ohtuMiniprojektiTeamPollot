@@ -10,23 +10,49 @@ import tip.repository.DetailRepository;
 import tip.repository.TipRepository;
 
 public abstract class SuperController {
+
     protected final static String DEFAUL_MODE_SUCC_MSG = "tip has succesfully been modified olalala";
     protected final static String DEFAUL_ADD_SUCC_MSG = "tip has succesfully been added olalala";
-    
-    @Autowired
-    private DetailRepository detailRepository;
-    @Autowired
-    private TipRepository tipRepository;
 
-    protected Detail makeDetail(String value, String key, Tip tip) {
+    @Autowired
+    protected DetailRepository detailRepository;
+    @Autowired
+    protected TipRepository tipRepository;
 
+    protected List<String> handleDetail(String value, String key, Tip tip, List<String> notNullDetails) {
         if (value != null && !value.trim().isEmpty()) {
-            Detail detail = new Detail(value);
-            detail.addTip(tip);
-            tip.addDetail(key, detail);
-            return detail;
+            addDetail(value, key, tip);
+            return new ArrayList<>();
+        } else {
+            return removeDetail(value, key, tip, notNullDetails);
         }
-        return null;
+    }
+
+    protected void makeDetail(String value, String key, Tip tip) {
+        if (value != null && !value.trim().isEmpty()) {
+            addDetail(value, key, tip);
+        }
+    }
+
+    private void addDetail(String value, String key, Tip tip) {
+        Detail newDetail = new Detail(value);
+        newDetail.addTip(tip);
+        tip.addDetail(key, newDetail);
+    }
+
+    private List<String> removeDetail(String value, String key, Tip tip, List<String> notNullDetails) {
+        List<String> errors = new ArrayList<>();
+        Detail removeDetail = tip.getDetails().get(key);
+        if (!notNullDetails.contains(key)) {
+            if (removeDetail != null) {
+                tip.removeDetailByKey(key);
+                detailRepository.delete(removeDetail);
+
+            }
+            return errors;
+        }
+        errors.add("Poisto epäonnistui, koska " + key + " on pakollinen kenttä");
+        return errors;
     }
 
     protected void saveDetails(Tip t) {
@@ -58,7 +84,20 @@ public abstract class SuperController {
     protected ArrayList<String> tipNameIsUnique(String name) {
         ArrayList<String> errors = new ArrayList<>();
         if (tipRepository.findByName(name) != null) {
-            errors.add(("Saman niminen karjainmerkki on jo olemassa!"));
+            errors.add(("Saman niminen kirjainmerkki on jo olemassa!"));
+        }
+        return errors;
+    }
+
+    protected ArrayList<String> tipNameComboIsUnique(String tipName, String detailName) {
+        ArrayList<String> errors = new ArrayList<>();
+        Tip foundTip = tipRepository.findByName(tipName);
+
+        if (foundTip != null) {
+            Detail foundDetail = foundTip.getDetails().get(detailName);
+            if (foundDetail != null && foundDetail.getValue().equals(detailName)) {
+                errors.add(("Saman niminen kirjainmerkki on jo olemassa samalla alanimellä!"));
+            }
         }
         return errors;
     }

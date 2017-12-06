@@ -20,12 +20,11 @@ public class TestController {
     private TipRepository tipRepository;
     @Autowired
     private DetailRepository detailRepository;
-    private boolean init = false;
 
     @GetMapping("/init")
     @Transactional
     public String init() {
-        if (!init) {
+        if (tipRepository.count() == 0) {
             //core
             Tip blogPost = new Tip("Minun blogini luetuista kirjamerkeistä", "blogpost");
             blogPost.setRead(true);
@@ -96,7 +95,6 @@ public class TestController {
             podcast.addDetail("url", vit);
             
             
-            init = true;
         }
 
         return "redirect:/";

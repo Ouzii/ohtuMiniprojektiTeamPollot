@@ -1,13 +1,7 @@
 package tip.service.validators;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 import tip.domain.Tip;
 
@@ -23,6 +17,9 @@ public class VideoValidator extends Validator{
         if (!validateDetailStringLength(video, "artist",0, 63, CAN_NULL)) {
             errors.add("artisti joko tyhjä tai max 63 merkkiä");
         }
+        if (!validateDetailStringLength(video, "kommentti",0, 253, CAN_NULL)) {
+            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+        }
         if (!validateType(video, "video")) {
             errors.add("Ei ole video");
         }
@@ -35,6 +32,11 @@ public class VideoValidator extends Validator{
         }
 
         return errors;
+    }
+
+    @Override
+    public List<String> getNotNullDetailKeys() {
+        return new ArrayList<>();
     }
 
 }

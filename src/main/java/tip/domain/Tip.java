@@ -71,7 +71,11 @@ public class Tip extends AbstractPersistable<Long> {
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
     }
-
+    public void removeDetailByKey(String key) {
+         if (details.containsKey(key)) {
+             details.remove(key);
+         }
+    }
  
     
     ///hashauksee
