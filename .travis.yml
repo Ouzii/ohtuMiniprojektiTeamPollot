@@ -24,12 +24,9 @@ install:
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - sleep 3  
   - sleep 10
 script:
   - gradle check
-  - whereis google-chrome-stable
-  - whereis chromedriver
 notifications:
   email: false
   
@@ -39,6 +36,7 @@ env:
     
 
 after_success:
+  - whereis bash
   - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/Ouzii/ohtuMiniprojektiTeamPollot/development/travis-merge.sh"
   - "chmod a+x /tmp/travis-automerge"
   - "BRANCHES_TO_MERGE_REGEX='^development' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=Ouzii/OhtuMiniprojektiTeamPollot /tmp/travis-automerge"
