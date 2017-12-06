@@ -312,7 +312,9 @@ public class Stepdefs {
     @When("^valid name \"([^\"]*)\" valid url \"([^\"]*)\" valid artisti \"([^\"]*)\" and valid date \"([^\"]*)\" are entered$")
     public void valid_name_valid_url_valid_artisti_and_valid_date_are_entered(String name, String url, String artist, String date) throws Throwable {
         driver.findElement(By.name("name")).sendKeys(name);
-        driver.findElement(By.name("url")).sendKeys(url);
+	WebElement uel = driver.findElement(By.name("url"));
+	uel.clear();
+	uel.sendKeys(url);
         driver.findElement(By.name("artist")).sendKeys(artist);
         driver.findElement(By.name("date")).sendKeys(date);
         driver.findElement(By.name("add_book")).click();
@@ -321,7 +323,9 @@ public class Stepdefs {
     @When("^modification details valid name \"([^\"]*)\" valid url \"([^\"]*)\" valid artisti \"([^\"]*)\" and valid date \"([^\"]*)\" are entered$")
     public void modification_details_valid_name_valid_url_valid_artisti_and_valid_date_are_entered(String name, String url, String artist, String date) throws Throwable {
         driver.findElement(By.name("name")).sendKeys(name);
-        driver.findElement(By.name("url")).sendKeys(url);
+	WebElement uel = driver.findElement(By.name("url"));
+	uel.clear();
+	uel.sendKeys(url);
         driver.findElement(By.name("artist")).sendKeys(artist);
         driver.findElement(By.name("date")).sendKeys(date);
         Thread.sleep(startCount);

@@ -52,9 +52,13 @@ public abstract class Validator {
 
         return true;
     }
-
+    /** 
+     * kelpaavat urlit ovat muotoa https://jotain.jota2in.jotain94(:99999-:00000)/jotain-&/?=$.0-9
+     * 
+     * @author Raul Becker
+     */
     protected boolean validateUrlFormat(Tip tip, String key, boolean notNull) {
-
+	
         Detail url = tip.getDetails().get(key);
         if (url == null) {
             if (notNull == CAN_NULL) {
@@ -62,8 +66,8 @@ public abstract class Validator {
             } else {
                 return false;
             }
-        }
-        if (url.getValue().matches("^(https|http)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]") == false) {
+        } 
+        if (url.getValue().matches("^(http|https):\\/\\/([a-zA-Z0-9.-])*((:[0-9]{1,5}\\/)|\\/|)([A-Za-z0-9\\/\\-.$&=?])*$") == false) {
             return false;
         }
 
@@ -81,8 +85,8 @@ public abstract class Validator {
             }
         }
 
-        String date = dateDetail.getValue();
-        return trydateformats(date, "MM.dd.yyyy")
+        String date = dateDetail.getValue(); 
+        return trydateformats(date, "MM.dd.yyyy") 
                 || trydateformats(date, "MM-dd-yyyy")
                 || trydateformats(date, "yyyy-MM-dd")
                 || trydateformats(date, "yyyy.MM.dd")
@@ -91,6 +95,35 @@ public abstract class Validator {
 
     }
 
+    /**
+     * Tämä on nyt siinä muodossa mitä tuo html5 datepicker haluaa syöttää eli "yyyy-MM-dd"
+     * 
+     * yyyy saa olla mitä vaan väliltä 0000-9999
+     * MM saa olla 10-12 tai 01-09 
+     * dd saa olla 30-31 tai 10-29 tai 01-09 
+     *
+     * @author  Raul Becker
+     *  
+     */
+    protected boolean IS_COMPUTER_DATE_OK_YES_OR_NO(String date) {
+        if (date.matches("^(?:([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9]))$")) {
+            try {
+                DateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+                Date parsedDate = d.parse(date);
+                if (d.format(parsedDate).equals(date)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (ParseException ex) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
+    
     private boolean trydateformats(String date, String format) {
         try {
             DateFormat d = new SimpleDateFormat(format);
