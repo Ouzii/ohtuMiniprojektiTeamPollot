@@ -17,9 +17,6 @@ public class BookValidator extends Validator {
         if (!validateDetailStringLength(book, "writer", 0, 63,CAN_NULL)) {
             errors.add("kirjoittaja joko tyhjä tai max 63 merkkiä");
         }
-        if (!validateDetailStringLength(book, "kommentti",0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
-        }
         if (!validateType(book, "book")) {
             errors.add("Ei ole kirja");
         }
@@ -32,11 +29,5 @@ public class BookValidator extends Validator {
 //            errors.add("not a valid date");
 //        }
         return errors;
-    }
-    @Override
-    public List<String> getNotNullDetailKeys() {
-        ArrayList<String> notNullList = new ArrayList<>();
-        notNullList.add("isbn");
-        return notNullList;
     }
 }

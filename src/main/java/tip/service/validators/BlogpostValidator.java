@@ -14,9 +14,6 @@ public class BlogpostValidator  extends Validator {
         if (!validateName(blogpost)) {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(blogpost, "kommentti",0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
-        }
         if (!validateDetailStringLength(blogpost, "artist", 0, 63, CAN_NULL)) {
             errors.add("artisti joko tyhjä tai max 63 merkkiä");
         }
@@ -32,9 +29,5 @@ public class BlogpostValidator  extends Validator {
         }
 
         return errors;
-    }
-    @Override
-    public List<String> getNotNullDetailKeys() {
-        return new ArrayList<>();
     }
 }

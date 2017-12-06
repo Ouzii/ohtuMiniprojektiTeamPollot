@@ -10,12 +10,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import tip.domain.Detail;
 import tip.domain.Tip;
+import tip.repository.DetailRepository;
+import tip.repository.TagRepository;
+import tip.repository.TipRepository;
 import tip.service.validators.BookValidator;
 
 @Controller
 public class BookController extends SuperController {
 
+    @Autowired
+    private TipRepository tipRepository;
+    @Autowired
+    private TagRepository tagRepository;
+    @Autowired
+    private DetailRepository detailRepository;
     @Autowired
     BookValidator bookValidator;
 
@@ -25,14 +35,9 @@ public class BookController extends SuperController {
     }
 
     @PostMapping("/newBook")
-    public String addBook(
-            @RequestParam String name,
-            @RequestParam String writer,
-            @RequestParam String isbn,
+    public String addBook(@RequestParam String name, @RequestParam String writer, @RequestParam String isbn,
             @RequestParam String date,
-            @RequestParam String comment,
             RedirectAttributes attributes) {
-        
         if (writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
         }
@@ -44,7 +49,6 @@ public class BookController extends SuperController {
         super.makeDetail(isbn.trim(), "isbn", tip);
         super.makeDetail(writer, "writer", tip);
         super.makeDetail(date, "date", tip);
-        super.makeDetail(comment, "kommentti", tip);
 
         errors.addAll(bookValidator.validate(tip));
         super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
@@ -53,26 +57,17 @@ public class BookController extends SuperController {
     }
 
     @PostMapping("/book/{tipId}")
-    public String editBook(Model model,
-            @PathVariable Long tipId,
-            @RequestParam String writer,
-            @RequestParam int read,
-            @RequestParam String name,
-            @RequestParam String isbn,
-            @RequestParam String date,
-            @RequestParam String comment,
-            RedirectAttributes attributes) {
+    public String editBook(Model model, @PathVariable Long tipId, @RequestParam String writer,
+            @RequestParam int read, @RequestParam String name, @RequestParam String isbn, @RequestParam String date, RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
+        super.setTipRead(tip, read);
+        super.makeDetail(writer, "writer", tip);
+        super.makeDetail(date, "date", tip);
+        super.makeDetail(isbn, "isbn", tip);
 
-        List<String> errors = new ArrayList<>();
-        setTipRead(tip, read);
-        errors.addAll(handleDetail(writer, "writer", tip, bookValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(isbn, "isbn", tip, bookValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(date, "date", tip, bookValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(comment, "kommentti", tip, bookValidator.getNotNullDetailKeys()));
-        errors.addAll(bookValidator.validate(tip));
+        List<String> errors = bookValidator.validate(tip);
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";
         }

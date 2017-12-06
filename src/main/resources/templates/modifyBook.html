@@ -15,27 +15,28 @@
             </li>
         </ul>
 
-
-        <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
-                 <div th:if="${tip.read}">
+        <div th:if="${tip.read}">
+            <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
                 luettu:<input type="checkbox" value="1" checked="true" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
-                </div>
-                <div th:unless="${tip.read}">
-                luettu:<input type="checkbox" value="1" name="read"/>
-                <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
-                </div>
-                <br/>   <br/>   <br/>
                 nimi:<input type="text" th:value="${tip.name}" name="name" />
                 ISBN:<input type="text" th:value="${tip.details['isbn']}" name="isbn"/>
                 kirjoittaja:<input type="text" th:value="${tip.details['writer']}" name="writer"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
-            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
-                
-                Kommentti: <br/>
-            <textarea cols="100" rows="10" name="comment"  th:text="${tip.details['kommentti']}"></textarea>
+                <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
             </form>
-    
+        </div>
+        <div th:unless="${tip.read}">
+            <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+                luettu:<input type="checkbox" value="1" name="read"/>
+                <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
+                nimi:<input type="text" th:value="${tip.name}" name="name" />
+                ISBN:<input type="text" th:value="${tip.details['isbn']}" name="isbn"/>
+                kirjoittaja:<input type="text" th:value="${tip.details['writer']}" name="writer"/>
+                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
+                <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
+            </form>
+        </div>
 
   <br/>
 

@@ -10,12 +10,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import tip.domain.Detail;
 import tip.domain.Tip;
+import tip.repository.DetailRepository;
+import tip.repository.TagRepository;
+import tip.repository.TipRepository;
 import tip.service.validators.BlogpostValidator;
 
 @Controller
 public class BlogpostController extends SuperController {
 
+    @Autowired
+    private TipRepository tipRepository;
+    @Autowired
+    private TagRepository tagRepository;
+    @Autowired
+    private DetailRepository detailRepository;
     @Autowired
     BlogpostValidator blogpostValidator;
 
@@ -25,14 +35,8 @@ public class BlogpostController extends SuperController {
     }
 
     @PostMapping("/newBlogpost")
-    public String addBlogpost(
-            @RequestParam String name,
-            @RequestParam String artist,
-            @RequestParam String url,         
-            @RequestParam String date,
-            @RequestParam String kommentti,
-            RedirectAttributes attributes) {
-        
+    public String addBlogpost(@RequestParam String name, @RequestParam String artist, @RequestParam String url,
+            @RequestParam String date, RedirectAttributes attributes) {
         if (artist == null || artist.trim().isEmpty()) {
             artist = "tuntematon";
         }
@@ -44,7 +48,6 @@ public class BlogpostController extends SuperController {
         super.makeDetail(url, "url", tip);
         super.makeDetail(artist, "artist", tip);
         super.makeDetail(date, "date", tip);
-        super.makeDetail(kommentti, "kommentti", tip);
 
         errors.addAll(blogpostValidator.validate(tip));
         super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
@@ -53,27 +56,18 @@ public class BlogpostController extends SuperController {
     }
 
     @PostMapping("/blogpost/{tipId}")
-    public String editBlogpost(Model model, 
-            @PathVariable Long tipId, 
-            @RequestParam String artist,
-            @RequestParam int read, 
-            @RequestParam String name, 
-            @RequestParam String url, 
-            @RequestParam String date,
-            @RequestParam String comment,
+    public String editBlogpost(Model model, @PathVariable Long tipId, @RequestParam String artist,
+            @RequestParam int read, @RequestParam String name, @RequestParam String url, @RequestParam String date,
             RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
         tip.setName(name);
-        
-        List<String> errors = new ArrayList<>();
-        setTipRead(tip, read);
-        errors.addAll(handleDetail(url, "url", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(artist, "artist", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(date, "date", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(comment, "kommentti", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(blogpostValidator.validate(tip));
+        super.setTipRead(tip, read);
+        super.makeDetail(url, "url", tip);
+        super.makeDetail(artist, "artist", tip);
+        super.makeDetail(date, "date", tip);
 
+        List<String> errors = blogpostValidator.validate(tip);
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";
         }

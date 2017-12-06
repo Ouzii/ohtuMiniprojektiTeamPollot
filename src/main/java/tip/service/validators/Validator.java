@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import tip.domain.Detail;
 import tip.domain.Tip;
 
@@ -13,8 +12,6 @@ public abstract class Validator {
     protected static final boolean CAN_NULL = false;
     protected static final boolean NOT_NULL = true;
     protected static final int STR_MAX_LEN = 63;
-    
-    public abstract List<String> getNotNullDetailKeys();
 
     protected boolean validateName(Tip t) {
         if (t.getName().trim().isEmpty()) {
