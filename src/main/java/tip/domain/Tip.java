@@ -1,8 +1,6 @@
 package tip.domain;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -33,16 +31,16 @@ public class Tip extends AbstractPersistable<Long> {
     }, fetch = FetchType.EAGER)
     @JoinTable(name = "tips",
             joinColumns = @JoinColumn(name = "tip_id"),
-    inverseJoinColumns = @JoinColumn(name = "tag_id"))
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
-    
+
     @ManyToMany(cascade = {
         CascadeType.PERSIST,
         CascadeType.MERGE
     }, fetch = FetchType.EAGER)
     @JoinTable(name = "info",
             joinColumns = @JoinColumn(name = "tip_id"),
-    inverseJoinColumns = @JoinColumn(name = "detail_id"))
+            inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Map<String, Detail> details;
 
     public Tip(String name, String type) {
@@ -68,22 +66,31 @@ public class Tip extends AbstractPersistable<Long> {
         }
         this.details.put(key, detail);
     }
+
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
     }
 
- 
-    
+    public void removeDetailByKey(String key) {
+        if (details.containsKey(key)) {
+            details.remove(key);
+        }
+    }
+
     ///hashauksee
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Tip tip = (Tip) o;
-        return this.getId() != null 
+        return this.getId() != null
                 && Objects.equals(this.getId(), tip.getId());
     }
- 
+
     @Override
     public int hashCode() {
         return Objects.hash(name);

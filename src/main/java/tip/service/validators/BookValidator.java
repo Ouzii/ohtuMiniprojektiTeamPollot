@@ -14,10 +14,10 @@ public class BookValidator extends Validator {
         if (!validateName(book)) {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(book, "writer", 0, 63,CAN_NULL)) {
+        if (!validateDetailStringLength(book, "writer", 0, 63, CAN_NULL)) {
             errors.add("kirjoittaja joko tyhjä tai max 63 merkkiä");
         }
-        if (!validateDetailStringLength(book, "kommentti",0, 253, CAN_NULL)) {
+        if (!validateDetailStringLength(book, "kommentti", 0, 253, CAN_NULL)) {
             errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
         }
         if (!validateType(book, "book")) {
@@ -33,6 +33,7 @@ public class BookValidator extends Validator {
 //        }
         return errors;
     }
+
     @Override
     public List<String> getNotNullDetailKeys() {
         ArrayList<String> notNullList = new ArrayList<>();

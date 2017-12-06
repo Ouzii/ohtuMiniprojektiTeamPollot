@@ -1,4 +1,3 @@
-
 package tip.controller;
 
 import java.util.List;
@@ -16,17 +15,19 @@ import tip.repository.TipRepository;
 
 @Controller
 public class TipController {
+
     @Autowired
     private TipRepository tipRepository;
     @Autowired
     private TagRepository tagRepository;
-    
+
     @GetMapping("/")
     public String list(Model model) {
         model.addAttribute("tips", tipRepository.findAll());
         model.addAttribute("tags", tagRepository.findAll());
         return "index";
     }
+
     @Transactional
     @DeleteMapping("/{tipId}")
     public String delete(@PathVariable Long tipId) {
@@ -34,7 +35,7 @@ public class TipController {
         tipRepository.delete(book);
         return "redirect:/";
     }
-    
+
     @GetMapping("{tipType}/{tipId}")
     public String show(Model model, @PathVariable Long tipId, @PathVariable String tipType) {
         Tip tip = tipRepository.findOne(tipId);
@@ -43,7 +44,7 @@ public class TipController {
 
         model.addAttribute("tip", tip);
         model.addAttribute("tags", nonHavingTags);
-        switch(String.valueOf(tipType)) {
+        switch (String.valueOf(tipType)) {
             case "book":
                 return "modifyBook";
             case "podcast":
@@ -53,13 +54,13 @@ public class TipController {
             case "blogpost":
                 return "modifyBlogpost";
         }
-        
+
         if (tipType.equals("book")) {
-        return "modifyBook";
+            return "modifyBook";
         } else if (tipType.equals("podcast")) {
             return "modifyPodcast";
         }
-        
+
         return "redirect:/";
     }
 }

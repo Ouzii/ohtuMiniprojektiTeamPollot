@@ -13,7 +13,7 @@ public abstract class Validator {
     protected static final boolean CAN_NULL = false;
     protected static final boolean NOT_NULL = true;
     protected static final int STR_MAX_LEN = 63;
-    
+
     public abstract List<String> getNotNullDetailKeys();
 
     protected boolean validateName(Tip t) {
@@ -98,7 +98,7 @@ public abstract class Validator {
                 return false;
             }
         }
-        
+
         String date = dateDetail.getValue();
         if (date.matches("^(?:(1[0-2]|0[1-9]).(3[01]|[12][0-9]|0[1-9])|(3[01]|[12][0-9]|0[1-9]).(1[0-2]|0[1-9])).[0-9]{4}$")) {
             try {

@@ -14,17 +14,17 @@ public class PodcastValidator extends Validator {
         if (!validateName(podcast)) {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(podcast, "artist",0, 63, CAN_NULL)) {
+        if (!validateDetailStringLength(podcast, "artist", 0, 63, CAN_NULL)) {
             errors.add("artisti joko tyhjä tai max 63 merkkiä");
         }
-        if (!validateDetailStringLength(podcast, "kommentti",0, 253, CAN_NULL)) {
+        if (!validateDetailStringLength(podcast, "kommentti", 0, 253, CAN_NULL)) {
             errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
         }
 
         if (!validateType(podcast, "podcast")) {
             errors.add("Ei ole podcast");
         }
-      
+
         if (!validateUrlFormat(podcast, "url", CAN_NULL)) {
             errors.add("url on vääränlainen");
         }
@@ -34,7 +34,7 @@ public class PodcastValidator extends Validator {
         }
         return errors;
     }
-    
+
     @Override
     public List<String> getNotNullDetailKeys() {
         return new ArrayList<>();
