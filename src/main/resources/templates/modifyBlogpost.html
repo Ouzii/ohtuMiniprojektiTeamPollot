@@ -15,31 +15,29 @@
             </li>
         </ul>
 
-        <div th:if="${tip.read}">
+       
             <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+                 <div th:if="${tip.read}">
                 luettu:<input type="checkbox" value="1" checked="true" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
-                nimi:<input type="text" th:value="${tip.name}" name="name" />
-                URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
-                Kirjoittaja:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
-                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
-                <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
-            </form>
-        </div>
-        <div th:unless="${tip.read}">
-            <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+                </div>
+                <div th:unless="${tip.read}">
                 luettu:<input type="checkbox" value="1" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
+                </div>
+                <br/>   <br/>   <br/>  
+                
                 nimi:<input type="text" th:value="${tip.name}" name="name" />
                 URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
                 Kirjoittaja:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
                 <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
+                Kommentti: <br/>
+                 <textarea cols="100" rows="10" name="comment"  th:text="${tip.details['kommentti']}"></textarea>
             </form>
-        </div>
-
        <br/>
-
+       
+       
        <div>
             <form method="POST" th:action="@{/{tipId}/addTag(tipId=${tip.id})}">
                 <div class="form-group">

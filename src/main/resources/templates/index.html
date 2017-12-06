@@ -20,40 +20,14 @@
             <li th:each="tip:${tips}">
                 Nimi: <span th:text="${tip.name}"/><br/>
                 Tyyppi: <span th:text="${tip.type}"/><br/>
-            <div th:switch="${tip.type}">     
-                <div th:case="book">                                   
+                                          
                     <div th:if="${tip.read}">
                         Luettu: <input type="checkbox" checked="true" disabled="disabled"/>
                     </div>
                     <div th:unless="${tip.read}">
                         Luettu: <input type="checkbox" disabled="disabled"/>
                     </div>
-                </div>
-                <div th:case="podcast">                                   
-                    <div th:if="${tip.read}">
-                        Kuunneltu: <input type="checkbox" checked="true" disabled="disabled"/>
-                    </div>
-                    <div th:unless="${tip.read}">
-                        Kuunneltu: <input type="checkbox" disabled="disabled"/>
-                    </div>
-                </div>
-                <div th:case="video">                                   
-                    <div th:if="${tip.read}">
-                        Katsottu: <input type="checkbox" checked="true" disabled="disabled"/>
-                    </div>
-                    <div th:unless="${tip.read}">
-                        Katsottu: <input type="checkbox" disabled="disabled"/>
-                    </div>
-                </div>
-                <div th:case="*">                                   
-                    <div th:if="${tip.read}">
-                        Luettu: <input type="checkbox" checked="true" disabled="disabled"/>
-                    </div>
-                    <div th:unless="${tip.read}">
-                        Luettu: <input type="checkbox" disabled="disabled"/>
-                    </div>
-                </div>
-            </div>
+           
                     <span>Tiedot:</span>        
                 <ul>
                     <li th:each="detail : ${tip.details}">
