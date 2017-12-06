@@ -18,7 +18,7 @@ apply plugin: 'application'
 
 
 
-logging.captureStandardOutput LogLevel.QUIET
+logging.captureStandardOutput LogLevel.ERROR
 
 project.ext {
     cucumberVersion = "1.2.5"
@@ -74,7 +74,7 @@ dependencies {
 }
 
 test {
-    testLogging.showStandardStreams = false
+    testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }
 
