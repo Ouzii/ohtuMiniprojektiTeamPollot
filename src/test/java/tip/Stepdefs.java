@@ -155,7 +155,7 @@ public class Stepdefs {
     @When("^delete button is clicked$")
     public void delete_button_is_clicked() {
         startCount = driver.findElements(By.xpath("//button")).size();
-        driver.findElement(By.tagName("button")).click();
+        driver.findElement(By.className("del_button")).click();
 
     }
 
