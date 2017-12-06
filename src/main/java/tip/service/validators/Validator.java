@@ -68,24 +68,6 @@ public abstract class Validator {
         }
 
         return true;
-        /*mikä tää on
-            if (date.matches("^(?:(1[0-2]|0[1-9]).(3[01]|[12][0-9]|0[1-9])|(3[01]|[12][0-9]|0[1-9]).(1[0-2]|0[1-9])).[0-9]{4}$")) {
-            try {
-                DateFormat d = new SimpleDateFormat("MM.dd.yyyy");
-                Date parsedDate = d.parse(date);
-                if (d.format(parsedDate).equals(date)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (ParseException ex) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-         */
-
     }
 
     protected boolean validateDateFormat(Tip tip, String key, boolean notNull) {
@@ -100,21 +82,26 @@ public abstract class Validator {
         }
 
         String date = dateDetail.getValue();
-        if (date.matches("^(?:(1[0-2]|0[1-9]).(3[01]|[12][0-9]|0[1-9])|(3[01]|[12][0-9]|0[1-9]).(1[0-2]|0[1-9])).[0-9]{4}$")) {
-            try {
-                DateFormat d = new SimpleDateFormat("MM.dd.yyyy");
-                Date parsedDate = d.parse(date);
-                if (d.format(parsedDate).equals(date)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (ParseException ex) {
+        return trydateformats(date, "MM.dd.yyyy")
+                || trydateformats(date, "MM-dd-yyyy")
+                || trydateformats(date, "yyyy-MM-dd")
+                || trydateformats(date, "yyyy.MM.dd")
+                || trydateformats(date, "dd-MM-yyyy")
+                || trydateformats(date, "dd.MM.yyyy");
+
+    }
+
+    private boolean trydateformats(String date, String format) {
+        try {
+            DateFormat d = new SimpleDateFormat(format);
+            Date parsedDate = d.parse(date);
+            if (d.format(parsedDate).equals(date)) {
+                return true;
+            } else {
                 return false;
             }
-        } else {
-            //täs oli enne false ja se ei saanu validei pvm hyväksyttyä
-            return true;
+        } catch (ParseException ex) {
+            return false;
         }
 
     }
