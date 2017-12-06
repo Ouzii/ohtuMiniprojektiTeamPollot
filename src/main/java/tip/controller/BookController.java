@@ -51,7 +51,7 @@ public class BookController extends SuperController {
         super.makeDetail(date, "date", tip);
 
         errors.addAll(bookValidator.validate(tip));
-        super.saveTip(errors, tip, attributes);
+        super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
 
         return "redirect:/";
     }
@@ -68,7 +68,7 @@ public class BookController extends SuperController {
         super.makeDetail(isbn, "isbn", tip);
 
         List<String> errors = bookValidator.validate(tip);
-        if (saveTip(errors, tip, attributes)) {
+        if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";
         }
         return "redirect:/book/" + tipId;
