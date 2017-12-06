@@ -50,7 +50,7 @@ public class VideoController extends SuperController {
         super.makeDetail(date, "date", tip);    
 
         errors.addAll(videoValidator.validate(tip));
-        super.saveTip(errors, tip, attributes);
+        super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
 
         return "redirect:/";
     }
@@ -68,7 +68,7 @@ public class VideoController extends SuperController {
         makeDetail(date, "date", tip);
 
         List<String> errors = videoValidator.validate(tip);
-        if (saveTip(errors, tip, attributes)) {
+       if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";
         }
         return "redirect:/video/" + tipId;

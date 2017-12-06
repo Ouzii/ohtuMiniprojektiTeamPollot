@@ -22,7 +22,7 @@ public class TagController {
     private TagRepository tagRepository;
     @Autowired
     private TipRepository tipRepository;
-    @Autowired 
+    @Autowired
     TagValidator tagValidator;
 
     @GetMapping("/tags")
@@ -30,6 +30,7 @@ public class TagController {
         model.addAttribute("tags", tagRepository.findAll());
         return "tags";
     }
+
     @PostMapping("/newTag")
     public String addTag(@RequestParam String tag_name) {
         Tag tag = new Tag(tag_name);
@@ -37,13 +38,12 @@ public class TagController {
         if (tagRepository.findByName(tag_name) != null) {
             errors.add("Samanniminen tägi on jo olemassa!");
         }
-        if (errors.size() == 0) {         
+        if (errors.size() == 0) {
             this.tagRepository.save(tag);
         }
         return "redirect:/tags";
     }
-    
-    
+
     @DeleteMapping("/deleteTag/{tagId}")
     public String delete(@PathVariable Long tagId) {
         Tag tag = tagRepository.getOne(tagId);
@@ -55,31 +55,29 @@ public class TagController {
         tagRepository.delete(tag);
         return "redirect:/tags";
     }
-    
+
     @DeleteMapping("/{tipId}/deleteTag")
     public String deleteFromTip(@PathVariable Long tipId, @RequestParam Long tagId) {
         Tag tag = tagRepository.getOne(tagId);
         Tip tip = tipRepository.getOne(tipId);
         tip.getTags().remove(tag);
         tipRepository.save(tip);
-        
-        return "redirect:/";
+
+        return "redirect:/" + tip.getType() + "/" + tip.getId();
     }
-    
+
     @PostMapping("/{tipId}/addTag")
     public String addTagToTip(@PathVariable Long tipId, @RequestParam Long tagId) {
-        Tip book = tipRepository.getOne(tipId);
+        Tip tip = tipRepository.getOne(tipId);
         Tag tag = tagRepository.getOne(tagId);
 
-        book.addTag(tag);
-        tag.addTip(book);
+        tip.addTag(tag);
+        tag.addTip(tip);
 
-        tipRepository.save(book);
+        tipRepository.save(tip);
         tagRepository.save(tag);
 
-        return "redirect:/";
+        return "redirect:/" + tip.getType() + "/" + tip.getId();
     }
-    
-    
-    
+
 }

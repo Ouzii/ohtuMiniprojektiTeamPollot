@@ -50,7 +50,7 @@ public class BlogpostController extends SuperController {
         super.makeDetail(date, "date", tip);
 
         errors.addAll(blogpostValidator.validate(tip));
-        super.saveTip(errors, tip, attributes);
+        super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
 
         return "redirect:/";
     }
@@ -68,7 +68,7 @@ public class BlogpostController extends SuperController {
         super.makeDetail(date, "date", tip);
 
         List<String> errors = blogpostValidator.validate(tip);
-        if (saveTip(errors, tip, attributes)) {
+        if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";
         }
         return "redirect:/blogpost/" + tipId;

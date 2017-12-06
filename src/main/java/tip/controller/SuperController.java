@@ -10,7 +10,9 @@ import tip.repository.DetailRepository;
 import tip.repository.TipRepository;
 
 public abstract class SuperController {
-
+    protected final static String DEFAUL_MODE_SUCC_MSG = "tip has succesfully been modified olalala";
+    protected final static String DEFAUL_ADD_SUCC_MSG = "tip has succesfully been added olalala";
+    
     @Autowired
     private DetailRepository detailRepository;
     @Autowired
@@ -41,10 +43,11 @@ public abstract class SuperController {
         }
     }
 
-    protected boolean saveTip(List<String> errors, Tip tip, RedirectAttributes attributes) {
+    protected boolean saveTip(List<String> errors, Tip tip, RedirectAttributes attributes, String successMsg) {
         if (errors.isEmpty()) {
             saveDetails(tip);
             this.tipRepository.save(tip);
+            attributes.addFlashAttribute("message", successMsg);
             return true;
         } else {
             attributes.addFlashAttribute("errors", errors);
