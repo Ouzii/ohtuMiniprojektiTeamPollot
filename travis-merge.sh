@@ -3,8 +3,10 @@
 # tama saattaisi auttaa travista asiassa
 #shopt -s extglob
 
-: "${BRANCHES_TO_MERGE_REGEX?}" "${BRANCH_TO_MERGE_INTO?}"
-: "${GITHUB_SECRET_TOKEN?}" "${GITHUB_REPO?}"
+(: "${BRANCHES_TO_MERGE_REGEX?}")
+(: "${BRANCH_TO_MERGE_INTO?")
+(: "${GITHUB_SECRET_TOKEN?")
+(: "GITHUB_REPO?}")
 
 export GIT_COMMITTER_EMAIL='travis@travis'
 export GIT_COMMITTER_NAME='Travis CI'
