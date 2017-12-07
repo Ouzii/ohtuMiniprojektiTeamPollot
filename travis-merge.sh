@@ -3,10 +3,15 @@
 # tama saattaisi auttaa travista asiassa
 #shopt -s extglob
 
-(: "${BRANCHES_TO_MERGE_REGEX?}")
-(: "${BRANCH_TO_MERGE_INTO?")
-(: "${GITHUB_SECRET_TOKEN?")
-(: "GITHUB_REPO?}")
+: "${BRANCHES_TO_MERGE_REGEX?}" "${BRANCH_TO_MERGE_INTO?}"
+: "${GITHUB_SECRET_TOKEN?}" "${GITHUB_REPO?}"
+
+#(: "${BRANCHES_TO_MERGE_REGEX?}")
+
+#(: "${BRANCH_TO_MERGE_INTO?")
+
+#(: "${GITHUB_SECRET_TOKEN?")
+#(: "GITHUB_REPO?}")
 
 export GIT_COMMITTER_EMAIL='travis@travis'
 export GIT_COMMITTER_NAME='Travis CI'
@@ -29,5 +34,3 @@ git checkout master
 echo $( git log origin/development -1|head -n 1|awk '{print $2}' );
 git log --graph --oneline --decorate --all
 #git push -u "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" master >/dev/null 2>&1
-
-
