@@ -22,7 +22,7 @@ git clone "https://github.com/$GITHUB_REPO" "$repo_temp"
 # shellcheck disable=SC2164
 cd "$repo_temp"
 git checkout master
-git merge $( git log origin/development -1|head -n 1|awk '{print $2}' );
+#git merge $( git log origin/development -1|head -n 1|awk '{print $2}' );
 #git pull "https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO" "$TRAVIS_BRANCH" >/dev/null 2>&1
 echo $( git log origin/development -1|head -n 1|awk '{print $2}' );
 git log --graph --oneline --decorate --all
