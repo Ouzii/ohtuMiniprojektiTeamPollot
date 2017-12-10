@@ -37,6 +37,8 @@ Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain
 ### Travisin status:
 [![Build Status](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot.svg?branch=master)](https://travis-ci.org/Ouzii/ohtuMiniprojektiTeamPollot)
 
+### Ja codecov joka ei jostain syystä kata mitään rivejä:
+[![codecov](https://codecov.io/gh/Ouzii/ohtuMiniprojektiTeamPollot/branch/master/graph/badge.svg)](https://codecov.io/gh/Ouzii/ohtuMiniprojektiTeamPollot)
 
 ### Definition of Done:
 - Ominaisuus on implementoitu ja integroitu sovellukseen.
