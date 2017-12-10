@@ -47,3 +47,9 @@ Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain
 - Ominaisuuden on hyväksynyt tekijän lisäksi vähintään yksi toinen ryhmän jäsen.
 
 
+
+
+
+
+
+
