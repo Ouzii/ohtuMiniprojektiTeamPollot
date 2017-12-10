@@ -1,8 +1,6 @@
 package tip.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,17 +15,6 @@ import tip.repository.TipRepository;
 
 @Controller
 public class TipController {
-	
-	
-	private static final Map<String, String> tipTypeMap;
-    static {
-        tipTypeMap = new HashMap<String, String>();
-        tipTypeMap.put("book", "modifyBook");
-        tipTypeMap.put("podcast", "modifyPodcast");
-		tipTypeMap.put("video", "modifyVideo");
-		tipTypeMap.put("blogpost", "modifyBlogpost");	
-    }
-	
 
     @Autowired
     private TipRepository tipRepository;
@@ -57,11 +44,23 @@ public class TipController {
 
         model.addAttribute("tip", tip);
         model.addAttribute("tags", nonHavingTags);
-		
-		if(tipTypeMap.containsKey(tipType))
-			return tipTypeMap.get(tipType);
-		else
-			return "redirect:/";
+        switch (String.valueOf(tipType)) {
+            case "book":
+                return "modifyBook";
+            case "podcast":
+                return "modifyPodcast";
+            case "video":
+                return "modifyVideo";
+            case "blogpost":
+                return "modifyBlogpost";
+        }
 
+        if (tipType.equals("book")) {
+            return "modifyBook";
+        } else if (tipType.equals("podcast")) {
+            return "modifyPodcast";
+        }
+
+        return "redirect:/";
     }
 }
