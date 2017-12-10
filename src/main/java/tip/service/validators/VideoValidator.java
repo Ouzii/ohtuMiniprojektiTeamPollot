@@ -12,23 +12,23 @@ public class VideoValidator extends Validator {
         List<String> errors = new ArrayList<>();
 
         if (validateName(video) == false) {
-            errors.add("nimen pitää olla 1-63 merkkiä pitkä");
+            errors.add(ERROR1);
         }
         if (!validateDetailStringLength(video, "artist", 0, 63, CAN_NULL)) {
-            errors.add("artisti joko tyhjä tai max 63 merkkiä");
+            errors.add(ERROR3);
         }
         if (!validateDetailStringLength(video, "kommentti", 0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+            errors.add(ERROR2);
         }
         if (!validateType(video, "video")) {
-            errors.add("Ei ole video");
+            errors.add(ERROR9);
         }
         if (!validateDateFormat(video, "date", CAN_NULL)) {
-            errors.add("not a valid date");
+            errors.add(ERROR12);
         }
 
         if (!validateUrlFormat(video, "url", CAN_NULL)) {
-            errors.add("url on vääränlainen");
+            errors.add(ERROR10);
         }
 
         return errors;

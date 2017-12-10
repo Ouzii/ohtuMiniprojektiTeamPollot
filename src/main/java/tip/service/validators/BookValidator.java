@@ -12,20 +12,20 @@ public class BookValidator extends Validator {
         List<String> errors = new ArrayList<>();
 
         if (!validateName(book)) {
-            errors.add("nimen pitää olla 1-63 merkkiä pitkä");
+            errors.add(ERROR1);
         }
         if (!validateDetailStringLength(book, "writer", 0, 63, CAN_NULL)) {
-            errors.add("kirjoittaja joko tyhjä tai max 63 merkkiä");
+            errors.add(ERROR4);
         }
         if (!validateDetailStringLength(book, "kommentti", 0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+            errors.add(ERROR2);
         }
         if (!validateType(book, "book")) {
-            errors.add("Ei ole kirja");
+            errors.add(ERROR7);
         }
 
         if (!validateISBN(book, "isbn", NOT_NULL)) {
-            errors.add("ISBN on vääränlainen");
+            errors.add(ERROR11);
         }
 
 //        if (!isValid(book.getDetails().get("date").toString())) {
