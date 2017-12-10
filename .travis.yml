@@ -29,9 +29,11 @@ before_script:
   - sleep 10
 script:
   - gradle check
+  - gradle jacocoTestReport
 notifications:
   email: false
 after_success:
+  - bash <(curl -s https://codecov.io/bash)
   - "echo $TRAVIS_PULL_REQUEST"
   - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/Ouzii/ohtuMiniprojektiTeamPollot/development/travis-merge.sh"
   - "chmod a+x /tmp/travis-automerge"
