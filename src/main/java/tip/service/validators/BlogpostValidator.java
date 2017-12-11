@@ -12,23 +12,23 @@ public class BlogpostValidator extends Validator {
         List<String> errors = new ArrayList<>();
 
         if (!validateName(blogpost)) {
-            errors.add("nimen pitää olla 1-63 merkkiä pitkä");
+            errors.add(ERROR1);
         }
         if (!validateDetailStringLength(blogpost, "kommentti", 0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+            errors.add(ERROR2);
         }
         if (!validateDetailStringLength(blogpost, "artist", 0, 63, CAN_NULL)) {
-            errors.add("artisti joko tyhjä tai max 63 merkkiä");
+            errors.add(ERROR3);
         }
         if (!validateType(blogpost, "blogpost")) {
-            errors.add("Ei ole blogpost");
+            errors.add(ERROR6);
         }
 
         if (!validateUrlFormat(blogpost, "url", CAN_NULL)) {
-            errors.add("url on vääränlainen");
+            errors.add(ERROR10);
         }
         if (!validateDateFormat(blogpost, "date", CAN_NULL)) {
-            errors.add("not a valid date");
+            errors.add(ERROR12);
         }
 
         return errors;

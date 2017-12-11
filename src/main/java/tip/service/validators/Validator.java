@@ -13,6 +13,19 @@ public abstract class Validator {
     protected static final boolean CAN_NULL = false;
     protected static final boolean NOT_NULL = true;
     protected static final int STR_MAX_LEN = 63;
+    protected static final String ERROR1 = "nimen pitää olla 1-63 merkkiä pitkä";
+    protected static final String ERROR2 = "kommentti ei saa olla yli 253 merkkiä pitkä";
+    protected static final String ERROR3 = "artisti joko tyhjä tai max 63 merkkiä";
+    protected static final String ERROR4 = "kirjoittaja joko tyhjä tai max 63 merkkiä";
+    protected static final String ERROR5 = "tägi saa olla max 63 merkkiä pitkä";
+    protected static final String ERROR6 = "Ei ole blogpost";
+    protected static final String ERROR7 = "Ei ole kirja";
+    protected static final String ERROR8 = "Ei ole podcast";
+    protected static final String ERROR9 = "Ei ole video";
+    protected static final String ERROR10 = "url on vääränlainen";
+    protected static final String ERROR11 = "ISBN on vääränlainen";
+    protected static final String ERROR12 = "not a valid date";
+    protected static final String ERROR13 = "tägi on tyhjä";
 
     public abstract List<String> getNotNullDetailKeys();
 
