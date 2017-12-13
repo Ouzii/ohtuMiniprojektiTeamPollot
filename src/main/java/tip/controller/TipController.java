@@ -22,7 +22,7 @@ public class TipController {
 	private static final Map<String, String> tipTypeMap;
     static {
         tipTypeMap = new HashMap<String, String>();
-        tipTypeMap.put("book", "modifyBook");
+        tipTypeMap.put("kirja", "modifyBook");
         tipTypeMap.put("podcast", "modifyPodcast");
 		tipTypeMap.put("video", "modifyVideo");
 		tipTypeMap.put("blogpost", "modifyBlogpost");	

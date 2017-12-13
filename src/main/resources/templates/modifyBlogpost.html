@@ -27,11 +27,10 @@
                 </div>
                 <br/>   <br/>   <br/>  
                 
-                nimi:<input type="text" th:value="${tip.name}" name="name" />
+                Otsikko:<input type="text" th:value="${tip.name}" name="name" />
                 URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
                 Blogin nimi:<input type="text" th:value="${tip.details['blogin nimi']}" name="blogName"/>
                 Kirjoittaja:<input type="text" th:value="${tip.details['kirjoittaja']}" name="writer"/>
-                Otsikko:<input type="text" th:value="${tip.details['otsikko']}" name="header"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
                 <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
                 Kuvaus: <br/>

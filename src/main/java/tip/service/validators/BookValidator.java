@@ -12,7 +12,7 @@ public class BookValidator extends Validator {
         List<String> errors = new ArrayList<>();
 
         if (!validateName(book)) {
-            errors.add("nimen pitää olla 1-63 merkkiä pitkä");
+            errors.add("Otsikon pitää olla 1-63 merkkiä pitkä");
         }
         if (!validateDetailStringLength(book, "kirjoittaja", 0, 63, CAN_NULL)) {
             errors.add("kirjoittaja joko tyhjä tai max 63 merkkiä");

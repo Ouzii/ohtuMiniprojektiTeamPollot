@@ -62,7 +62,7 @@ public class BookController extends SuperController {
         return "redirect:/";
     }
 
-    @PostMapping("/book/{tipId}")
+    @PostMapping("/kirja/{tipId}")
     public String editBook(
             Model model,
             @PathVariable Long tipId,
@@ -88,7 +88,7 @@ public class BookController extends SuperController {
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";
         }
-        return "redirect:/book/" + tipId;
+        return "redirect:/kirja/" + tipId;
 
     }
 

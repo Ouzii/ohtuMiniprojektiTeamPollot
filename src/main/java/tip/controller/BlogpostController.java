@@ -37,10 +37,8 @@ public class BlogpostController extends SuperController {
     public String addBlogpost(
             @RequestParam String name,
             @RequestParam String blogName,
-            @RequestParam String header,
             @RequestParam String writer,
             @RequestParam String url, 
-            @RequestParam String comment,
             @RequestParam String description,
             @RequestParam String date,
             RedirectAttributes attributes) {
@@ -56,9 +54,7 @@ public class BlogpostController extends SuperController {
         super.makeDetail(url, "url", tip);
         super.makeDetail(blogName, "blogin nimi", tip);
         super.makeDetail(writer, "kirjoittaja", tip);
-        super.makeDetail(header, "otsikko", tip);
         super.makeDetail(date, "julkaisupvm", tip);
-        super.makeDetail(comment, "kommentti", tip);
         super.makeDetail(description, "kuvaus", tip);
 
         errors.addAll(blogpostValidator.validate(tip));
@@ -75,8 +71,6 @@ public class BlogpostController extends SuperController {
             @RequestParam int read,
             @RequestParam String name, 
             @RequestParam String blogName, 
-            @RequestParam String header, 
-            @RequestParam String comment,
             @RequestParam String description,
             @RequestParam String url,
             @RequestParam String date,
@@ -91,10 +85,8 @@ public class BlogpostController extends SuperController {
         errors.addAll(tipNameIsUnique(tip));
         errors.addAll(handleDetail(url, "url", tip, blogpostValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(writer, "kirjoittaja", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(header, "otsikko", tip, blogpostValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(date, "julkaisupvm", tip, blogpostValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(description, "kuvaus", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(comment, "kommentti", tip, blogpostValidator.getNotNullDetailKeys()));
         errors.addAll(blogpostValidator.validate(tip));
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";

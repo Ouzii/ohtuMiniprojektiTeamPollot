@@ -26,9 +26,9 @@
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
                 </div>
                 <br/>   <br/>   <br/>
-                nimi:<input type="text" th:value="${tip.name}" name="name" />
+                Otsikko:<input type="text" th:value="${tip.name}" name="name" />
                 ISBN:<input type="text" th:value="${tip.details['isbn']}" name="isbn"/>
-                kirjoittaja:<input type="text" th:value="${tip.details['kirjoittaja']}" name="writer"/>
+                Kirjoittaja:<input type="text" th:value="${tip.details['kirjoittaja']}" name="writer"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
             <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
                 

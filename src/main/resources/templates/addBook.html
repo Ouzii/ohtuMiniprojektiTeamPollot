@@ -15,13 +15,13 @@
         </ul>
         
         <form th:action="@{/newBook}" th:method="POST">
-            <input type="text" name="name" placeholder="nimi"/>
+            <input type="text" name="name" placeholder="otsikko"/>
             <input type="text" name="isbn" placeholder="ISBN"/>
             <input type="text" name="writer" placeholder="kirjoittaja"/>
             <input type="date" name="date"/>
             
             <br/>   <br/>   <br/>           
-            <textarea cols="100" rows="10" name="comment" placeholder="kommentteja"></textarea>
+            <textarea cols="100" rows="10" name="description" placeholder="kuvaus"></textarea>
             <input type="submit" name ="add_book" value="Lisää kirja" style="background-color:#62ea62"/>
         </form>
         <a href="/">Takaisin listaukseen</a><br/>

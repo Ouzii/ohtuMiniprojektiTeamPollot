@@ -26,11 +26,11 @@
             luettu:<input type="checkbox" value="1" name="read"/>
             <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
         </div>
-                nimi:<input type="text" th:value="${tip.name}" name="name" />
+                Jakson nimi:<input type="text" th:value="${tip.name}" name="name" />
                 URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
-                Jakson nimi:<input type="text" th:value="${tip.details['jakso']}" name="episode"/>
-                Artisti:<input type="text" th:value="${tip.details['tekijä']}" name="publisher"/>
-                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
+                Podcastin nimi:<input type="text" th:value="${tip.details['podcastin nimi']}" name="podcastName"/>
+                Tekijä:<input type="text" th:value="${tip.details['tekijä']}" name="publisher"/>
+                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
             <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
                  
                  Kuvaus: <br/>

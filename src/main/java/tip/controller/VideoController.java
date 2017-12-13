@@ -37,7 +37,6 @@ public class VideoController extends SuperController {
     public String addVideo(
             @RequestParam String name,
             @RequestParam String publisher,
-            @RequestParam String header,
             @RequestParam String url,
             @RequestParam String date,
             @RequestParam String description,
@@ -54,7 +53,6 @@ public class VideoController extends SuperController {
 
         super.makeDetail(url, "url", tip);
         super.makeDetail(publisher, "tekijä", tip);
-        super.makeDetail(header, "otsikko", tip);
         super.makeDetail(date, "julkaisupvm", tip);
         makeDetail(description, "kuvaus", tip);
         errors.addAll(videoValidator.validate(tip));
@@ -69,7 +67,6 @@ public class VideoController extends SuperController {
             @RequestParam String publisher,
             @RequestParam int read,
             @RequestParam String name,
-            @RequestParam String header,
             @RequestParam String url,
             @RequestParam String description,
             @RequestParam String date,
@@ -83,7 +80,6 @@ public class VideoController extends SuperController {
         errors.addAll(tipNameIsUnique(tip));
         errors.addAll(handleDetail(url, "url", tip, videoValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(publisher, "tekijä", tip, videoValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(header, "header", tip, videoValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(date, "julkaisupvm", tip, videoValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(description, "kuvaus", tip, videoValidator.getNotNullDetailKeys()));
         errors.addAll(videoValidator.validate(tip));
