@@ -36,14 +36,15 @@ public class VideoController extends SuperController {
     @PostMapping("/newVideo")
     public String addVideo(
             @RequestParam String name,
-            @RequestParam String artist,
+            @RequestParam String publisher,
+            @RequestParam String header,
             @RequestParam String url,
             @RequestParam String date,
-            @RequestParam String comment,
+            @RequestParam String description,
             RedirectAttributes attributes) {
 
-        if (artist == null || artist.trim().isEmpty()) {
-            artist = "tuntematon";
+        if (publisher == null || publisher.trim().isEmpty()) {
+            publisher = "tuntematon";
         }
 
         Tip tip = new Tip(name, "video");
@@ -52,9 +53,10 @@ public class VideoController extends SuperController {
         tip.setRead(false);
 
         super.makeDetail(url, "url", tip);
-        super.makeDetail(artist, "artist", tip);
-        super.makeDetail(date, "date", tip);
-        makeDetail(comment, "kommentti", tip);
+        super.makeDetail(publisher, "tekijä", tip);
+        super.makeDetail(header, "otsikko", tip);
+        super.makeDetail(date, "julkaisupvm", tip);
+        makeDetail(description, "kuvaus", tip);
         errors.addAll(videoValidator.validate(tip));
         super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
 
@@ -64,11 +66,12 @@ public class VideoController extends SuperController {
     @PostMapping("/video/{tipId}")
     public String editVideo(Model model,
             @PathVariable Long tipId,
-            @RequestParam String artist,
+            @RequestParam String publisher,
             @RequestParam int read,
             @RequestParam String name,
+            @RequestParam String header,
             @RequestParam String url,
-            @RequestParam String comment,
+            @RequestParam String description,
             @RequestParam String date,
             RedirectAttributes attributes) {
 
@@ -79,9 +82,10 @@ public class VideoController extends SuperController {
         setTipRead(tip, read);
         errors.addAll(tipNameIsUnique(tip));
         errors.addAll(handleDetail(url, "url", tip, videoValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(artist, "artist", tip, videoValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(date, "date", tip, videoValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(comment, "kommentti", tip, videoValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(publisher, "tekijä", tip, videoValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(header, "header", tip, videoValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(date, "julkaisupvm", tip, videoValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(description, "kuvaus", tip, videoValidator.getNotNullDetailKeys()));
         errors.addAll(videoValidator.validate(tip));
 
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {

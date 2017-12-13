@@ -28,12 +28,13 @@
         </div>
                 nimi:<input type="text" th:value="${tip.name}" name="name" />
                 URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
-                Artisti:<input type="text" th:value="${tip.details['artist']}" name="artist"/>
+                Jakson nimi:<input type="text" th:value="${tip.details['jakso']}" name="episode"/>
+                Artisti:<input type="text" th:value="${tip.details['tekijä']}" name="publisher"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
             <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
                  
-                 Kommentti: <br/>
-            <textarea cols="100" rows="10" name="comment"  th:text="${tip.details['kommentti']}"></textarea>
+                 Kuvaus: <br/>
+            <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
             </form>
 
         <br/>

@@ -28,12 +28,12 @@
                 <br/>   <br/>   <br/>
                 nimi:<input type="text" th:value="${tip.name}" name="name" />
                 ISBN:<input type="text" th:value="${tip.details['isbn']}" name="isbn"/>
-                kirjoittaja:<input type="text" th:value="${tip.details['writer']}" name="writer"/>
-                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['date']}"/>
+                kirjoittaja:<input type="text" th:value="${tip.details['kirjoittaja']}" name="writer"/>
+                Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
             <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
                 
-                Kommentti: <br/>
-            <textarea cols="100" rows="10" name="comment"  th:text="${tip.details['kommentti']}"></textarea>
+                Kuvaus: <br/>
+            <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
             </form>
     
 

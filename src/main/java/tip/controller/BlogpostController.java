@@ -36,14 +36,17 @@ public class BlogpostController extends SuperController {
     @PostMapping("/newBlogpost")
     public String addBlogpost(
             @RequestParam String name,
-            @RequestParam String artist,
+            @RequestParam String blogName,
+            @RequestParam String header,
+            @RequestParam String writer,
             @RequestParam String url, 
             @RequestParam String comment,
+            @RequestParam String description,
             @RequestParam String date,
             RedirectAttributes attributes) {
         
-        if (artist == null || artist.trim().isEmpty()) {
-            artist = "tuntematon";
+        if (writer == null || writer.trim().isEmpty()) {
+            writer = "tuntematon";
         }
         Tip tip = new Tip(name, "blogpost");
         tip.setRead(false);
@@ -51,9 +54,12 @@ public class BlogpostController extends SuperController {
         List<String> errors = new ArrayList<>();
         errors.addAll(tipNameIsUnique(tip));
         super.makeDetail(url, "url", tip);
-        super.makeDetail(artist, "artist", tip);
-        super.makeDetail(date, "date", tip);
+        super.makeDetail(blogName, "blogin nimi", tip);
+        super.makeDetail(writer, "kirjoittaja", tip);
+        super.makeDetail(header, "otsikko", tip);
+        super.makeDetail(date, "julkaisupvm", tip);
         super.makeDetail(comment, "kommentti", tip);
+        super.makeDetail(description, "kuvaus", tip);
 
         errors.addAll(blogpostValidator.validate(tip));
         super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
@@ -65,10 +71,13 @@ public class BlogpostController extends SuperController {
     public String editBlogpost(
             Model model, 
             @PathVariable Long tipId,
-            @RequestParam String artist,
+            @RequestParam String writer,
             @RequestParam int read,
             @RequestParam String name, 
-            @RequestParam String comment, 
+            @RequestParam String blogName, 
+            @RequestParam String header, 
+            @RequestParam String comment,
+            @RequestParam String description,
             @RequestParam String url,
             @RequestParam String date,
             RedirectAttributes attributes) {
@@ -81,8 +90,10 @@ public class BlogpostController extends SuperController {
 
         errors.addAll(tipNameIsUnique(tip));
         errors.addAll(handleDetail(url, "url", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(artist, "artist", tip, blogpostValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(date, "date", tip, blogpostValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(writer, "kirjoittaja", tip, blogpostValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(header, "otsikko", tip, blogpostValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(date, "julkaisupvm", tip, blogpostValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(description, "kuvaus", tip, blogpostValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(comment, "kommentti", tip, blogpostValidator.getNotNullDetailKeys()));
         errors.addAll(blogpostValidator.validate(tip));
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {

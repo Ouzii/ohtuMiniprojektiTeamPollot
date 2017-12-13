@@ -315,7 +315,7 @@ public class Stepdefs {
 	WebElement uel = driver.findElement(By.name("url"));
 	uel.clear();
 	uel.sendKeys(url);
-        driver.findElement(By.name("artist")).sendKeys(artist);
+        driver.findElement(By.name("publisher")).sendKeys(artist);
         driver.findElement(By.name("date")).sendKeys(date);
         driver.findElement(By.name("add_book")).click();
     }
@@ -326,7 +326,7 @@ public class Stepdefs {
 	WebElement uel = driver.findElement(By.name("url"));
 	uel.clear();
 	uel.sendKeys(url);
-        driver.findElement(By.name("artist")).sendKeys(artist);
+        driver.findElement(By.name("publisher")).sendKeys(artist);
         driver.findElement(By.name("date")).sendKeys(date);
         Thread.sleep(startCount);
         driver.findElement(By.name("save_changes")).click();

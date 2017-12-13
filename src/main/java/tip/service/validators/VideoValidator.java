@@ -14,21 +14,24 @@ public class VideoValidator extends Validator {
         if (validateName(video) == false) {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(video, "artist", 0, 63, CAN_NULL)) {
-            errors.add("artisti joko tyhjä tai max 63 merkkiä");
+        if (!validateDetailStringLength(video, "tekijä", 0, 63, CAN_NULL)) {
+            errors.add("tekijä joko tyhjä tai max 63 merkkiä");
         }
-        if (!validateDetailStringLength(video, "kommentti", 0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+        if (!validateDetailStringLength(video, "otsikko", 0, 63, CAN_NULL)) {
+            errors.add("otsikko joko tyhjä tai max 63 merkkiä");
+        }
+        if (!validateDetailStringLength(video, "kuvaus", 0, 253, CAN_NULL)) {
+            errors.add("kuvaus ei saa olla yli 253 merkkiä pitkä");
         }
         if (!validateType(video, "video")) {
             errors.add("Ei ole video");
         }
-        if (!validateDateFormat(video, "date", CAN_NULL)) {
-            errors.add("not a valid date");
+        if (!validateDateFormat(video, "julkaisupvm", CAN_NULL)) {
+            errors.add("Päivämäärä väärässä muodossa");
         }
 
         if (!validateUrlFormat(video, "url", CAN_NULL)) {
-            errors.add("url on vääränlainen");
+            errors.add("Url on vääränlainen");
         }
 
         return errors;

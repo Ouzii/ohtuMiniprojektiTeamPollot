@@ -39,22 +39,22 @@ public class BookController extends SuperController {
             @RequestParam String writer,
             @RequestParam String isbn,
             @RequestParam String date,
-            @RequestParam String comment,
+            @RequestParam String description,
             RedirectAttributes attributes) {
         
         if (writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
         }
 
-        Tip tip = new Tip(name, "book");
+        Tip tip = new Tip(name, "kirja");
         List<String> errors = new ArrayList<>();
         errors.addAll(tipNameIsUnique(tip));
         tip.setRead(false);
 
         super.makeDetail(isbn.trim(), "isbn", tip);
-        super.makeDetail(writer, "writer", tip);
-        super.makeDetail(date, "date", tip);
-        super.makeDetail(comment, "kommentti", tip);
+        super.makeDetail(writer, "kirjoittaja", tip);
+        super.makeDetail(date, "julkaisupvm", tip);
+        super.makeDetail(description, "kuvaus", tip);
 
         errors.addAll(bookValidator.validate(tip));
         super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
@@ -67,7 +67,7 @@ public class BookController extends SuperController {
             Model model,
             @PathVariable Long tipId,
             @RequestParam String writer, 
-            @RequestParam String comment,
+            @RequestParam String description,
             @RequestParam int read,
             @RequestParam String name,
             @RequestParam String isbn, 
@@ -80,10 +80,10 @@ public class BookController extends SuperController {
         List<String> errors = new ArrayList<>();
         setTipRead(tip, read);
         errors.addAll(tipNameIsUnique(tip));
-        errors.addAll(handleDetail(writer, "writer", tip, bookValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(writer, "kirjoittaja", tip, bookValidator.getNotNullDetailKeys()));
         errors.addAll(handleDetail(isbn, "isbn", tip, bookValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(date, "date", tip, bookValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(comment, "kommentti", tip, bookValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(date, "julkaisupvm", tip, bookValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(description, "kuvaus", tip, bookValidator.getNotNullDetailKeys()));
         errors.addAll(bookValidator.validate(tip));
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";

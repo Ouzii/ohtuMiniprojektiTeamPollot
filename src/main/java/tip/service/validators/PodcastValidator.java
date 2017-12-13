@@ -14,11 +14,17 @@ public class PodcastValidator extends Validator {
         if (!validateName(podcast)) {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(podcast, "artist", 0, 63, CAN_NULL)) {
-            errors.add("artisti joko tyhjä tai max 63 merkkiä");
+        if (!validateDetailStringLength(podcast, "tekijä", 0, 63, CAN_NULL)) {
+            errors.add("tekijä joko tyhjä tai max 63 merkkiä");
         }
-        if (!validateDetailStringLength(podcast, "kommentti", 0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+        if (!validateDetailStringLength(podcast, "podcastin nimi", 0, 63, CAN_NULL)) {
+            errors.add("podcastin nimi joko tyhjä tai max 63 merkkiä");
+        }
+        if (!validateDetailStringLength(podcast, "jakso", 0, 63, CAN_NULL)) {
+            errors.add("jakso joko tyhjä tai max 63 merkkiä");
+        }
+        if (!validateDetailStringLength(podcast, "kuvaus", 0, 253, CAN_NULL)) {
+            errors.add("kuvaus ei saa olla yli 253 merkkiä pitkä");
         }
 
         if (!validateType(podcast, "podcast")) {
@@ -29,8 +35,8 @@ public class PodcastValidator extends Validator {
             errors.add("url on vääränlainen");
         }
 
-        if (!validateDateFormat(podcast, "date", CAN_NULL)) {
-            errors.add("not a valid date");
+        if (!validateDateFormat(podcast, "julkaisupvm", CAN_NULL)) {
+            errors.add("päivämäärä väärässä muodossa");
         }
         return errors;
     }

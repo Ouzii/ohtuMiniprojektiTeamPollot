@@ -36,14 +36,16 @@ public class PodcastController extends SuperController {
     @PostMapping("/newPodcast")
     public String addPodcast(
             @RequestParam String name,
-            @RequestParam String artist,
+            @RequestParam String podcastName,
+            @RequestParam String publisher,
+            @RequestParam String episode,
             @RequestParam String url,
-            @RequestParam String comment,
+            @RequestParam String description,
             @RequestParam String date,
             RedirectAttributes attributes) {
         
-        if (artist == null || artist.trim().isEmpty()) {
-            artist = "tuntematon";
+        if (publisher == null || publisher.trim().isEmpty()) {
+            publisher = "tuntematon";
         }
 
         Tip tip = new Tip(name, "podcast");
@@ -51,9 +53,11 @@ public class PodcastController extends SuperController {
         List<String> errors = new ArrayList<>();
         errors.addAll(tipNameIsUnique(tip));
         super.makeDetail(url, "url", tip);
-        super.makeDetail(artist, "artist", tip);
-        super.makeDetail(date, "date", tip);
-        makeDetail(comment, "kommentti", tip);
+        super.makeDetail(publisher, "tekijä", tip);
+        super.makeDetail(podcastName, "podcastin nimi", tip);
+        super.makeDetail(episode, "jakso", tip);
+        super.makeDetail(date, "julkaisupvm", tip);
+        makeDetail(description, "kuvaus", tip);
         errors.addAll(podcastValidator.validate(tip));
         super.saveTip(errors, tip, attributes, DEFAUL_ADD_SUCC_MSG);
 
@@ -64,11 +68,13 @@ public class PodcastController extends SuperController {
     public String editPodcast(
             Model model,
             @PathVariable Long tipId,
-            @RequestParam String artist,
+            @RequestParam String publisher,
+            @RequestParam String episode,
             @RequestParam String name, 
+            @RequestParam String podcastName,
             @RequestParam String url, 
             @RequestParam String date, 
-            @RequestParam String comment,
+            @RequestParam String description,
             @RequestParam int read, 
             RedirectAttributes attributes) {
 
@@ -79,9 +85,11 @@ public class PodcastController extends SuperController {
         setTipRead(tip, read);
         errors.addAll(tipNameIsUnique(tip));
         errors.addAll(handleDetail(url, "url", tip, podcastValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(artist, "artist", tip, podcastValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(date, "date", tip, podcastValidator.getNotNullDetailKeys()));
-        errors.addAll(handleDetail(comment, "kommentti", tip, podcastValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(publisher, "tekijä", tip, podcastValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(publisher, "podcastin nimi", tip, podcastValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(episode, "jakso", tip, podcastValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(date, "julkaisupvm", tip, podcastValidator.getNotNullDetailKeys()));
+        errors.addAll(handleDetail(description, "kuvaus", tip, podcastValidator.getNotNullDetailKeys()));
         errors.addAll(podcastValidator.validate(tip));
         if (saveTip(errors, tip, attributes, DEFAUL_MODE_SUCC_MSG)) {
             return "redirect:/";

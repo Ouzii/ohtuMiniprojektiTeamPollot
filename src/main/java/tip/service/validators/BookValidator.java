@@ -14,13 +14,13 @@ public class BookValidator extends Validator {
         if (!validateName(book)) {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(book, "writer", 0, 63, CAN_NULL)) {
+        if (!validateDetailStringLength(book, "kirjoittaja", 0, 63, CAN_NULL)) {
             errors.add("kirjoittaja joko tyhjä tai max 63 merkkiä");
         }
-        if (!validateDetailStringLength(book, "kommentti", 0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+        if (!validateDetailStringLength(book, "kuvaus", 0, 253, CAN_NULL)) {
+            errors.add("kuvaus ei saa olla yli 253 merkkiä pitkä");
         }
-        if (!validateType(book, "book")) {
+        if (!validateType(book, "kirja")) {
             errors.add("Ei ole kirja");
         }
 

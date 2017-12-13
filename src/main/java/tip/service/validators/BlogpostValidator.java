@@ -14,11 +14,17 @@ public class BlogpostValidator extends Validator {
         if (!validateName(blogpost)) {
             errors.add("nimen pitää olla 1-63 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(blogpost, "kommentti", 0, 253, CAN_NULL)) {
-            errors.add("kommentti ei saa olla yli 253 merkkiä pitkä");
+        if (!validateDetailStringLength(blogpost, "kuvaus", 0, 253, CAN_NULL)) {
+            errors.add("kuvaus ei saa olla yli 253 merkkiä pitkä");
         }
-        if (!validateDetailStringLength(blogpost, "artist", 0, 63, CAN_NULL)) {
-            errors.add("artisti joko tyhjä tai max 63 merkkiä");
+        if (!validateDetailStringLength(blogpost, "kirjoittaja", 0, 63, CAN_NULL)) {
+            errors.add("kirjoittaja joko tyhjä tai max 63 merkkiä");
+        }
+        if (!validateDetailStringLength(blogpost, "blogin nimi", 0, 63, CAN_NULL)) {
+            errors.add("blogin nimi joko tyhjä tai max 63 merkkiä");
+        }
+        if (!validateDetailStringLength(blogpost, "otsikko", 0, 63, CAN_NULL)) {
+            errors.add("otsikko joko tyhjä tai max 63 merkkiä");
         }
         if (!validateType(blogpost, "blogpost")) {
             errors.add("Ei ole blogpost");
@@ -27,8 +33,8 @@ public class BlogpostValidator extends Validator {
         if (!validateUrlFormat(blogpost, "url", CAN_NULL)) {
             errors.add("url on vääränlainen");
         }
-        if (!validateDateFormat(blogpost, "date", CAN_NULL)) {
-            errors.add("not a valid date");
+        if (!validateDateFormat(blogpost, "julkaisupvm", CAN_NULL)) {
+            errors.add("päivämäärä väärässä muodossa");
         }
 
         return errors;
