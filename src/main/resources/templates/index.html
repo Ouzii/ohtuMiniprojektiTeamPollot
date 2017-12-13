@@ -72,17 +72,24 @@
 		<tr>
 		  <th><button class="sort btn_css" data-sort="name">Nimi</button></th>
 		  <th><button class="sort btn_css" data-sort="type">Tyyppi</button></th>
-		  <th><button class="sort btn_css" data-sort="read">Luettu</button></th>
+		  <th><button class="sort btn_css" data-sort="read">Luettu/katsottu</button></th>
 		  <th><button class="sort btn_css" data-sort="info">Sisältö</button></th>
 		  <th><button class="sort btn_css" data-sort="tags">Tagit</button></th>
 		</tr>
   
 	      <tbody class="list">
-                  <tr th:each="tip:${tips}">
-                  <td class="name"><span th:text="${tip.name}"/></td>
-                  <td class="type"><span th:text="${tip.type}"/></td>
-                  <td class="read"><span th:text="${tip.read}"/></td>
-                  <td class="info">
+                <tr th:each="tip:${tips}">
+                <td class="name"><span th:text="${tip.name}"/></td>
+                <td class="type"><span th:text="${tip.type}"/></td>
+                <td class="read" style="text-align: center">
+                    <div th:if="${tip.read}">
+                        <input type="checkbox" disabled="disabled" checked="checked"/>
+                    </div>
+                    <div th:unless="${tip.read}">
+                        <input type="checkbox" disabled="disabled"/>
+                    </div>
+                </td>
+                <td class="info">
                     <ul>
                       <li th:each="detail : ${tip.details}">
                         <span th:text="${detail['key']}"></span>
@@ -90,23 +97,23 @@
                         <br/>
                       </li>
                     </ul>
-                  </td>
-                  <td class="tags">
+                </td>
+                <td class="tags">
                     <ul>
                       <li th:each="tag : ${tip.tags}" th:text="${tag.name}"/>
                     </ul>
-                  </td>
-                  <td>
+                </td>
+                <td>
                     <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="DELETE">
                       <button class="del_button" name="delete" type="submit" style="height:20px;width:80px;background-color:red">Poista</button>
                     </form>
-                  </td>
-                  <td>
+                </td>
+                <td>
                     <form th:action="@{${tip.type}+'/'+${tip.id}}" th:method="GET">
                       <button class="mod_button" type="submit" style="height:20px;width:80px;background-color:#62ea62">Muokkaa</button>
                     </form>
 
-                  </td>
+                </td>
                 </tr>
               </tbody>
             </table>
