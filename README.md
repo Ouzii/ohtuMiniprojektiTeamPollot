@@ -10,6 +10,11 @@ https://teampollotohtu.herokuapp.com/
 
 https://drive.google.com/open?id=16cQePEa3Y4ZwrMPcriLoQ8XcfTCgFnOQ
 
+
+## Loppuraportti
+https://drive.google.com/open?id=1pvf3ni9ktWfPs3N-HXhJgYuTdQDQKiLfmdpuNqPbjlo
+
+
 ## Muuta informaatiota
 
 [Käytössä oleva spring-cucumber pohja/konfiguraatio](https://github.com/mluukkai/spring-cucumber)
@@ -44,7 +49,3 @@ Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain
 - Ominaisuudelle on tehty JUnit testit ja Cucumber testit.
 - Travis-ci on buildannut onnistuneesti ominaisuuden kanssa.
 - Ominaisuuden on hyväksynyt tekijän lisäksi vähintään yksi toinen ryhmän jäsen.
-
-### Loppuraportti
-https://drive.google.com/open?id=1pvf3ni9ktWfPs3N-HXhJgYuTdQDQKiLfmdpuNqPbjlo
-
