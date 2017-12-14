@@ -8,6 +8,7 @@ Feature:  User can add and remove tags from a tip
 
         And testbooks are added
         And user is at the modification page of "1"
+        And wait a second
 
         And tag "testiTagi" is added to the tip
         And wait a second

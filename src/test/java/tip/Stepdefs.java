@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class Stepdefs {
@@ -25,21 +26,20 @@ public class Stepdefs {
         }
 
     }
-    
-        public void setUbuntuPath(boolean on){
-        if(on){
+
+    public void setUbuntuPath(boolean on) {
+        if (on) {
             System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium-browser/chromedriver");
         }
     }
 
     @Before
     public void setUp() {
-        setChromePathForLocalTesting(false); 
+        setChromePathForLocalTesting(false);
         setUbuntuPath(false);
-        
+
         //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
         //False jos haluataan että travis build menee läpi!!!
-
         startCount = 0;
         this.driver = new ChromeDriver();
     }
@@ -66,6 +66,7 @@ public class Stepdefs {
         driver.get("http://localhost:" + 8080 + "/book");
         //Thread.sleep(1000);
     }
+
     //http://localhost:8080/kirja/1?
     @Given("^user is at the modification page of \"([^\"]*)\"$")
     public void user_is_at_the_modification_page_of(String pagenumber) throws Throwable {
@@ -203,17 +204,31 @@ public class Stepdefs {
 
     @When("^tag \"([^\"]*)\" is added to the tip$")
     public void tag_is_added_to_the_tip(String tagname) throws Throwable {
-        Select dropdown = new Select(driver.findElement(By.name("tagId")));
-        dropdown.selectByVisibleText(tagname);
-        driver.findElement(By.name("add_tag")).click();
+//        Select dropdown = new Select(driver.findElement(By.name("tagId")));
+//        dropdown.selectByVisibleText(tagname);
+//        
+//         driver.findElement(By.name("add_tag")).click();
+
+        WebElement element = driver.findElement(By.xpath("//option"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).click().perform();
+
+        element = driver.findElement(By.name("add_tag"));
+        actions = new Actions(driver);
+        actions.moveToElement(element).click().perform();
 
     }
 
     @Given("^tag \"([^\"]*)\" is removed from the tip$")
     public void tag_is_removed_from_the_tip(String tagname) throws Throwable {
-        Select dropdown = new Select(driver.findElement(By.id("removable")));
-        dropdown.selectByVisibleText(tagname);
-        driver.findElement(By.name("delete_tag")).click();
+
+        WebElement element = driver.findElement(By.xpath("//option[text() = 'testiTagi']"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).click().perform();
+
+        element = driver.findElement(By.name("delete_tag"));
+        actions = new Actions(driver);
+        actions.moveToElement(element).click().perform();
 
     }
 
@@ -342,7 +357,7 @@ public class Stepdefs {
 
     @When("^wait a second$")
     public void wait_a_second() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(1000);
     }
 
 }

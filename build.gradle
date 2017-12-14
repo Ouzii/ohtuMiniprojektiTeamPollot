@@ -75,7 +75,7 @@ dependencies {
 }
 
 test {
-    testLogging.showStandardStreams = true
+    testLogging.showStandardStreams = false
     systemProperties System.getProperties()
 }
 
