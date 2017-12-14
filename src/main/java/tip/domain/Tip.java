@@ -25,16 +25,9 @@ public class Tip extends AbstractPersistable<Long> {
     private String name;
     private String type;
     private boolean read;
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    }, fetch = FetchType.EAGER)
+
     private Set<Tag> tags;
 
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    }, fetch = FetchType.EAGER)
     private Map<String, Detail> details;
 
     public Tip(String name, String type) {
