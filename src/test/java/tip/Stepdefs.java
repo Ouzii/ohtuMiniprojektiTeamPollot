@@ -25,10 +25,19 @@ public class Stepdefs {
         }
 
     }
+    
+        public void setUbuntuPath(boolean on){
+        if(on){
+            System.setProperty("webdriver.chrome.driver", "/usr/lib/chromium-browser/chromedriver");
+        }
+    }
 
     @Before
     public void setUp() {
-        setChromePathForLocalTesting(false); //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
+        setChromePathForLocalTesting(false); 
+        setUbuntuPath(false);
+        
+        //True jos testit suoritetaan kotikoneella. Lisäksi on alustettava testinäytteet ja käynnistettävä testiserveri manuaalisesti.
         //False jos haluataan että travis build menee läpi!!!
 
         startCount = 0;
