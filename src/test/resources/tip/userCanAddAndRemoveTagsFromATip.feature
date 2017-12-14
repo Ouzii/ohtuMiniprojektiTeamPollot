@@ -10,6 +10,7 @@ Feature:  User can add and remove tags from a tip
         And user is at the modification page of "1"
 
         And tag "testiTagi" is added to the tip
+        And wait a second
         Then tip contains tag "testiTagi"
 
     Scenario: user can delete a tag from a tip

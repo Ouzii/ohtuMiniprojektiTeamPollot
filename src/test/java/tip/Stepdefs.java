@@ -342,7 +342,7 @@ public class Stepdefs {
 
     @When("^wait a second$")
     public void wait_a_second() throws InterruptedException {
-        Thread.sleep(120000);
+        Thread.sleep(5000);
     }
 
 }
