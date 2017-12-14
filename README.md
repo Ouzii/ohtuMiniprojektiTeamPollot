@@ -45,4 +45,6 @@ Odota kunnes Tomcat on saanut itsensä alustettua ja käyntiin, niin avaa selain
 - Travis-ci on buildannut onnistuneesti ominaisuuden kanssa.
 - Ominaisuuden on hyväksynyt tekijän lisäksi vähintään yksi toinen ryhmän jäsen.
 
+### Loppuraportti
+https://drive.google.com/open?id=1pvf3ni9ktWfPs3N-HXhJgYuTdQDQKiLfmdpuNqPbjlo
 
