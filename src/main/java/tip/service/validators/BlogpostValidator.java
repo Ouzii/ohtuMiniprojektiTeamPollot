@@ -22,7 +22,7 @@ public class BlogpostValidator extends Validator {
         }
         if (!validateDetailStringLength(blogpost, "blogin nimi", 0, 63, CAN_NULL)) {
             errors.add("blogin nimi joko tyhjä tai max 63 merkkiä");
-        }        
+        }
         if (!validateType(blogpost, "blogpost")) {
             errors.add("Ei ole blogpost");
         }
