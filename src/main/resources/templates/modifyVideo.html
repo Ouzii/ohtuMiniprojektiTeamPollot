@@ -14,27 +14,26 @@
             </li>
         </ul>
 
-
+                            <br/>   <br/>   <br/>
         <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
                  <div th:if="${tip.read}">
-                luettu:<input type="checkbox" value="1" checked="true" name="read"/>
+                katsottu:<input type="checkbox" value="1" checked="true" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
                 </div>
                 <div th:unless="${tip.read}">
-                luettu:<input type="checkbox" value="1" name="read"/>
-                <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
-                </div>
-                <br/>   <br/>   <br/>
                 katsottu:<input type="checkbox" value="1" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
+                </div>
                 Otsikko:<input type="text" th:value="${tip.name}" name="name" />
                 URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
                 Artisti:<input type="text" th:value="${tip.details['tekijä']}" name="publisher"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
-            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
-                
+            
+            <br/>
                 Kommentti: <br/>
-            <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
+                <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
+            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
+            <br/>
             </form>
      
         <br/>

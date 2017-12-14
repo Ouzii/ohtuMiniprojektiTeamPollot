@@ -6,7 +6,7 @@
 
     <body>
         <h1>Muokkaa</h1>
-        <h3>explore testaukseen isbn13 esim: 978-951-98548-9-2</h3>
+        <h3>Esimerkki ISBN13: 978-951-98548-9-2</h3>
         <br/>
 
         <ul>
@@ -15,6 +15,7 @@
             </li>
         </ul>
 
+                            <br/>   <br/>   <br/>
 
         <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
                  <div th:if="${tip.read}">
@@ -25,15 +26,17 @@
                 luettu:<input type="checkbox" value="1" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
                 </div>
-                <br/>   <br/>   <br/>
                 Otsikko:<input type="text" th:value="${tip.name}" name="name" />
                 ISBN:<input type="text" th:value="${tip.details['isbn']}" name="isbn"/>
                 Kirjoittaja:<input type="text" th:value="${tip.details['kirjoittaja']}" name="writer"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
-            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
-                
-                Kuvaus: <br/>
+            
+            <br/>
+                Kuvaus: 
+            <br/>
             <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
+            <br/>
+            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
             </form>
     
 

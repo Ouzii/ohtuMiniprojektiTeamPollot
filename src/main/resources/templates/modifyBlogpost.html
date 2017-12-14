@@ -6,7 +6,6 @@
 
     <body>
         <h1>Muokkaa Blogipostia</h1>
-        <h3>kesken</h3>
         <br/>
 
         <ul>
@@ -15,8 +14,9 @@
             </li>
         </ul>
 
-       
-            <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
+        <br/>   <br/>   <br/>
+
+        <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
                  <div th:if="${tip.read}">
                 luettu:<input type="checkbox" value="1" checked="true" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
@@ -24,17 +24,18 @@
                 <div th:unless="${tip.read}">
                 luettu:<input type="checkbox" value="1" name="read"/>
                 <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
-                </div>
-                <br/>   <br/>   <br/>  
+                </div> 
                 
                 Otsikko:<input type="text" th:value="${tip.name}" name="name" />
                 URL:<input type="text" th:value="${tip.details['url']}" name="url"/>
                 Blogin nimi:<input type="text" th:value="${tip.details['blogin nimi']}" name="blogName"/>
                 Kirjoittaja:<input type="text" th:value="${tip.details['kirjoittaja']}" name="writer"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
-                <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
+                <br/>
                 Kuvaus: <br/>
-                 <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
+            <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
+            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
+            <br/>
             </form>
        <br/>
        

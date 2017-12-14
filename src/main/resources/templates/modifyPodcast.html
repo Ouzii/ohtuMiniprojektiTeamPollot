@@ -6,7 +6,6 @@
 
     <body>
         <h1>Muokkaa Podcastia</h1>
-        <h3>kesken</h3>
         <br/>
 
         <ul>
@@ -19,11 +18,11 @@
         <br/>   <br/>   <br/>
         <form th:action="@{{tipId}(tipId=${tip.id})}" th:method="POST">
                  <div th:if="${tip.read}">
-            luettu:<input type="checkbox" value="1" checked="true" name="read"/>
+            kuunneltu:<input type="checkbox" value="1" checked="true" name="read"/>
             <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
         </div>
         <div th:unless="${tip.read}">
-            luettu:<input type="checkbox" value="1" name="read"/>
+            kuunneltu:<input type="checkbox" value="1" name="read"/>
             <input type="checkbox" checked="checked" value="0" name="read" hidden="hidden"/>
         </div>
                 Jakson nimi:<input type="text" th:value="${tip.name}" name="name" />
@@ -31,10 +30,13 @@
                 Podcastin nimi:<input type="text" th:value="${tip.details['podcastin nimi']}" name="podcastName"/>
                 Tekijä:<input type="text" th:value="${tip.details['tekijä']}" name="publisher"/>
                 Julkaisupäivä: <input type="date" name="date" th:value="${tip.details['julkaisupvm']}"/>
-            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
-                 
-                 Kuvaus: <br/>
+
+            <br/>
+                 Kuvaus:
+            <br/>
             <textarea cols="100" rows="10" name="description"  th:text="${tip.details['kuvaus']}"></textarea>
+            <br/>
+            <input name="save_changes" type="submit" value="Muokkaa vinkkiä!"/>
             </form>
 
         <br/>
