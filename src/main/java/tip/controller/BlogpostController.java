@@ -40,11 +40,11 @@ public class BlogpostController extends SuperController {
             @RequestParam String name,
             @RequestParam String blogName,
             @RequestParam String writer,
-            @RequestParam String url, 
+            @RequestParam String url,
             @RequestParam String description,
             @RequestParam String date,
             RedirectAttributes attributes) {
-        
+
         if (writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
         }
@@ -67,12 +67,12 @@ public class BlogpostController extends SuperController {
 
     @PostMapping("/blogpost/{tipId}")
     public String editBlogpost(
-            Model model, 
+            Model model,
             @PathVariable Long tipId,
             @RequestParam String writer,
             @RequestParam int read,
-            @RequestParam String name, 
-            @RequestParam String blogName, 
+            @RequestParam String name,
+            @RequestParam String blogName,
             @RequestParam String description,
             @RequestParam String url,
             @RequestParam String date,

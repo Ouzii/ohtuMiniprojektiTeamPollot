@@ -65,7 +65,7 @@ public class TagController {
             return "redirect:/" + tip.getType() + "/" + tip.getId();
         }
         Tag tag = tagRepository.getOne(tagId);
-        
+
         tip.getTags().remove(tag);
         tipRepository.save(tip);
 
@@ -88,5 +88,4 @@ public class TagController {
 
         return "redirect:/" + tip.getType() + "/" + tip.getId();
     }
-
 }

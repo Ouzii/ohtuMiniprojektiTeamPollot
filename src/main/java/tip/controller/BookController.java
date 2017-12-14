@@ -37,13 +37,13 @@ public class BookController extends SuperController {
 
     @PostMapping("/newBook")
     public String addBook(
-            @RequestParam String name, 
+            @RequestParam String name,
             @RequestParam String writer,
             @RequestParam String isbn,
             @RequestParam String date,
             @RequestParam String description,
             RedirectAttributes attributes) {
-        
+
         if (writer == null || writer.trim().isEmpty()) {
             writer = "tuntematon";
         }
@@ -68,11 +68,11 @@ public class BookController extends SuperController {
     public String editBook(
             Model model,
             @PathVariable Long tipId,
-            @RequestParam String writer, 
+            @RequestParam String writer,
             @RequestParam String description,
             @RequestParam int read,
             @RequestParam String name,
-            @RequestParam String isbn, 
+            @RequestParam String isbn,
             @RequestParam String date,
             RedirectAttributes attributes) {
 

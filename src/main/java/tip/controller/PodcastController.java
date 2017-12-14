@@ -44,7 +44,7 @@ public class PodcastController extends SuperController {
             @RequestParam String description,
             @RequestParam String date,
             RedirectAttributes attributes) {
-        
+
         if (publisher == null || publisher.trim().isEmpty()) {
             publisher = "tuntematon";
         }
@@ -70,11 +70,11 @@ public class PodcastController extends SuperController {
             @PathVariable Long tipId,
             @RequestParam String publisher,
             @RequestParam String podcastName,
-            @RequestParam String name, 
-            @RequestParam String url, 
-            @RequestParam String date, 
+            @RequestParam String name,
+            @RequestParam String url,
+            @RequestParam String date,
             @RequestParam String description,
-            @RequestParam int read, 
+            @RequestParam int read,
             RedirectAttributes attributes) {
 
         Tip tip = tipRepository.findOne(tipId);
