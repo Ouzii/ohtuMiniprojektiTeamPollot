@@ -9,7 +9,13 @@ buildscript {
 }
 plugins {
     id 'net.ltgt.apt' version '0.10'
+    id 'io.franzbecker.gradle-lombok' version '1.11'
+    id 'java'
+}
 
+lombok {
+    version = "1.16.20" 
+    sha256 = ""
 }
 
 apply plugin: 'java'
@@ -41,9 +47,7 @@ mainClassName='tip.Main'
 
 dependencies {
 
-    compileOnly 'org.projectlombok:lombok:1.16.18'
     compile("org.springframework.boot:spring-boot-devtools")
-    apt "org.projectlombok:lombok:1.16.18"
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
